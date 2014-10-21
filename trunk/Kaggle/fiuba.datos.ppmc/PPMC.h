@@ -14,7 +14,7 @@ using namespace std;
 
 class PPMC {
 private:
-	list<Modelo> modelos;
+		list<Modelo> modelos;
 
 public:
 	PPMC(int cantidadDeModelos);
