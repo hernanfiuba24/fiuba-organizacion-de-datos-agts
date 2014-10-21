@@ -10,6 +10,7 @@
 #include <list>
 #include "Modelo.h"
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 

@@ -14,6 +14,23 @@ PPMC::PPMC(int cantidadDeModelos) {
 	}
 }
 
+void PPMC::entrenar(string rutaArchivo){
+	ifstream setDeEntrenamiento;
+	setDeEntrenamiento.open(rutaArchivo.c_str(), ios::in );	//NOSE QUE HACE C_STR() PERO SINO TIRA ERROR
+
+	string linea;
+
+	if (setDeEntrenamiento.is_open()){
+		while ( getline(setDeEntrenamiento, linea)){
+			cout << linea << endl;
+		}
+	setDeEntrenamiento.close();
+	}
+	else{
+		//ESCRIBIR EXCEPCION POR SI EL ARCHIVO NO ABRE
+	}
+}
+
 PPMC::~PPMC() {
 	// Borrar lista generada en el constructor
 }
