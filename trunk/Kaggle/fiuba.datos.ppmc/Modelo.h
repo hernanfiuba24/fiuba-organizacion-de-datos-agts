@@ -15,11 +15,12 @@ using namespace std;
 
 class Modelo {
 private:
-	list<Contexto> contextos;
+	list<Contexto>* contextos;
+	int numeroDeModelo;
 
 public:
 	Modelo(int numeroDeModelo);
-	virtual ~Modelo();
+	~Modelo();
 };
 
 #endif /* FIUBA_DATOS_PPMC_MODELO_H_ */

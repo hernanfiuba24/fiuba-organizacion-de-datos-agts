@@ -8,16 +8,18 @@
 #define FIUBA_DATOS_PPMC_PPMC_H_
 
 #include <list>
+#include "Modelo.h"
 #include <iostream>
 
 using namespace std;
 
 class PPMC {
 private:
-		list<Modelo> modelos;
+		list<Modelo*> modelos;
 
 public:
 	PPMC(int cantidadDeModelos);
+	void entrenar(string rutaArchivo);
 	~PPMC();
 };
 

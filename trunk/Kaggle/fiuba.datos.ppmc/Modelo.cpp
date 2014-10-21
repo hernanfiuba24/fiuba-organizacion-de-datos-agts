@@ -8,13 +8,8 @@
 #include "Modelo.h"
 
 Modelo::Modelo(int numeroDeModelo){
-	if (numeroDeModelo == 0){
-		Contexto contexto0 = new Contexto();
-	}
-	else{
-		Contexto contextoMayor = new Contexto(numeroDeModelo);
-		}
-
+	this->contextos = new list<Contexto>;
+	this->numeroDeModelo = numeroDeModelo;
 }
 
 Modelo::~Modelo() {

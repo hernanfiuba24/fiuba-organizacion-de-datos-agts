@@ -7,21 +7,7 @@
 
 #include "Contexto.h"
 
-Contexto::Contexto() {
-	this->contexto = NULL;
-	this->palabrasFrecuencias = new map();
-	this->agregarPalabra((string)'escape');
-
-}
-
-//ESTO HAY QUE CAMBIARLO, HACEN LO MISMO!!!!
-//LO QUE QUIERO HACER ES TRATAR DE DIFERNCIAR EL MODELO 0 DEL RESTO
-//PORQUE SE QUE EN EL MODELO 0 EL CONTEXTO ES NULL
-
-Contexto::Contexto(int numeroModelo){
-	this->contexto = NULL;
-	this->palabrasFrecuencias = new map();
-	this->agregarPalabra((string)'escape');
+Contexto::Contexto(){
 }
 
 void Contexto::agregarPalabra(string unaPalabra){

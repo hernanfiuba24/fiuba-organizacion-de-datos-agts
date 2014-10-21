@@ -22,7 +22,6 @@ private:
 
 public:
 	Contexto();
-	Contexto(int numeroModelo);
 	void agregarPalabra(string unaPalabra);
 	virtual ~Contexto();
 };
