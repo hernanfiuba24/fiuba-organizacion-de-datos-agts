@@ -21,6 +21,7 @@ private:
 public:
 	Modelo(int numeroDeModelo);
 	~Modelo();
+
 };
 
 #endif /* FIUBA_DATOS_PPMC_MODELO_H_ */
