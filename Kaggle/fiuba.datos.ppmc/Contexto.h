@@ -9,7 +9,8 @@
 #define FIUBA_DATOS_PPMC_CONTEXTO_H_
 
 #include <string>
-#include <map>
+#include <list>
+#include "Palabra.h"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ typedef pair<string, int> palabraFrecuencia;
 class Contexto {
 private:
 	string contexto;
-	map<string,int> palabrasFrecuencias;
+	list<Palabra>* palabras;
 
 public:
 	Contexto();
