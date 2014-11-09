@@ -10,7 +10,7 @@
 PPMC::PPMC(int cantidadDeModelos) {
 	for(int i = 0; i<=cantidadDeModelos; i++){
 		Modelo* modeloi = new Modelo(i);
-		this->modelos.push_back(modeloi);
+		this->modelosSuperiores.push_back(modeloi);
 	}
 }
 

@@ -10,10 +10,10 @@
 #include <string>
 
 using namespace std;
+
 class Palabra {
 public:
-	Palabra(std::string unNombre);
-	virtual ~Palabra();
+	Palabra(string unNombre);
 	string getNombre();
 	void incrementarFrecuencia();
 

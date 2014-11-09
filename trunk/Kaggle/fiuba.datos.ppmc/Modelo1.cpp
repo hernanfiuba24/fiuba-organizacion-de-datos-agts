@@ -12,16 +12,16 @@ Modelo1::Modelo1() {
 	this->contextos = new vector<Contexto>;
 }
 
-//CORREGIR ESTO LA PROXIMA!!!!!!!!!!
+//CORREGIDO!!!
 void Modelo1::agregarContexto(Contexto unContexto){
 	int primo = 7001;
 	HashingUniversalS* unHash = new HashingUniversalS(primo);
 	unsigned int indice = unHash->hashString(unContexto.getNombre());
 
-	//std::vector<Palabra>::iterator it;
-	//it = this->contextos->begin();
-	//std::advance(it,indice);
-	//this->palabras->insert(it, unaPalabra);
+	std::vector<Contexto>::iterator it;
+	it = this->contextos->begin();
+	std::advance(it,indice);
+	this->contextos->insert(it, unContexto);
 }
 
 Modelo1::~Modelo1() {

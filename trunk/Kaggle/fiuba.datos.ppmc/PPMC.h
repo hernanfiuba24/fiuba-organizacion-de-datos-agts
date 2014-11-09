@@ -9,6 +9,8 @@
 
 #include <list>
 #include "Modelo.h"
+#include "Modelo0.h"
+#include "Modelo1.h"
 #include <iostream>
 #include <fstream>
 
@@ -16,7 +18,9 @@ using namespace std;
 
 class PPMC {
 private:
-		list<Modelo*> modelos;
+		Modelo0* modelo0; //ESTOS MODELOS HAY QUE GUARDARLOS EN
+		Modelo1* modelo1; //MEMORIA, NO SE PERSISTEN
+		list<Modelo*> modelosSuperiores;
 
 public:
 	PPMC(int cantidadDeModelos);

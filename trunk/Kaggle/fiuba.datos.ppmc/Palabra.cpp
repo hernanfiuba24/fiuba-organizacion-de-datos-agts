@@ -8,15 +8,12 @@
 #include "Palabra.h"
 #include <iostream>
 
-Palabra::Palabra(std::string unNombre) {
+Palabra::Palabra(string unNombre) {
 	this->frecuencia = 1;
 	this->nombre = unNombre;
 
 }
 
-Palabra::~Palabra() {
-	// TODO Auto-generated destructor stub
-}
 void Palabra::incrementarFrecuencia(){
 	this->frecuencia++;
 }
