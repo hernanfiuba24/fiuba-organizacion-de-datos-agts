@@ -13,7 +13,7 @@ Modelo::Modelo(int numeroDeModelo){
 }
 
 Modelo::~Modelo() {
-	// TODO Auto-generated destructor stub
+	delete this->contextos;
 }
 void Modelo::agregarContexto(Contexto unContexto){
 	std::list<Contexto>::iterator it;
