@@ -15,8 +15,6 @@
 
 using namespace std;
 
-typedef pair<string, int> palabraFrecuencia;
-
 class Contexto {
 private:
 	string contexto;
