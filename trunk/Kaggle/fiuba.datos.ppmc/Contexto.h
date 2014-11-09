@@ -11,6 +11,7 @@
 #include <string>
 #include <list>
 #include "Palabra.h"
+#include <iostream>
 
 using namespace std;
 

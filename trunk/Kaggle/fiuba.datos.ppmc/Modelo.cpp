@@ -15,4 +15,10 @@ Modelo::Modelo(int numeroDeModelo){
 Modelo::~Modelo() {
 	// TODO Auto-generated destructor stub
 }
+void Modelo::agregarContexto(Contexto unContexto){
+	std::list<Contexto>::iterator it;
+	it = this->contextos->begin();
+    it++;
+ 	this->contextos->insert(it, unContexto);
 
+}

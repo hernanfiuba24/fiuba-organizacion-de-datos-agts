@@ -20,8 +20,10 @@ private:
 
 public:
 	Modelo(int numeroDeModelo);
+	void agregarContexto(Contexto unContexto);
 	~Modelo();
 
 };
 
+#endif /* FIUBA_DATOS_PPMC_MODELO_H_ */
 #endif /* FIUBA_DATOS_PPMC_MODELO_H_ */
