@@ -14,6 +14,7 @@ class Palabra {
 public:
 	Palabra(std::string unNombre);
 	virtual ~Palabra();
+	string getNombre();
 	void incrementarFrecuencia();
 
 private:
