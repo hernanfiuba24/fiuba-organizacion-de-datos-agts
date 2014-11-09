@@ -6,16 +6,22 @@
  */
 
 #include "Modelo1.h"
+#include "../fiuba.datos.hashing/HashingUniversalS.h"
 
 Modelo1::Modelo1() {
 	this->contextos = new vector<Contexto>;
 }
 
+//CORREGIR ESTO LA PROXIMA!!!!!!!!!!
 void Modelo1::agregarContexto(Contexto unContexto){
-	std::vector<Contexto>::iterator it;
-	it = this->contextos->begin();
-	it++;
-	this->contextos->insert(it, unContexto);
+	int primo = 7001;
+	HashingUniversalS* unHash = new HashingUniversalS(primo);
+	unsigned int indice = unHash->hashString(unContexto.getNombre());
+
+	//std::vector<Palabra>::iterator it;
+	//it = this->contextos->begin();
+	//std::advance(it,indice);
+	//this->palabras->insert(it, unaPalabra);
 }
 
 Modelo1::~Modelo1() {

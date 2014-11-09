@@ -21,3 +21,7 @@ void Palabra::incrementarFrecuencia(){
 	this->frecuencia++;
 }
 
+string Palabra::getNombre(){
+	return this->nombre;
+}
+
