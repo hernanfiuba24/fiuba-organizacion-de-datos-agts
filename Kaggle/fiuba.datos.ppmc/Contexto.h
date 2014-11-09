@@ -17,12 +17,13 @@ using namespace std;
 
 class Contexto {
 private:
-	string contexto;
+	string nombre;
 	list<Palabra>* palabras;
 
 public:
 	Contexto();
 	void agregarPalabra(string unaPalabra);
+	string getNombre();
 	virtual ~Contexto();
 };
 
