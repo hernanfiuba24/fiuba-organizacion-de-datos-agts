@@ -21,6 +21,7 @@ private:
 public:
 	Modelo(int numeroDeModelo);
 	void agregarContexto(Contexto unContexto);
+	int hashearContexto(Contexto unContexto);
 	~Modelo();
 
 };
