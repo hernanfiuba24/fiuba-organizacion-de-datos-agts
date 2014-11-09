@@ -32,7 +32,7 @@ int HashingUniversalS::hashString(string key){
 	int acum = 0;
 
 
-	for (int i=0; i < key.length(); i++){
+	for (unsigned int i=0; i < key.length(); i++){
 		acum += (int)key[i]*pow( this->a, i+1);
 	}
 

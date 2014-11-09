@@ -1,12 +1,5 @@
-/*
- * Modelo.cpp
- *
- *  Created on: 19/10/2014
- *      Author: ezequiel
- */
-
-#include "Modelo.h"
-#include "HashingUniversalS.h"
+#include "../fiuba.datos.ppmc/Modelo.h"
+#include "../fiuba.datos.hashing/HashingUniversalS.h"
 
 Modelo::Modelo(int numeroDeModelo){
 	this->contextos = new list<Contexto>;
@@ -17,23 +10,25 @@ Modelo::~Modelo() {
 	delete this->contextos;
 }
 void Modelo::agregarContexto(Contexto unContexto){
-	this->hashearContexto(unContexto);
+	int indice = this->hashearContexto(unContexto);
 
 	std::list<Contexto>::iterator it;
 	it = this->contextos->begin();
-    it++;
- 	this->contextos->insert(it, unContexto);
+   	std::advance(it,indice);
+   	this->contextos->insert(it, unContexto);
 }
 
 int Modelo::hashearContexto(Contexto unContexto){
+	int p;
 	if (this->numeroDeModelo = 2)
-		HashingUniversalS unHash = new HashingUniversalS(3001);
+		p = 3001;
 	else if (this->numeroDeModelo = 3)
-		HashingUniversalS unHash = new HashingUniversalS(6001);
+		p = 6001;
 	else if (this->numeroDeModelo = 4)
-		HashingUniversalS unHash = new HashingUniversalS(7001);
+		p = 7001;
 	else if (this->numeroDeModelo = 5)
-		HashingUniversalS unHash = new HashingUniversalS(8001); //ES POCO ESPACIO. 8001 SON MENOS DE 150K (SE PUDE AGREGAR MUCHO MAS)
+		p = 8001; //ES POCO ESPACIO. 8001 SON MENOS DE 150K (SE PUDE AGREGAR MUCHO MAS)
 
-	unHash.hashString(unContexto.);
+	HashingUniversalS* unHash = new HashingUniversalS(p);
+	return unHash->hashString(unContexto.getNombre());
 }

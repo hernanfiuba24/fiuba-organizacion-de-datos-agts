@@ -11,6 +11,10 @@ void Contexto::agregarPalabra(string unaPalabra){
 	this->palabras->insert(it, unaPalabra);
 }
 
+string Contexto::getNombre(){
+	return this->nombre;
+}
+
 Contexto::~Contexto() {
 	delete this->palabras;
 }
