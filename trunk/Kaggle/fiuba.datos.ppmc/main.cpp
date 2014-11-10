@@ -7,12 +7,13 @@
 
 #include "PPMC.h"
 #include <iostream>
+#include "../fiuba.datos.archivos/Archivo.h"
 
 int main(){
-
-	PPMC* unPPMC5 = new PPMC(1);
-
-	unPPMC5->entrenar("Prueba.txt");
+	Archivo* unArchivo = new Archivo("/home/ezequiel/workspace/archivoPrueba.txt", 10);
+	unArchivo->cargarBuffer();
+	unArchivo->cargarBuffer();
+	unArchivo->cargarBuffer();
 
 	return 0;
 }
