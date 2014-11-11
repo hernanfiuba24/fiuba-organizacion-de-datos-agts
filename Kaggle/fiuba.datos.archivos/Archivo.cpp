@@ -30,6 +30,11 @@ void Archivo::cargar(){
 		}
 }
 
+list<char*>* Archivo::parsearBuffer(){
+	Parser* unParser = new Parser();
+	return unParser->devolverPalabras(this->buffer);
+}
+
 Archivo::~Archivo() {
 	this->handle.close();
 	delete[] this->buffer;

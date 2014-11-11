@@ -10,13 +10,16 @@
 
 #include <fstream>
 #include <string>
+#include <list>
 #include "../fiuba.datos.archivos/Buffer.h"
+#include "../fiuba.datos.archivos/Parser.h"
 
 
 class Archivo {
 public:
 	Archivo(std::string rutaArchivo, int tamanioBuffer);
 	void cargarBuffer();
+	std::list<char*>* parsearBuffer();
 	virtual ~Archivo();
 private:
 	char* buffer;
