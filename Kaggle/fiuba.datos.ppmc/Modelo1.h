@@ -14,11 +14,11 @@
 class Modelo1 {
 public:
 	Modelo1();
-	void agregarContexto(Contexto unContexto);
+	void agregarContexto(Contexto* unContexto);
 	virtual ~Modelo1();
 
 private:
-	vector<Contexto>* contextos;
+	vector<Contexto*>* contextos;
 };
 
 #endif /* MODELO1_H_ */

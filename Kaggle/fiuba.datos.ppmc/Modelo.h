@@ -5,17 +5,15 @@
 
 #include "../fiuba.datos.ppmc/Contexto.h"
 
-using namespace std;
-
 class Modelo {
 private:
-	list<Contexto>* contextos;
+	list<Contexto*>* contextos;
 	int numeroDeModelo;
-	int hashearContexto(Contexto unContexto);
+	int hashearContexto(Contexto* unContexto);
 
 public:
 	Modelo(int numeroDeModelo);
-	void agregarContexto(Contexto unContexto);
+	void agregarContexto(Contexto* unContexto);
 
 	~Modelo();
 

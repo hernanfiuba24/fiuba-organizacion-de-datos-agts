@@ -19,7 +19,7 @@ class Archivo {
 public:
 	Archivo(std::string rutaArchivo, int tamanioBuffer);
 	void cargarBuffer();
-	std::list<char*>* parsearBuffer();
+	std::list<std::string>* parsearBuffer();
 	virtual ~Archivo();
 private:
 	char* buffer;

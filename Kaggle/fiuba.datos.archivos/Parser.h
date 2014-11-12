@@ -10,18 +10,17 @@
 
 #include <string>
 #include <list>
-#include <string.h>
 #include <sstream>
 #include <iostream>
 
 class Parser {
 public:
 	Parser();
-	std::list<char*>* devolverPalabras(char* buffer);
+	std::list<std::string>* devolverPalabras(char* buffer);
 	virtual ~Parser();
 
 private:
-	std::list<char*>* ultimasPalabras;
+	std::list<std::string>* ultimasPalabras;
 	char* ultimaPalabra;
 };
 

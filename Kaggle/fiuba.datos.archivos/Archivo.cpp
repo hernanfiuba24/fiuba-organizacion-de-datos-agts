@@ -30,7 +30,7 @@ void Archivo::cargar(){
 		}
 }
 
-list<char*>* Archivo::parsearBuffer(){
+list<string>* Archivo::parsearBuffer(){
 	Parser* unParser = new Parser();
 	return unParser->devolverPalabras(this->buffer);
 }
