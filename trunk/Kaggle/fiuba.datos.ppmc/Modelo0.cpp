@@ -9,23 +9,29 @@
 #include "../fiuba.datos.hashing/HashingUniversalS.h"
 #include "../fiuba.datos.ppmc/Palabra.h"
 
+using namespace std;
+
 Modelo0::Modelo0() {
-	this->palabras = new vector<Palabra>;
+	this->palabras = new vector<Palabra*>;
+
+	//Agrego el escape al modelo0
+	Palabra* escape = new Palabra("esc");
+	this->palabras->push_back(escape);
 }
 
 //Se hashea la palabra para facilitar el ingreso de una palabra nueva
-void Modelo0::agregarPalabra(Palabra unaPalabra){
+void Modelo0::agregarPalabra(Palabra* unaPalabra){
 	int primo = 5001;
 	HashingUniversalS* unHash = new HashingUniversalS(primo);
-	unsigned int indice = unHash->hashString(unaPalabra.getNombre());
+	unsigned int indice = unHash->hashString(unaPalabra->getNombre());
 
-	std::vector<Palabra>::iterator it;
+	vector<Palabra*>::iterator it;
 	it = this->palabras->begin();
-	std::advance(it,indice);
+	advance(it,indice);
 	this->palabras->insert(it, unaPalabra);
 }
 
 Modelo0::~Modelo0() {
-	delete this->palabras;
+	delete[] this->palabras;
 }
 

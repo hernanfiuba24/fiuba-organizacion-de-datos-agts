@@ -10,19 +10,16 @@
 using namespace std;
 
 Parser::Parser() {
-	this->ultimasPalabras = new list<char*>;
+	this->ultimasPalabras = new list<string>;
 	this->ultimaPalabra = 0;
 }
 
-list<char*>* Parser::devolverPalabras(char* buffer){
-	bool encontrePalabras = false;
-	int contador = 0;
-	size_t posicionActual = 0;
-	string palabraTemporal;
-	list<string>* palabrasParseadas;
+list<string>* Parser::devolverPalabras(char* buffer){
 
-	string palabra = "Hola Mundo";
-	istringstream s2(palabra);
+	list<string>* palabrasParseadas = new list<string>;
+	string palabraTemporal;
+
+	istringstream s2(buffer);
 
 	while (s2 >> palabraTemporal) {
 		palabrasParseadas->push_back(palabraTemporal);
@@ -31,9 +28,11 @@ list<char*>* Parser::devolverPalabras(char* buffer){
 		// print the vector
 	for (list<string>::iterator it = palabrasParseadas->begin(); it != palabrasParseadas->end(); it++)
 		cout << *it << endl;
+
+	return palabrasParseadas;
 }
 
 Parser::~Parser() {
-	// TODO Auto-generated destructor stub
+	delete[] this->ultimasPalabras;
 }
 

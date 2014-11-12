@@ -15,6 +15,10 @@ int main(){
 	unArchivo->cargarBuffer();
 
 	unArchivo->parsearBuffer();
+
+	unArchivo->cargarBuffer();
+
+	unArchivo->parsearBuffer();
 	return 0;
 }
 
