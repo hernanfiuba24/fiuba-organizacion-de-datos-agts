@@ -12,14 +12,17 @@
 #include <list>
 #include "Palabra.h"
 #include <iostream>
+#include "../fiuba.datos.hashing/HashingUniversalS.h"
 
 class Contexto {
 private:
 	string nombre;
 	list<Palabra*>* palabras;
+	HashingUniversalS* unHash;
+	int hashearPalabra(Palabra* unaPalabra);
 
 public:
-	Contexto(std::string unNombre);
+	Contexto(std::string unNombre, int primo);
 	void agregarPalabra(Palabra* unaPalabra);
 	string getNombre();
 	virtual ~Contexto();
