@@ -7,18 +7,34 @@
 
 #include "PPMC.h"
 #include <iostream>
-#include <cstring>
+#include <string>
+#include <vector>
 #include "../fiuba.datos.archivos/Archivo.h"
 
 int main(){
-	Archivo* unArchivo = new Archivo("/home/ezequiel/workspace/archivoPrueba.txt", 10);
-	unArchivo->cargarBuffer();
+	vector<std::string>* palabrasLimpias = new vector<std::string>;
+	palabrasLimpias->push_back("hola");
+	palabrasLimpias->push_back("como");
+	palabrasLimpias->push_back("estas");
+	palabrasLimpias->push_back("esto");
+	palabrasLimpias->push_back("es");
+	palabrasLimpias->push_back("un");
+	palabrasLimpias->push_back("vector");
+	palabrasLimpias->push_back("re");
+	palabrasLimpias->push_back("loco");
 
-	unArchivo->parsearBuffer();
+	PPMC* unPPMC = new PPMC(4);
 
-	unArchivo->cargarBuffer();
+	unPPMC->entrenarPalabras(palabrasLimpias);
+	//Archivo* unArchivo = new Archivo("/home/ezequiel/workspace/archivoPrueba.txt", 10);
+	//unArchivo->cargarBuffer();
 
-	unArchivo->parsearBuffer();
+	//unArchivo->parsearBuffer();
+
+	//unArchivo->cargarBuffer();
+
+	//unArchivo->parsearBuffer();
+	delete unPPMC;
 	return 0;
 }
 

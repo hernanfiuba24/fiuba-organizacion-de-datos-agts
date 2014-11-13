@@ -1,11 +1,14 @@
 #include "Contexto.h"
 
-Contexto::Contexto(){
-	this->palabras = new list<Palabra>;
+using namespace std;
+
+Contexto::Contexto(string unNombre){
+	this->nombre = unNombre;
+	this->palabras = new list<Palabra*>;
 }
 
-void Contexto::agregarPalabra(string unaPalabra){
-	std::list<Palabra>::iterator it;
+void Contexto::agregarPalabra(Palabra* unaPalabra){
+	std::list<Palabra*>::iterator it;
     it = this->palabras->begin();
     it++;
 	this->palabras->insert(it, unaPalabra);
