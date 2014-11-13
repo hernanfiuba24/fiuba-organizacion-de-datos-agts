@@ -51,14 +51,22 @@ void PPMC::entrenar(string rutaArchivo){
 void PPMC::entrenarPalabras(vector<string>* palabrasLimpias){
 	vector<string>* cincoPalabrasTemporales = this->devolverCincoPalabras(palabrasLimpias, 0, 4);
 
+	int tam = cincoPalabrasTemporales->size();
 	string sarasa = "sarasa";
+
+	delete cincoPalabrasTemporales;
 
 }
 
 vector<string>* PPMC::devolverCincoPalabras(vector<string>* palabrasLimpias, int inicio, int fin){
 	vector<string>* cincoPalabrasTemporales = new vector<string>;
-	for (int i=inicio; i<=fin; i++){
-		cincoPalabrasTemporales[i-inicio] = palabrasLimpias[i];
+	int i = inicio;
+	vector<string>::iterator it = palabrasLimpias->begin();
+	advance(it,inicio);
+	while (i <= fin){
+		cincoPalabrasTemporales->push_back(*it);
+		it++;
+		i++;
 	}
 	return cincoPalabrasTemporales;
 }
