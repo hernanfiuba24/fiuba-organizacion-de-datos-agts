@@ -59,7 +59,7 @@ void PPMC::entrenarPalabras(vector<string>* palabrasLimpias){
 	vector<string>* cincoPalabrasTemporales;
 	for(int inicio = 0; inicio <= (tamanio - 5); inicio++){
 
-		cincoPalabrasTemporales = this->devolverCincoPalabras(palabrasLimpias, inicio, inicio+5);
+		cincoPalabrasTemporales = this->devolverCincoPalabras(palabrasLimpias, inicio, inicio+4);
 
 		this->cargarModelos(cincoPalabrasTemporales);
 	}
@@ -77,6 +77,7 @@ vector<string>* PPMC::devolverCincoPalabras(vector<string>* palabrasLimpias, int
 		it++;
 		i++;
 	}
+	cincoPalabrasTemporales->pop_back();
 	return cincoPalabrasTemporales;
 }
 
@@ -84,14 +85,13 @@ void PPMC::cargarModelos(vector<string>* cincoPalabrasTemporales){
 
 	vector<string>::iterator it = cincoPalabrasTemporales->end();
 	int numeroDeModelo = this->modelosSuperiores->size();
-
 	while (numeroDeModelo > 0){
 		Palabra* ultimaPalabra = new Palabra(*it);
 		string nombreContexto = "";
-		for(it; it >= cincoPalabrasTemporales->begin(); it--){
+		for(it--; it >= cincoPalabrasTemporales->begin(); it--){
 			nombreContexto = *it + " " + nombreContexto;
 		}
-		int primo = this->devolverPrimo(numeroDeModelo);
+		int primo = this->devolverPrimo(numeroDeModelo+1);
 
 		//CADA CONTEXTO TIENE EL MISMO PRIMO QUE SU MODELO.
 		//CONTROLAR ESTO PORQUE TAL VEZ NO SEA ASI.
