@@ -13,16 +13,14 @@
 #include "Palabra.h"
 #include <iostream>
 
-using namespace std;
-
 class Contexto {
 private:
 	string nombre;
-	list<Palabra>* palabras;
+	list<Palabra*>* palabras;
 
 public:
-	Contexto();
-	void agregarPalabra(string unaPalabra);
+	Contexto(std::string unNombre);
+	void agregarPalabra(Palabra* unaPalabra);
 	string getNombre();
 	virtual ~Contexto();
 };
