@@ -23,7 +23,9 @@ PPMC::PPMC(int cantidadDeModelos) {
 
 int PPMC::devolverPrimo(int numeroDeModelo){
 	int primo;
-		if (numeroDeModelo == 2)
+		if (numeroDeModelo == 1)
+			primo = 2001;
+		else if (numeroDeModelo == 2)
 			primo = 3001;
 		else if (numeroDeModelo == 3)
 			primo = 6001;
@@ -61,7 +63,10 @@ void PPMC::entrenarPalabras(vector<string>* palabrasLimpias){
 
 		cincoPalabrasTemporales = this->devolverCincoPalabras(palabrasLimpias, inicio, inicio+4);
 
-		this->cargarModelos(cincoPalabrasTemporales);
+		this->cargarModelosSuperiores(cincoPalabrasTemporales);
+
+		this->cargarModelo1(cincoPalabrasTemporales);
+		this->cargarModelo0(cincoPalabrasTemporales);
 	}
 	delete cincoPalabrasTemporales;
 
@@ -81,11 +86,12 @@ vector<string>* PPMC::devolverCincoPalabras(vector<string>* palabrasLimpias, int
 	return cincoPalabrasTemporales;
 }
 
-void PPMC::cargarModelos(vector<string>* cincoPalabrasTemporales){
+void PPMC::cargarModelosSuperiores(vector<string>* cincoPalabrasTemporales){
 
-	vector<string>::iterator it = cincoPalabrasTemporales->end();
+
 	int numeroDeModelo = this->modelosSuperiores->size();
 	while (numeroDeModelo > 0){
+		vector<string>::iterator it = cincoPalabrasTemporales->end();
 		Palabra* ultimaPalabra = new Palabra(*it);
 		string nombreContexto = "";
 		for(it--; it >= cincoPalabrasTemporales->begin(); it--){
@@ -100,10 +106,32 @@ void PPMC::cargarModelos(vector<string>* cincoPalabrasTemporales){
 		Contexto* contextoSuperior = new Contexto(nombreContexto, primo);
 		contextoSuperior->agregarPalabra(ultimaPalabra);
 		this->agregarContextoSuperiorEn(contextoSuperior, numeroDeModelo);
-		it--;
+		cincoPalabrasTemporales->pop_back();
 		numeroDeModelo--;
 	}
+}
 
+void PPMC::cargarModelo1(vector<string>* cincoPalabrasTemporales){
+
+	vector<string>::iterator it = cincoPalabrasTemporales->end();
+
+	Palabra* ultimaPalabra = new Palabra(*it);
+	it--;
+	int primo = this->devolverPrimo(1);
+	Contexto* contextoModelo1 = new Contexto(*it, primo);
+	contextoModelo1->agregarPalabra(ultimaPalabra);
+
+	this->modelo1->agregarContexto(contextoModelo1);
+
+	cincoPalabrasTemporales->pop_back();
+}
+
+void PPMC::cargarModelo0(vector<string>* cincoPalabrasTemporales){
+
+	vector<string>::iterator it = cincoPalabrasTemporales->end();
+
+	Palabra* ultimaPalabra = new Palabra(*it);
+	this->modelo0->agregarPalabra(ultimaPalabra);
 }
 
 void PPMC::agregarContextoSuperiorEn(Contexto* unContexto, int numeroDeModelo){
