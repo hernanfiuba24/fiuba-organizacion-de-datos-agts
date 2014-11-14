@@ -23,7 +23,9 @@ private:
 		Modelo1* modelo1; //MEMORIA, NO SE PERSISTEN
 		list<ModelosSuperiores*>* modelosSuperiores;
 		vector<std::string>* devolverCincoPalabras(vector<std::string>* palabrasLimpias, int inicio, int fin);
-		void cargarModelos(vector<string>* cincoPalabrasTemporales);
+		void cargarModelosSuperiores(vector<string>* cincoPalabrasTemporales);
+		void cargarModelo1(vector<string>* cincoPalabrasTemporales);
+		void cargarModelo0(vector<string>* cincoPalabrasTemporales);
 		void agregarContextoSuperiorEn(Contexto* unContexto, int numeroDeModelo);
 		int devolverPrimo(int cantidadDeModelos);
 
