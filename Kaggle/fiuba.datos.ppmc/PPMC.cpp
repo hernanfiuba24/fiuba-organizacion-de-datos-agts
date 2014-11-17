@@ -67,6 +67,13 @@ void PPMC::entrenarPalabras(vector<string>* palabrasLimpias){
 
 		this->cargarModelo1(cincoPalabrasTemporales);
 		this->cargarModelo0(cincoPalabrasTemporales);
+
+		//CHEQUEO EL PUNTO PORQUE ME ROMPE LOS CONTEXTOS
+		vector<string>::iterator it = cincoPalabrasTemporales->end();
+		//VER SI ACA HAY QUE HACER it--
+		if (*it == ".")
+			inicio+=5;
+
 	}
 	delete cincoPalabrasTemporales;
 
