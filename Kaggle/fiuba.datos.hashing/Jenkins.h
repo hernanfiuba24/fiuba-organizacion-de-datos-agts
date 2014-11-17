@@ -10,11 +10,11 @@
 
 #include <iostream>
 #include "stdint.h"
+#include <math.h>;
 
 class Jenkins {
 public:
 	Jenkins();
-
 	uint32_t hashearCon32Bits(std::string nombre);
 	uint64_t hashearCon64Bits(std::string nombre);
 	virtual ~Jenkins();

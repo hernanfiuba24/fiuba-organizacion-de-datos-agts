@@ -9,17 +9,17 @@
 #define FIUBA_DATOS_PPMC_PALABRA_H_
 #include <string>
 
-using namespace std;
 
 class Palabra {
 public:
-	Palabra(string unNombre);
-	string getNombre();
+	Palabra(std::string unNombre);
+	std::string getNombre();
 	void incrementarFrecuencia();
+	bool esIgualA(Palabra* unaPalabra);
 
 private:
 	size_t frecuencia;
-	string nombre;
+	std::string nombre;
 };
 
 #endif /* FIUBA_DATOS_PPMC_PALABRA_H_ */
