@@ -28,14 +28,17 @@ HashingUniversalS::HashingUniversalS(unsigned int primo) {
 
 
 int HashingUniversalS::hashString(string key){
-	int resultadoHash;
-	int acum = 0;
-
-
-	for (unsigned int i=0; i < key.length(); i++){
-		acum += (int)key[i]*pow( this->a, i+1);
+	int resultadoHash=0;
+	double  aux;
+	int ascci;
+    int tamanio = (int)key.length();
+    int Hia = 0;
+	for (unsigned int i=0; i < tamanio; i++){
+		ascci = (int)key[i];
+		aux = (ascci * pow( this->a, i+1)) + Hia;
+		//Hia = aux % this->primo;
 	}
-
-	return resultadoHash = acum % this->primo;
+	resultadoHash = Hia;
+	return resultadoHash%this->primo;
 }
 

@@ -27,7 +27,7 @@ private:
 		void cargarModelo1(vector<string>* cincoPalabrasTemporales);
 		void cargarModelo0(vector<string>* cincoPalabrasTemporales);
 		void agregarContextoSuperiorEn(Contexto* unContexto, int numeroDeModelo);
-		int devolverPrimo(int cantidadDeModelos);
+		unsigned int devolverTamanioDeTabla(int cantidadDeModelos);
 
 public:
 	PPMC(int cantidadDeModelos);
