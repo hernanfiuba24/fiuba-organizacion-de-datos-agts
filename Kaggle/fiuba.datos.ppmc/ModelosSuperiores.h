@@ -7,13 +7,13 @@
 
 class ModelosSuperiores {
 private:
-	list<Contexto*>* contextos;
+	Contexto *contextos;
 	int numeroDeModelo;
 	HashingUniversalS* unHash;
 	int hashearContexto(Contexto* unContexto);
 
 public:
-	ModelosSuperiores(int numeroDeModelo, int primo);
+	ModelosSuperiores(int numeroDeModelo, unsigned int tamanio);
 	void agregarContexto(Contexto* unContexto);
 
 	~ModelosSuperiores();

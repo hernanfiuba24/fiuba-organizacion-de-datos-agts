@@ -4,11 +4,10 @@ using namespace std;
 
 //Cada Modelo va a tener un primo conveniente.
 //Cuanto mas alto el Modelo, mas alto el primo.
-ModelosSuperiores::ModelosSuperiores(int numeroDeModelo,int primo){
-	this->contextos = new list<Contexto*>;
-	this->numeroDeModelo = numeroDeModelo;
+ModelosSuperiores::ModelosSuperiores(int numeroDeModelo, unsigned int tamanio){
 
-	this->unHash = new HashingUniversalS(primo);
+	this->contextos = new Contexto[tamanio];
+	this->numeroDeModelo = numeroDeModelo;
 }
 
 ModelosSuperiores::~ModelosSuperiores() {
@@ -20,13 +19,11 @@ void ModelosSuperiores::agregarContexto(Contexto* unContexto){
 	Palabra* unEscape = new Palabra("esc");
 	unContexto->agregarPalabra(unEscape);
 
-	list<Contexto*>::iterator it;
-	it = this->contextos->begin();
-   	advance(it,indice);
-   	this->contextos->insert(it, unContexto);
+
+
 }
 
 int ModelosSuperiores::hashearContexto(Contexto* unContexto){
-
-	return this->unHash->hashString(unContexto->getNombre());
+    string nombreContexto = unContexto->getNombre();
+	return this->unHash->hashString(nombreContexto);
 }

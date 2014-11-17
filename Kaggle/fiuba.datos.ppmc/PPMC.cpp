@@ -15,26 +15,25 @@ PPMC::PPMC(int cantidadDeModelos) {
 	this->modelo1 = new Modelo1(7001);
 	this->modelosSuperiores = new list<ModelosSuperiores*>;
 	for(int numeroDeModelo = 2; numeroDeModelo<=(cantidadDeModelos); numeroDeModelo++){
-		int primo = this->devolverPrimo(numeroDeModelo);
-		ModelosSuperiores* modelo = new ModelosSuperiores(numeroDeModelo, primo);
+		unsigned int tamanio = devolverTamanioDeTabla(numeroDeModelo);
+		ModelosSuperiores* modelo = new ModelosSuperiores(numeroDeModelo, tamanio);
 		this->modelosSuperiores->push_back(modelo);
 	}
 }
 
-int PPMC::devolverPrimo(int numeroDeModelo){
-	int primo;
+unsigned int PPMC::devolverTamanioDeTabla(int numeroDeModelo){
+	int tamanio;
+	    //A DEFINIR LOS TAMANIOS, TIENE QUE SER POTENCIA DE 2
 		if (numeroDeModelo == 1)
 			primo = 2001;
 		else if (numeroDeModelo == 2)
-			primo = 3001;
+			tamanio= 3465;
 		else if (numeroDeModelo == 3)
-			primo = 6001;
+			tamanio = 6001;
 		else if (numeroDeModelo == 4)
-			primo = 7001;
-		else if (numeroDeModelo == 5)
-			primo = 8001; //ES POCO ESPACIO. 8001 SON MENOS DE 150K (SE PUDE AGREGAR MUCHO MAS)
+			tamanio = 7001;
 
-	return primo;
+	return tamanio;
 }
 
 void PPMC::entrenar(string rutaArchivo){
@@ -104,13 +103,12 @@ void PPMC::cargarModelosSuperiores(vector<string>* cincoPalabrasTemporales){
 		for(it--; it >= cincoPalabrasTemporales->begin(); it--){
 			nombreContexto = *it + " " + nombreContexto;
 		}
-		int primo = this->devolverPrimo(numeroDeModelo+1);
 
 		//CADA CONTEXTO TIENE EL MISMO PRIMO QUE SU MODELO.
 		//CONTROLAR ESTO PORQUE TAL VEZ NO SEA ASI.
 		//TAL VEZ HAY QUE PONER UN PRIMO MAS CHICO
 
-		Contexto* contextoSuperior = new Contexto(nombreContexto, primo);
+		Contexto* contextoSuperior = new Contexto(nombreContexto);
 		contextoSuperior->agregarPalabra(ultimaPalabra);
 		this->agregarContextoSuperiorEn(contextoSuperior, numeroDeModelo);
 		cincoPalabrasTemporales->pop_back();

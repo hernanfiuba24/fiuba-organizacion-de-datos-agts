@@ -21,7 +21,7 @@ public:
 
 private:
 	int a;
-	int primo;
+	unsigned int primo;
 };
 
 #endif /* HASHINGUNIVERSALS_H_ */
