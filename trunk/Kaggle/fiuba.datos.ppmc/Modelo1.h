@@ -11,16 +11,16 @@
 
 #include <list>
 #include "Contexto.h"
-#include "../fiuba.datos.hashing/HashingUniversalS.h"
 
 class Modelo1 {
 public:
 	Modelo1();
 	void agregarContexto(Contexto* unContexto);
+	Contexto* devolverContexto(Contexto* unContexto);
 	virtual ~Modelo1();
 
 private:
-	list<Contexto*>* contextos;
+	std::list<Contexto*>* contextos;
 };
 
 #endif /* MODELO1_H_ */

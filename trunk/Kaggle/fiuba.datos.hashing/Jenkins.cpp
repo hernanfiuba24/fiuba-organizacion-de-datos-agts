@@ -11,6 +11,7 @@ Jenkins::Jenkins() {
 	// TODO Auto-generated constructor stub
 
 }
+
 uint32_t Jenkins::hashearCon32Bits(std::string nombre){
 
 	    uint32_t hash, i;

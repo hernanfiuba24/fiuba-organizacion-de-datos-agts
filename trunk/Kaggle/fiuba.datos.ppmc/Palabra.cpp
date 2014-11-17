@@ -8,6 +8,8 @@
 #include "Palabra.h"
 #include <iostream>
 
+using namespace std;
+
 Palabra::Palabra(string unNombre) {
 	this->frecuencia = 1;
 	this->nombre = unNombre;
@@ -20,5 +22,11 @@ void Palabra::incrementarFrecuencia(){
 
 string Palabra::getNombre(){
 	return this->nombre;
+}
+
+bool Palabra::esIgualA(Palabra* unaPalabra){
+	if(this->nombre == unaPalabra->getNombre())
+		return true;
+	return false;
 }
 

@@ -15,24 +15,16 @@ PPMC::PPMC(int cantidadDeModelos) {
 	this->modelo1 = new Modelo1();
 	this->modelosSuperiores = new list<ModelosSuperiores*>;
 	for(int numeroDeModelo = 2; numeroDeModelo<=(cantidadDeModelos); numeroDeModelo++){
-		unsigned int tamanio = devolverTamanioDeTabla(numeroDeModelo);
+		unsigned long tamanio = devolverTamanioDeTabla();
+		tamanio = 50;
 		ModelosSuperiores* modelo = new ModelosSuperiores(numeroDeModelo, tamanio);
 		this->modelosSuperiores->push_back(modelo);
 	}
 }
 
-unsigned int PPMC::devolverTamanioDeTabla(int numeroDeModelo){
-	int tamanio;
-	    //A DEFINIR LOS TAMANIOS, TIENE QUE SER POTENCIA DE 2
-		if (numeroDeModelo == 1)
-			primo = 2001;
-		else if (numeroDeModelo == 2)
-			tamanio= 3465;
-		else if (numeroDeModelo == 3)
-			tamanio = 6001;
-		else if (numeroDeModelo == 4)
-			tamanio = 7001;
+unsigned long PPMC::devolverTamanioDeTabla(){
 
+	unsigned long tamanio = pow(2,32);
 	return tamanio;
 }
 
@@ -94,6 +86,7 @@ vector<string>* PPMC::devolverCincoPalabras(vector<string>* palabrasLimpias, int
 
 void PPMC::cargarModelosSuperiores(vector<string>* cincoPalabrasTemporales){
 
+	//VOY BORRANDO LOS STRINGS QUE AGREGO A LOS MODELOS
 
 	int numeroDeModelo = this->modelosSuperiores->size();
 	while (numeroDeModelo > 0){
@@ -104,10 +97,6 @@ void PPMC::cargarModelosSuperiores(vector<string>* cincoPalabrasTemporales){
 			nombreContexto = *it + " " + nombreContexto;
 		}
 
-		//CADA CONTEXTO TIENE EL MISMO PRIMO QUE SU MODELO.
-		//CONTROLAR ESTO PORQUE TAL VEZ NO SEA ASI.
-		//TAL VEZ HAY QUE PONER UN PRIMO MAS CHICO
-
 		Contexto* contextoSuperior = new Contexto(nombreContexto);
 		contextoSuperior->agregarPalabra(ultimaPalabra);
 		this->agregarContextoSuperiorEn(contextoSuperior, numeroDeModelo);
@@ -117,13 +106,13 @@ void PPMC::cargarModelosSuperiores(vector<string>* cincoPalabrasTemporales){
 }
 
 void PPMC::cargarModelo1(vector<string>* cincoPalabrasTemporales){
-
+	//EL VECTOR DE CINCO PALABRAS EN ESTE MOMENTO TIENE DOS ELEMENTOS
+	//LOS PRIMEROS DOS
 	vector<string>::iterator it = cincoPalabrasTemporales->end();
 
 	Palabra* ultimaPalabra = new Palabra(*it);
 	it--;
-	int primo = this->devolverPrimo(1);
-	Contexto* contextoModelo1 = new Contexto(*it, primo);
+	Contexto* contextoModelo1 = new Contexto(*it);
 	contextoModelo1->agregarPalabra(ultimaPalabra);
 
 	this->modelo1->agregarContexto(contextoModelo1);
@@ -132,7 +121,8 @@ void PPMC::cargarModelo1(vector<string>* cincoPalabrasTemporales){
 }
 
 void PPMC::cargarModelo0(vector<string>* cincoPalabrasTemporales){
-
+	//EL VECTOR DE CINCO PALABRAS EN ESTE MOMENTO TIENE UN SOLO ELEMENTO
+	//EL ELEMENTO QUE QUEDA ES EL PRIMERO
 	vector<string>::iterator it = cincoPalabrasTemporales->end();
 
 	Palabra* ultimaPalabra = new Palabra(*it);

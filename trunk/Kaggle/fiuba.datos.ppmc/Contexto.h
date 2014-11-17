@@ -11,20 +11,20 @@
 #include <string>
 #include <list>
 #include "Palabra.h"
-#include <iostream>
-#include "../fiuba.datos.hashing/HashingUniversalS.h"
 
 class Contexto {
 private:
-	string nombre;
-	list<Palabra*>* palabras;
-	HashingUniversalS* unHash;
-	int hashearPalabra(Palabra* unaPalabra);
+	std::string nombre;
+	std::list<Palabra*>* palabras;
 
 public:
-	Contexto(std::string unNombre, int primo);
+	Contexto(std::string unNombre);
+	Contexto();
 	void agregarPalabra(Palabra* unaPalabra);
-	string getNombre();
+	Palabra* devolverPalabra(Palabra* unaPalabra);
+	Palabra* devolverPrimeraPalabra();
+	bool esIgualA(Contexto* unContexto);
+	std::string getNombre();
 	virtual ~Contexto();
 };
 

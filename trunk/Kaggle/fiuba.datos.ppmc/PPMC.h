@@ -21,19 +21,19 @@ private:
 	    int cantidadDeModelos;
 		Modelo0* modelo0; //ESTOS MODELOS HAY QUE GUARDARLOS EN
 		Modelo1* modelo1; //MEMORIA, NO SE PERSISTEN
-		list<ModelosSuperiores*>* modelosSuperiores;
-		vector<std::string>* devolverCincoPalabras(vector<std::string>* palabrasLimpias, int inicio, int fin);
-		void cargarModelosSuperiores(vector<string>* cincoPalabrasTemporales);
-		void cargarModelo1(vector<string>* cincoPalabrasTemporales);
-		void cargarModelo0(vector<string>* cincoPalabrasTemporales);
+		std::list<ModelosSuperiores*>* modelosSuperiores;
+		std::vector<std::string>* devolverCincoPalabras(std::vector<std::string>* palabrasLimpias, int inicio, int fin);
+		void cargarModelosSuperiores(std::vector<std::string>* cincoPalabrasTemporales);
+		void cargarModelo1(std::vector<std::string>* cincoPalabrasTemporales);
+		void cargarModelo0(std::vector<std::string>* cincoPalabrasTemporales);
 		void agregarContextoSuperiorEn(Contexto* unContexto, int numeroDeModelo);
-		unsigned int devolverTamanioDeTabla(int cantidadDeModelos);
+		unsigned long devolverTamanioDeTabla();
 
 public:
 	PPMC(int cantidadDeModelos);
 	void guardarContextoEnModeloSuperior(int numeroDeModelo, Contexto *unContexto);
-	void entrenar(string rutaArchivo);
-	void entrenarPalabras(vector<std::string>* palabrasLimpias);
+	void entrenar(std::string rutaArchivo);
+	void entrenarPalabras(std::vector<std::string>* palabrasLimpias);
 	~PPMC();
 };
 

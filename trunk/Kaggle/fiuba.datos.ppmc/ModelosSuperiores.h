@@ -3,14 +3,15 @@
 
 #include <list>
 #include "../fiuba.datos.ppmc/Contexto.h"
-#include "../fiuba.datos.hashing/HashingUniversalS.h"
+#include "../fiuba.datos.hashing/Jenkins.h"
 
 class ModelosSuperiores {
 private:
 	Contexto *contextos;
 	int numeroDeModelo;
-	HashingUniversalS* unHash;
-	int hashearContexto(Contexto* unContexto);
+	unsigned long tamanioTablaDeHash;
+	bool existeContexto(Contexto* unContexto, uint32_t indice);
+	bool existeContexto(Contexto* unContexto, uint64_t indice);
 
 public:
 	ModelosSuperiores(int numeroDeModelo, unsigned int tamanio);

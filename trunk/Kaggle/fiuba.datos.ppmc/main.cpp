@@ -10,9 +10,11 @@
 #include <string>
 #include <vector>
 #include "../fiuba.datos.archivos/Archivo.h"
-#include "../fiuba.datos.hashing/HashingUniversalS.h"
+#include "../fiuba.datos.hashing/Jenkins.h"
+
+using namespace std;
 int main(){
-	/*vector<std::string>* palabrasLimpias = new vector<std::string>;
+	vector<string>* palabrasLimpias = new vector<string>;
 	palabrasLimpias->push_back("hola");
 	palabrasLimpias->push_back("como");
 	palabrasLimpias->push_back("estas");
@@ -26,7 +28,7 @@ int main(){
 	PPMC* unPPMC = new PPMC(4);
 
 	unPPMC->entrenarPalabras(palabrasLimpias);
-	*/
+
 	//Archivo* unArchivo = new Archivo("/home/ezequiel/workspace/archivoPrueba.txt", 10);
 	//unArchivo->cargarBuffer();
 
@@ -37,10 +39,9 @@ int main(){
 	//unArchivo->parsearBuffer();
 	//delete unPPMC;
 	//return 0;
-	unsigned int primo = 5017;
-	HashingUniversalS* unHash = new HashingUniversalS(primo);
-	string palabra = "hola como estas";
-	int indice = unHash->hashString(palabra);
+	//Jenkins *unHash = new Jenkins();
+	//std::string palabra = "hola como estas";
+	//uint32_t indice = unHash->hashearCon32Bits(palabra);
 }
 
 
