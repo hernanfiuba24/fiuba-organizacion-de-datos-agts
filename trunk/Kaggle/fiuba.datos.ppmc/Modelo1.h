@@ -9,19 +9,18 @@
 #ifndef MODELO1_H_
 #define MODELO1_H_
 
-#include <vector>
+#include <list>
 #include "Contexto.h"
 #include "../fiuba.datos.hashing/HashingUniversalS.h"
 
 class Modelo1 {
 public:
-	Modelo1(int primo);
+	Modelo1();
 	void agregarContexto(Contexto* unContexto);
 	virtual ~Modelo1();
 
 private:
-	vector<Contexto*>* contextos;
-	HashingUniversalS* unHash;
+	list<Contexto*>* contextos;
 };
 
 #endif /* MODELO1_H_ */

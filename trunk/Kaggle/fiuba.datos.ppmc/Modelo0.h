@@ -8,19 +8,18 @@
 #ifndef FIUBA_DATOS_PPMC_MODELO0_H_
 #define FIUBA_DATOS_PPMC_MODELO0_H_
 
-#include <vector>
+#include <list>
 #include "../fiuba.datos.hashing/HashingUniversalS.h"
 #include "../fiuba.datos.ppmc/Palabra.h"
 
 class Modelo0 {
 public:
-	Modelo0(int primo);
+	Modelo0();
 	void agregarPalabra(Palabra* unaPalabra);
 	virtual ~Modelo0();
 
 private:
-	vector<Palabra*>* palabras;
-	HashingUniversalS* unHash;
+	list<Palabra*>* palabras;
 };
 
 #endif /* FIUBA_DATOS_PPMC_MODELO0_H_ */
