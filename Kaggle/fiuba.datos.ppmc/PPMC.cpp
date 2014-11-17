@@ -11,8 +11,8 @@ using namespace std;
 
 PPMC::PPMC(int cantidadDeModelos) {
 	this->cantidadDeModelos = cantidadDeModelos;
-	this->modelo0 = new Modelo0(5001);
-	this->modelo1 = new Modelo1(7001);
+	this->modelo0 = new Modelo0();
+	this->modelo1 = new Modelo1();
 	this->modelosSuperiores = new list<ModelosSuperiores*>;
 	for(int numeroDeModelo = 2; numeroDeModelo<=(cantidadDeModelos); numeroDeModelo++){
 		unsigned int tamanio = devolverTamanioDeTabla(numeroDeModelo);

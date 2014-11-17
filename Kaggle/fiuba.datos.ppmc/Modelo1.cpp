@@ -8,27 +8,26 @@
 #include "Modelo1.h"
 #include "../fiuba.datos.hashing/HashingUniversalS.h"
 
-Modelo1::Modelo1(int primo) {
-	this->contextos = new vector<Contexto*>;
-	this->unHash = new HashingUniversalS(primo);
+Modelo1::Modelo1(){
+	this->contextos = new list<Contexto*>;
 
 }
 
 //CORREGIDO!!!
 void Modelo1::agregarContexto(Contexto* unContexto){
-	unsigned int indice = this->unHash->hashString(unContexto->getNombre());
 
 	Palabra* unEscape = new Palabra("esc");
 	unContexto->agregarPalabra(unEscape);
 
-	std::vector<Contexto*>::iterator it;
-	it = this->contextos->begin();
-	std::advance(it,indice);
-	this->contextos->insert(it, unContexto);
+	this->contextos->push_back(unContexto);
 
 }
 
 Modelo1::~Modelo1() {
+	//CONTROLAR ESTE DESTRUCTOR!!!!
+//	for (list<Palabra*>::iterator it = this->contextos->begin(); it <= this->contextos->end();it++){
+//		delete (*it);
+//	}
 	delete this->contextos;
 }
 

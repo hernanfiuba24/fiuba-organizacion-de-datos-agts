@@ -9,24 +9,19 @@
 
 using namespace std;
 
-Modelo0::Modelo0(int primo) {
-	this->palabras = new vector<Palabra*>;
-
-	this->unHash = new HashingUniversalS(primo);
+Modelo0::Modelo0() {
+	this->palabras = new list<Palabra*>;
 }
 
-//Se hashea la palabra para facilitar el ingreso de una palabra nueva
 void Modelo0::agregarPalabra(Palabra* unaPalabra){
-
-	unsigned int indice = this->unHash->hashString(unaPalabra->getNombre());
-
-	vector<Palabra*>::iterator it;
-	it = this->palabras->begin();
-	advance(it,indice);
-	this->palabras->insert(it, unaPalabra);
+	this->palabras->push_back(unaPalabra);
 }
 
 Modelo0::~Modelo0() {
-	delete[] this->palabras;
+	//CONTROLAR ESTE DESTRUCTOR!!!!
+//	for (list<Palabra*>::iterator it = this->palabras->begin(); it <= this->palabras->end();it++){
+//		delete (*it);
+//	}
+	delete this->palabras;
 }
 
