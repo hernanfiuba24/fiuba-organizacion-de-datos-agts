@@ -11,7 +11,7 @@
 using namespace std;
 
 Modelo1::Modelo1(){
-	this->contextos = new list<Contexto*>;
+	this->contextos = new vector<Contexto*>;
 
 }
 
@@ -31,7 +31,7 @@ void Modelo1::agregarContexto(Contexto* unContexto){
 
 Contexto* Modelo1::devolverContexto(Contexto* unContexto){
 
-	list<Contexto*>::iterator it = this->contextos->begin();
+	vector<Contexto*>::iterator it = this->contextos->begin();
 	Contexto* contextoExistente;
 	bool contextoEncontrado = false;
 	while( (it != this->contextos->end()) || !(contextoEncontrado)){

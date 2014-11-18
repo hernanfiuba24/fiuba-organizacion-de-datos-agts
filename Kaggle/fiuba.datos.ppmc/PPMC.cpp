@@ -9,23 +9,26 @@
 
 using namespace std;
 
-PPMC::PPMC(int cantidadDeModelos) {
+PPMC::PPMC(int cantidadDeModelos){
 	this->cantidadDeModelos = cantidadDeModelos;
 	this->modelo0 = new Modelo0();
 	this->modelo1 = new Modelo1();
-	this->modelosSuperiores = new list<ModelosSuperiores*>;
+	this->modelosSuperiores.resize(3);
 	for(int numeroDeModelo = 2; numeroDeModelo<=(cantidadDeModelos); numeroDeModelo++){
-		unsigned long tamanio = devolverTamanioDeTabla();
-		tamanio = 50;
+		unsigned long tamanio = this->devolverTamanioDeTabla(numeroDeModelo);
 		ModelosSuperiores* modelo = new ModelosSuperiores(numeroDeModelo, tamanio);
-		this->modelosSuperiores->push_back(modelo);
+		this->modelosSuperiores[numeroDeModelo-2] = modelo;
 	}
 }
 
-unsigned long PPMC::devolverTamanioDeTabla(){
+unsigned long PPMC::devolverTamanioDeTabla(int numeroDeModelo){
 
-	unsigned long tamanio = pow(2,32);
-	return tamanio;
+	if(numeroDeModelo == 2)
+		return 32767; //NUMERO DE MERSENE 2^15 - 1
+	else if (numeroDeModelo == 3)
+		return 65535; //NUMERO DE MERSENNE 2^16 - 1
+	else if (numeroDeModelo == 4)
+		return 262143; //NUMERO DE MERSENNE 2^18 - 1
 }
 
 void PPMC::entrenar(string rutaArchivo){

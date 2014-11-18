@@ -10,7 +10,7 @@
 using namespace std;
 
 Modelo0::Modelo0(){
-	this->palabras = new list<Palabra*>;
+	this->palabras = new vector<Palabra*>;
 }
 
 void Modelo0::agregarPalabra(Palabra* unaPalabra){
@@ -26,7 +26,7 @@ void Modelo0::agregarPalabra(Palabra* unaPalabra){
 
 Palabra* Modelo0::devolverPalabra(Palabra* unaPalabra){
 
-list<Palabra*>::iterator it = this->palabras->begin();
+vector<Palabra*>::iterator it = this->palabras->begin();
 	Palabra* palabraExistente;
 	bool palabraEncontrada = false;
 	while( (it != this->palabras->end()) || !(palabraEncontrada)){

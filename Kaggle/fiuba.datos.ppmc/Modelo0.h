@@ -8,7 +8,7 @@
 #ifndef FIUBA_DATOS_PPMC_MODELO0_H_
 #define FIUBA_DATOS_PPMC_MODELO0_H_
 
-#include <list>
+#include <vector>
 #include "../fiuba.datos.ppmc/Palabra.h"
 
 class Modelo0 {
@@ -19,7 +19,7 @@ public:
 	virtual ~Modelo0();
 
 private:
-	std::list<Palabra*>* palabras;
+	std::vector<Palabra*>* palabras;
 };
 
 #endif /* FIUBA_DATOS_PPMC_MODELO0_H_ */
