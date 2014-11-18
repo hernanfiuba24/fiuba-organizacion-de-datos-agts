@@ -9,7 +9,7 @@
 #ifndef MODELO1_H_
 #define MODELO1_H_
 
-#include <list>
+#include <vector>
 #include "Contexto.h"
 
 class Modelo1 {
@@ -20,7 +20,7 @@ public:
 	virtual ~Modelo1();
 
 private:
-	std::list<Contexto*>* contextos;
+	std::vector<Contexto*>* contextos;
 };
 
 #endif /* MODELO1_H_ */
