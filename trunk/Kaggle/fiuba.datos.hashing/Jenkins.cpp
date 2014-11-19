@@ -7,11 +7,13 @@
 
 #include "Jenkins.h"
 
-Jenkins::Jenkins() {
+using namespace std;
 
+Jenkins::Jenkins(unsigned primo){
+	this->primo = primo;
 }
 
-uint32_t Jenkins::hashearCon32Bits(std::string nombre){
+uint32_t Jenkins::hashearCon32Bits(string nombre){
 
 	    uint32_t hash, i;
 	    int len = nombre.size();
@@ -26,6 +28,12 @@ uint32_t Jenkins::hashearCon32Bits(std::string nombre){
 	    hash += (hash << 15);
 	    return hash;
 
+}
+
+unsigned Jenkins::hashearConMod(string unNombre){
+	uint32_t resultadoHash = this->hashearCon32Bits(unNombre);
+
+	return resultadoHash % this->primo;
 }
 
 Jenkins::~Jenkins() {
