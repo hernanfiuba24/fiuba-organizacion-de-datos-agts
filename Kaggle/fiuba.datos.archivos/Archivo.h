@@ -22,12 +22,15 @@ public:
 	//metodo de prueba, se puede borrar
 	void mostrarBuffer();
 	std::list<std::string>* parsearBuffer(char valorParseo);
+	std::list<std::string>* parsearTest(std::string rutaArchivo, char valorParseo);
+	int cargarInicioProximaLectura();
 	virtual ~Archivo();
 private:
-	char* buffer;
 	int tamanioBuffer;
 	std::ifstream handle;
     int inicioProximaLectura;
+    Parser* parser;
+    Buffer* buffer;
     void cargar();
 };
 

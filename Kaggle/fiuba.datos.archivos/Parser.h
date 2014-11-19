@@ -12,12 +12,14 @@
 #include <list>
 #include <sstream>
 #include <iostream>
+#include "Buffer.h"
 
 class Parser {
 public:
 	Parser();
 	int getPosultimaPalabra();
-	std::list<std::string>* devolverPalabras(char* buffer, char valorParseo);
+	std::list<std::string>* devolverPalabras(Buffer* buffer, char valorParseo);
+	std::list<std::string>* devolverFrases(std::string texto, char valorParseo);
 	virtual ~Parser();
 
 private:
