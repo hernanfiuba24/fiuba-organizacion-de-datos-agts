@@ -11,11 +11,21 @@ using namespace std;
 
 Modelo0::Modelo0(unsigned primo){
 	this->unHash = new Jenkins(primo);
+	this->unMapa = new MapaFrecuencia();
 	//this->palabras = new vector<Palabra*>;
 }
 
-void Modelo0::agregarPalabra(Palabra* unaPalabra){
+void Modelo0::agregarPalabra(string unNombre){
 
+	unsigned clave = this->unHash->hashearConMod(unNombre);
+
+	if (this->unMapa->existeClave(clave))
+		this->unMapa->incrementarFrecuencia(clave);
+	else
+		this->unMapa->agregarClave(clave);
+
+}
+	/*
 	Palabra* palabraExistente = this->devolverPalabra(unaPalabra);
 		if (palabraExistente != NULL){
 			palabraExistente->incrementarFrecuencia();
@@ -23,9 +33,10 @@ void Modelo0::agregarPalabra(Palabra* unaPalabra){
 		else{
 			this->palabras->push_back(unaPalabra);
 		}
-}
 
-Palabra* Modelo0::devolverPalabra(Palabra* unaPalabra){
+*/
+
+/*Palabra* Modelo0::devolverPalabra(Palabra* unaPalabra){
 
 vector<Palabra*>::iterator it = this->palabras->begin();
 	Palabra* palabraExistente;
@@ -38,13 +49,13 @@ vector<Palabra*>::iterator it = this->palabras->begin();
 		return palabraExistente;
 	else
 		return NULL;
-}
+}*/
 
 Modelo0::~Modelo0() {
 	//CONTROLAR ESTE DESTRUCTOR!!!!
 //	for (list<Palabra*>::iterator it = this->palabras->begin(); it <= this->palabras->end();it++){
 //		delete (*it);
 //	}
-	delete this->palabras;
+	delete this->unMapa;
 }
 

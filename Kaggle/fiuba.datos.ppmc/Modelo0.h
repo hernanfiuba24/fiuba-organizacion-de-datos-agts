@@ -9,20 +9,21 @@
 #define FIUBA_DATOS_PPMC_MODELO0_H_
 
 #include <vector>
-#include "../fiuba.datos.ppmc/Palabra.h"
+#include <string>
 #include "../fiuba.datos.hashing/Jenkins.h"
+#include "../fiuba.datos.ppmc/MapaFrecuencia.h"
 
 
 class Modelo0 {
 public:
 	Modelo0(unsigned primo);
-	void agregarPalabra(Palabra* unaPalabra);
-	Palabra* devolverPalabra(Palabra* unaPalabra);
+	void agregarPalabra(std::string unNombre);
+	MapaFrecuencia* devolverPalabra(MapaFrecuencia* unaPalabra);
 	virtual ~Modelo0();
 
 private:
 	Jenkins* unHash;
-	std::map<unsigned*, unsigned*> hashFrecuencia;
+	MapaFrecuencia* unMapa;
 	//std::vector<Palabra*>* palabras;
 };
 
