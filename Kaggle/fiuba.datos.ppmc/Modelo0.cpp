@@ -9,8 +9,9 @@
 
 using namespace std;
 
-Modelo0::Modelo0(){
-	this->palabras = new vector<Palabra*>;
+Modelo0::Modelo0(unsigned primo){
+	this->unHash = new Jenkins(primo);
+	//this->palabras = new vector<Palabra*>;
 }
 
 void Modelo0::agregarPalabra(Palabra* unaPalabra){

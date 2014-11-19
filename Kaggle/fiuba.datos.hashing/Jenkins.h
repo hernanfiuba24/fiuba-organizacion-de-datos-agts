@@ -10,13 +10,16 @@
 
 #include <iostream>
 #include "stdint.h"
-#include <math.h>;
+#include <math.h>
 
 class Jenkins {
 public:
-	Jenkins();
+	Jenkins(unsigned primo);
 	uint32_t hashearCon32Bits(std::string nombre);
+	unsigned hashearConMod(std::string nombre);
 	virtual ~Jenkins();
+private:
+	unsigned primo;
 };
 
 #endif /* FIUBA_DATOS_HASHING_JENKINS_H_ */
