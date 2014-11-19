@@ -9,20 +9,22 @@
 #define FIUBA_DATOS_PPMC_CONTEXTO_H_
 
 #include <string>
-#include <list>
-#include "Palabra.h"
+#include "../fiuba.datos.ppmc/MapaFrecuencia.h"
+#include "../fiuba.datos.hashing/Jenkins.h"
 
 class Contexto {
 private:
-	std::string nombre;
-	std::list<Palabra*>* palabras;
+	//std::string nombre;
+	//std::vector<Palabra*>* palabras;
+	MapaFrecuencia *unMapa;
+	Jenkins *unHash;
 
 public:
-	Contexto(std::string unNombre);
+	Contexto(unsigned primo);
 	Contexto();
-	void agregarPalabra(Palabra* unaPalabra);
-	Palabra* devolverPalabra(Palabra* unaPalabra);
-	Palabra* devolverPrimeraPalabra();
+	void agregarPalabra(std::string nombrePalabra);
+	//Palabra* devolverPalabra(Palabra* unaPalabra);
+	//Palabra* devolverPrimeraPalabra();
 	bool esIgualA(Contexto* unContexto);
 	std::string getNombre();
 	virtual ~Contexto();
