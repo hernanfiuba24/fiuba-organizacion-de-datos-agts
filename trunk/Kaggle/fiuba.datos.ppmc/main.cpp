@@ -9,39 +9,35 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <sstream>
 #include "../fiuba.datos.archivos/Archivo.h"
 #include "../fiuba.datos.hashing/Jenkins.h"
 
 using namespace std;
 int main(){
-	vector<string>* palabrasLimpias = new vector<string>;
-	palabrasLimpias->push_back("hola");
-	palabrasLimpias->push_back("como");
-	palabrasLimpias->push_back("estas");
-	palabrasLimpias->push_back("esto");
-	palabrasLimpias->push_back("es");
-	palabrasLimpias->push_back("un");
-	palabrasLimpias->push_back("vector");
-	palabrasLimpias->push_back("re");
-	palabrasLimpias->push_back("loco");
+	/*DESCOMENTAR ESTO PARA PROBAR PARSER*/
+//	Archivo* unArchivo = new Archivo("C:\\train_v2.txt", 500);
+//	unArchivo->cargarBuffer();
+//	unArchivo->parsearBuffer(' ');
 
-	PPMC* unPPMC = new PPMC(4);
+/******************************************************/
 
-	unPPMC->entrenarPalabras(palabrasLimpias);
+	/*DESCOMENTAR ESTO PARA PROBAR PPMC*/
+//	vector<string>* palabrasLimpias = new vector<string>;
+//	palabrasLimpias->push_back("hola");
+//	palabrasLimpias->push_back("como");
+//	palabrasLimpias->push_back("estas");
+//	palabrasLimpias->push_back("esto");
+//	palabrasLimpias->push_back("es");
+//	palabrasLimpias->push_back("un");
+//	palabrasLimpias->push_back("vector");
+//	palabrasLimpias->push_back("re");
+//	palabrasLimpias->push_back("loco");
+//
+//	PPMC* unPPMC = new PPMC(4);
+//	unPPMC->entrenarPalabras(palabrasLimpias);
 
-	//Archivo* unArchivo = new Archivo("/home/ezequiel/workspace/archivoPrueba.txt", 10);
-	//unArchivo->cargarBuffer();
-
-	//unArchivo->parsearBuffer();
-
-	//unArchivo->cargarBuffer();
-
-	//unArchivo->parsearBuffer();
-	//delete unPPMC;
-	//return 0;
-	//Jenkins *unHash = new Jenkins();
-	//std::string palabra = "hola como estas";
-	//uint32_t indice = unHash->hashearCon32Bits(palabra);
+	return 0;
 }
 
 
