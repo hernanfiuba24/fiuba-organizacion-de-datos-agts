@@ -16,7 +16,8 @@
 class Parser {
 public:
 	Parser();
-	std::list<std::string>* devolverPalabras(char* buffer);
+	int getPosultimaPalabra();
+	std::list<std::string>* devolverPalabras(char* buffer, char valorParseo);
 	virtual ~Parser();
 
 private:

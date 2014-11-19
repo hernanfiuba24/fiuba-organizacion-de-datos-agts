@@ -13,7 +13,11 @@ Archivo::Archivo(string rutaArchivo, int tamanioBuffer) {
 	this->handle.open(rutaArchivo.c_str(), ios::in);
 	this->inicioProximaLectura = 0;
 	this->tamanioBuffer = tamanioBuffer;
-	this->buffer = new char[this->tamanioBuffer];
+	this->buffer = new char[this->tamanioBuffer + 1];
+}
+
+void Archivo::mostrarBuffer(){
+	cout<<this->buffer;
 }
 
 void Archivo::cargarBuffer(){
@@ -25,14 +29,16 @@ void Archivo::cargarBuffer(){
 void Archivo::cargar(){
 	if (this->handle.is_open()){
 			this->handle.seekg(this->inicioProximaLectura);
+			fill_n(buffer, this->tamanioBuffer + 1, '\0');
 			// read data as a block:
-			this->handle.read (this->buffer,this->tamanioBuffer);
+			this->handle.read (this->buffer,this->tamanioBuffer + 1);
 		}
 }
 
-list<string>* Archivo::parsearBuffer(){
+list<string>* Archivo::parsearBuffer(char valorParseo){
 	Parser* unParser = new Parser();
-	return unParser->devolverPalabras(this->buffer);
+	return unParser->devolverPalabras(this->buffer, valorParseo);
+
 }
 
 Archivo::~Archivo() {
