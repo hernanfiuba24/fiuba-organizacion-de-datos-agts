@@ -13,8 +13,10 @@
 class Buffer {
 public:
 	Buffer(int tamanioBuffer);
-	//void cargar(std::ifstream handle, int inicioProximaLectura);
 	int getTamanio();
+	char* getBuffer();
+	void rellenarBuffer(int inicioProdicmaLectura);
+	void cargar(std::ifstream handle, int inicioProximaLectura);
 	virtual ~Buffer();
 
 private:
