@@ -19,7 +19,9 @@ class Archivo {
 public:
 	Archivo(std::string rutaArchivo, int tamanioBuffer);
 	void cargarBuffer();
-	std::list<std::string>* parsearBuffer();
+	//metodo de prueba, se puede borrar
+	void mostrarBuffer();
+	std::list<std::string>* parsearBuffer(char valorParseo);
 	virtual ~Archivo();
 private:
 	char* buffer;

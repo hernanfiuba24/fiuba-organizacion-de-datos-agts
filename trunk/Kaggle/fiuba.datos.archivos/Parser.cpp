@@ -14,20 +14,20 @@ Parser::Parser() {
 	this->ultimaPalabra = 0;
 }
 
-list<string>* Parser::devolverPalabras(char* buffer){
-
+list<string>* Parser::devolverPalabras(char* buffer, char valorParseo){
 	list<string>* palabrasParseadas = new list<string>;
+	string s(buffer);
+	stringstream streamBuffer(s);
 	string palabraTemporal;
-
-	istringstream s2(buffer);
-
-	while (s2 >> palabraTemporal) {
-		palabrasParseadas->push_back(palabraTemporal);
+	while (std::getline(streamBuffer, palabraTemporal, ' ')) {
+	palabrasParseadas->push_back(palabraTemporal);
 	}
-	cout<<palabrasParseadas->size();
-		// print the vector
-	for (list<string>::iterator it = palabrasParseadas->begin(); it != palabrasParseadas->end(); it++)
+	list<string>::iterator it = palabrasParseadas->begin();
+
+	while(it != palabrasParseadas->end()){
 		cout << *it << endl;
+		it++;
+	}
 
 	return palabrasParseadas;
 }
