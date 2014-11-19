@@ -16,12 +16,14 @@ public:
 	MapaFrecuencia();
 	unsigned getFrecuencia(unsigned clave);
 	void incrementarFrecuencia(unsigned clave);
+	bool existeClave(unsigned clave);
+	void agregarClave(unsigned clave);
 	//bool esIgualA(MapaFrecuencia* unaPalabra);
 
 private:
 	//size_t frecuencia;
 	//std::string nombre;
-	std::map<unsigned*, unsigned*> hashFrecuencia;
+	std::map<unsigned, unsigned>* hashFrecuencia;
 };
 
 #endif /* FIUBA_DATOS_PPMC_MAPAFRECUENCIA_H_ */
