@@ -2,27 +2,33 @@
 
 using namespace std;
 
-Contexto::Contexto(string unNombre){
-	this->nombre = unNombre;
-	this->palabras = new list<Palabra*>;
+Contexto::Contexto(unsigned primo){
+	this->unMapa = new MapaFrecuencia();
+	this->unHash = new Jenkins(primo);
 }
 Contexto::Contexto(){
 
 }
 
 //SE USA UNA LISTA. NO HASHEAMOS. PODRIA CAMBIAR!!.
-void Contexto::agregarPalabra(Palabra* unaPalabra){
+void Contexto::agregarPalabra(string nombrePalabra){
 
-	Palabra* palabraExistente = this->devolverPalabra(unaPalabra);
+	/*Palabra* palabraExistente = this->devolverPalabra(unaPalabra);
 	if (palabraExistente != NULL){
 		palabraExistente->incrementarFrecuencia();
 	}
 	else{
 		this->palabras->push_back(unaPalabra);
 	}
+	*/
+	unsigned clave = this->unHash->hashearConMod(nombrePalabra);
+	if (this->unMapa->existeClave(clave))
+			this->unMapa->incrementarFrecuencia(clave);
+		else
+			this->unMapa->agregarClave(clave);
 }
-
-Palabra* Contexto::devolverPalabra(Palabra* unaPalabra){
+/*
+ Contexto::devolverPalabra(Palabra* unaPalabra){
 
 	list<Palabra*>::iterator it = this->palabras->begin();
 	Palabra* palabraExistente;
@@ -54,7 +60,9 @@ bool Contexto::esIgualA(Contexto* unContexto){
 string Contexto::getNombre(){
 	return this->nombre;
 }
+*/
 
 Contexto::~Contexto() {
-	delete this->palabras;
+	delete this->unHash;
+	delete this->unMapa;
 }
