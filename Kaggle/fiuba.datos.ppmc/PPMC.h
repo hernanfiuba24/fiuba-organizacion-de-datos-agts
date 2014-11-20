@@ -14,19 +14,23 @@
 #include "../fiuba.datos.ppmc/Modelo0.h"
 #include "../fiuba.datos.ppmc/Modelo1.h"
 #include "../fiuba.datos.ppmc/ModelosSuperiores.h"
+#include "../fiuba.datos.ppmc/MapaFrecuencia.h"
+#include "../fiuba.datos.ppmc/MapaContexto.h"
+
 
 class PPMC {
 private:
 	    int cantidadDeModelos;
 		Modelo0* modelo0; //ESTOS MODELOS HAY QUE GUARDARLOS EN
 		Modelo1* modelo1; //MEMORIA, NO SE PERSISTEN
-		std::vector<ModelosSuperiores*> modelosSuperiores;
+		ModelosSuperiores* modelosSuperiores[3];
+		//std::vector<ModelosSuperiores*> modelosSuperiores;
 		std::vector<std::string>* devolverCincoPalabras(std::vector<std::string>* palabrasLimpias, int inicio, int fin);
 		void cargarModelosSuperiores(std::vector<std::string>* cincoPalabrasTemporales);
 		void cargarModelo1(std::vector<std::string>* cincoPalabrasTemporales);
 		void cargarModelo0(std::vector<std::string>* cincoPalabrasTemporales);
 		void agregarContextoSuperiorEn(Contexto* unContexto, int numeroDeModelo);
-		unsigned long devolverTamanioDeTabla(int numeroDeModelo);
+		unsigned long devolverTamanioDeMapa(int numeroDeModelo);
 
 public:
 	PPMC(int cantidadDeModelos);

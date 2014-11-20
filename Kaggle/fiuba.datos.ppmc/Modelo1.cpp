@@ -9,16 +9,18 @@
 
 using namespace std;
 
-Modelo1::Modelo1(unsigned primo){
+Modelo1::Modelo1(unsigned long primo, int numeroModelo){
+
 	//this->contextos = new vector<Contexto*>;
 	//CAMBIAR ESTE VALOR POR UN PRIMO AJUSTABLE AL MODELO
 	this->unHash = new Jenkins(primo);
 	this->contextos = new MapaContexto();
+	this->numeroModelo = numeroModelo;
 
 }
 
 //CORREGIDO!!!
-void Modelo1::agregarContexto(string nombreContexto, string nombrePalabra, int numeroModelo){
+void Modelo1::agregarContexto(string nombreContexto, string nombrePalabra){
     /*
 	Contexto* contextoExistente = this->devolverContexto(unContexto);
 		if (contextoExistente != NULL){
@@ -35,7 +37,7 @@ void Modelo1::agregarContexto(string nombreContexto, string nombrePalabra, int n
 	if (existeClave)
 		this->contextos->agregarContextoExistente(clave, nombrePalabra);
 	else
-		this->contextos->agregarContexto(clave, nombrePalabra, numeroModelo);
+		this->contextos->agregarContexto(clave, nombrePalabra, this->numeroModelo);
 
 }
 /*

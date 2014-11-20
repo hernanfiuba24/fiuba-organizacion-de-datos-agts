@@ -9,7 +9,7 @@
 
 using namespace std;
 
-Modelo0::Modelo0(unsigned primo){
+Modelo0::Modelo0(unsigned long primo){
 	this->unHash = new Jenkins(primo);
 	this->unMapa = new MapaFrecuencia();
 	//this->palabras = new vector<Palabra*>;
