@@ -15,19 +15,23 @@ PPMC::PPMC(int cantidadDeModelos){
 	this->modelo1 = new Modelo1(150001, 1);
 	for(int numeroDeModelo = 2; numeroDeModelo<=(cantidadDeModelos); numeroDeModelo++){
 		unsigned long tamanio = this->devolverTamanioDeMapa(numeroDeModelo);
-		ModelosSuperiores* modelo = new ModelosSuperiores(numeroDeModelo, tamanio);
+		ModelosSuperiores* modelo = new ModelosSuperiores(tamanio, numeroDeModelo);
 		this->modelosSuperiores[numeroDeModelo-2] = modelo;
 	}
 }
 
 unsigned long PPMC::devolverTamanioDeMapa(int numeroDeModelo){
 
-	if(numeroDeModelo == 2)
-		return 180001; //NUMERO DE MERSENE 2^15 - 1
-	else if (numeroDeModelo == 3)
-		return 250001; //NUMERO DE MERSENNE 2^16 - 1
-	else if (numeroDeModelo == 4)
-		return 350001; //NUMERO DE MERSENNE 2^18 - 1
+	unsigned long primo;
+
+		if(numeroDeModelo == 2)
+			primo = 180001; //NUMERO DE MERSENE 2^15 - 1
+		else if (numeroDeModelo == 3)
+			primo = 250001; //NUMERO DE MERSENNE 2^16 - 1
+		else if (numeroDeModelo == 4)
+			primo = 350001; //NUMERO DE MERSENNE 2^18 - 1
+
+		return primo;
 }
 
 void PPMC::entrenar(string rutaArchivo){
@@ -163,6 +167,6 @@ void PPMC::cargarModelo0(vector<string>* cincoPalabrasTemporales){
 PPMC::~PPMC() {
 	delete this->modelo0;
 	delete this->modelo1;
-	delete this->modelosSuperiores;
+	delete[] this->modelosSuperiores;
 }
 
