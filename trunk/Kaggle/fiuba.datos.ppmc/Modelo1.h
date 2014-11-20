@@ -17,8 +17,8 @@
 
 class Modelo1 {
 public:
-	Modelo1(unsigned primo);
-	void agregarContexto(std::string nombreContexto, std::string nombrePalabra, int numeroModelo);
+	Modelo1(unsigned long primo, int numeroModelo);
+	void agregarContexto(std::string nombreContexto, std::string nombrePalabra);
 	//Contexto* devolverContexto(Contexto* unContexto);
 	virtual ~Modelo1();
 
@@ -26,6 +26,7 @@ private:
 	//std::vector<Contexto*>* contextos;
 	MapaContexto *contextos;
 	Jenkins *unHash;
+	int numeroModelo;
 
 };
 

@@ -1,12 +1,23 @@
 #ifndef FIUBA_DATOS_PPMC_MODELOSSUPERIORES_H_
 #define FIUBA_DATOS_PPMC_MODELOSSUPERIORES_H_
 
-#include <list>
-#include "../fiuba.datos.ppmc/Contexto.h"
+#include <map>
+#include "../fiuba.datos.ppmc/MapaContexto.h"
 #include "../fiuba.datos.hashing/Jenkins.h"
 
 class ModelosSuperiores {
+public:
+
+	ModelosSuperiores(unsigned long primo, int numeroModelo);
+	void agregarContexto(std::string nombreContexto, std::string nombrePalabra);
+	//Contexto* devolverContexto(Contexto* unContexto);
+	virtual ~ModelosSuperiores();
+
 private:
+	MapaContexto *contextos;
+	Jenkins *unHash;
+	int numeroModelo;
+/*private:
 	Contexto *contextos;
 	int numeroDeModelo;
 	unsigned long tamanioTablaDeHash;
@@ -18,7 +29,7 @@ public:
 	void agregarContexto(Contexto* unContexto);
 
 	~ModelosSuperiores();
-
+*/
 };
 
 #endif /* FIUBA_DATOS_PPMC_MODELOSSUPERIORES_H_ */

@@ -16,7 +16,7 @@
 
 class Modelo0 {
 public:
-	Modelo0(unsigned primo);
+	Modelo0(unsigned long primo);
 	void agregarPalabra(std::string unNombre);
 	MapaFrecuencia* devolverPalabra(MapaFrecuencia* unaPalabra);
 	virtual ~Modelo0();
