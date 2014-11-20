@@ -15,7 +15,7 @@
 class MapaContexto {
 public:
 	MapaContexto();
-	MapaFrecuencia getContextos(unsigned clave);
+	Contexto getContextos(unsigned clave);
 	void agregarContexto(unsigned clave, std:: string nombrePalabra, int numeroModelo);
 	void agregarContextoExistente(unsigned clave, std:: string nombrePalabra);
 	bool existeClave(unsigned);

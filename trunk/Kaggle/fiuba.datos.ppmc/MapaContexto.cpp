@@ -22,10 +22,11 @@ void MapaContexto::agregarContexto(unsigned clave, string nombrePalabra, int num
 }
 
 void MapaContexto::agregarContextoExistente(unsigned clave, string nombrePalabra){
-	Contexto contextoExistente = this->hashContexto[clave];
+	Contexto contextoExistente = (*this->hashContexto)[clave];
 	contextoExistente.agregarPalabra(nombrePalabra);
 
 }
+//CAMBIAR PRIMOS??????????? PELA
 int MapaContexto::devolverPrimo(int numeroModelo){
 	int primo;
 	if(numeroModelo == 1)
@@ -39,16 +40,16 @@ int MapaContexto::devolverPrimo(int numeroModelo){
 
 	return primo;
 }
-MapaFrecuencia MapaContexto::getContextos(unsigned clave){
+Contexto MapaContexto::getContextos(unsigned clave){
 	return (*this->hashContexto)[clave];
 }
 
 bool MapaContexto:: existeClave(unsigned clave){
-    return (this->hashContexto->find(clave) == this->hashContexto->end();
+    return (this->hashContexto->find(clave) == this->hashContexto->end());
 
-	}
 }
+
 MapaContexto::~MapaContexto() {
-	// TODO Auto-generated destructor stub
+	delete this->hashContexto;
 }
 
