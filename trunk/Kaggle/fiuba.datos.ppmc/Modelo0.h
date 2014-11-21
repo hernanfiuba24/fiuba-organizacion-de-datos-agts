@@ -24,7 +24,6 @@ public:
 private:
 	Jenkins* unHash;
 	MapaFrecuencia* unMapa;
-	//std::vector<Palabra*>* palabras;
 };
 
 #endif /* FIUBA_DATOS_PPMC_MODELO0_H_ */

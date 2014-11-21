@@ -5,7 +5,7 @@ using namespace std;
 ModelosSuperiores::ModelosSuperiores(unsigned long primo, int numeroDeModelo){
 	this->unHash = new Jenkins(primo);
 	this->contextos = new MapaContexto();
-	this->numeroModelo = numeroModelo;
+	this->numeroModelo = numeroDeModelo;
 }
 
 ModelosSuperiores::~ModelosSuperiores() {

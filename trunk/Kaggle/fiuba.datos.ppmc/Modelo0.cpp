@@ -25,31 +25,6 @@ void Modelo0::agregarPalabra(string unNombre){
 		this->unMapa->agregarClave(clave);
 
 }
-	/*
-	Palabra* palabraExistente = this->devolverPalabra(unaPalabra);
-		if (palabraExistente != NULL){
-			palabraExistente->incrementarFrecuencia();
-		}
-		else{
-			this->palabras->push_back(unaPalabra);
-		}
-
-*/
-
-/*Palabra* Modelo0::devolverPalabra(Palabra* unaPalabra){
-
-vector<Palabra*>::iterator it = this->palabras->begin();
-	Palabra* palabraExistente;
-	bool palabraEncontrada = false;
-	while( (it != this->palabras->end()) || !(palabraEncontrada)){
-		palabraExistente = (*it);
-		palabraEncontrada = palabraExistente->esIgualA(unaPalabra);
-	}
-	if (palabraEncontrada)
-		return palabraExistente;
-	else
-		return NULL;
-}*/
 
 Modelo0::~Modelo0() {
 	//CONTROLAR ESTE DESTRUCTOR!!!!

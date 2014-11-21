@@ -31,9 +31,3 @@ void MapaFrecuencia::agregarClave(unsigned clave){
 	(*this->hashFrecuencia)[clave] = 1;
 }
 
-/*bool MapaFrecuencia::esIgualA(Palabra* unaPalabra){
-	if(this->nombre == unaPalabra->getNombre())
-		return true;
-	return false;
-}*/
-

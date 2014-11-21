@@ -21,17 +21,7 @@ Modelo1::Modelo1(unsigned long primo, int numeroModelo){
 
 //CORREGIDO!!!
 void Modelo1::agregarContexto(string nombreContexto, string nombrePalabra){
-    /*
-	Contexto* contextoExistente = this->devolverContexto(unContexto);
-		if (contextoExistente != NULL){
-			contextoExistente->agregarPalabra(unContexto->devolverPrimeraPalabra());
-		}
-		else{
-			Palabra* unEscape = new Palabra("esc");
-			unContexto->agregarPalabra(unEscape);
-			this->contextos->push_back(unContexto);
-		}
-	*/
+
 	unsigned clave = this->unHash->hashearConMod(nombreContexto);
 	bool existeClave = this->contextos->existeClave(clave);
 	if (existeClave)
@@ -40,31 +30,7 @@ void Modelo1::agregarContexto(string nombreContexto, string nombrePalabra){
 		this->contextos->agregarContexto(clave, nombrePalabra, this->numeroModelo);
 
 }
-/*
-Contexto* Modelo1::devolverContexto(Contexto* unContexto){
 
-	vector<Contexto*>::iterator it = this->contextos->begin();
-	Contexto* contextoExistente;
-	bool contextoEncontrado = false;
-	while( (it != this->contextos->end()) || !(contextoEncontrado)){
-		contextoExistente = (*it);
-		contextoEncontrado = contextoExistente->esIgualA(unContexto);
-	}
-	if (contextoEncontrado)
-		return contextoExistente;
-	else
-		return NULL;
-	//
-	unsigned clave = this->unHash->hashearConMod(unContexto->getNombre());
-	if (this->contextos(clave) == this->contextos.end())
-	    return NULL;
-	else
-	    return this->contextos[clave];
-	}
-
-
-}
-*/
 Modelo1::~Modelo1() {
 	//CONTROLAR ESTE DESTRUCTOR!!!!
 //	for (list<Palabra*>::iterator it = this->contextos->begin(); it <= this->contextos->end();it++){
