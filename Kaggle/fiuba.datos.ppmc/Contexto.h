@@ -20,11 +20,8 @@ private:
 	Jenkins *unHash;
 
 public:
-	Contexto(unsigned primo);
-	Contexto();
+	Contexto(unsigned long primo);
 	void agregarPalabra(std::string nombrePalabra);
-	//Palabra* devolverPalabra(Palabra* unaPalabra);
-	//Palabra* devolverPrimeraPalabra();
 	bool esIgualA(Contexto* unContexto);
 	std::string getNombre();
 	virtual ~Contexto();

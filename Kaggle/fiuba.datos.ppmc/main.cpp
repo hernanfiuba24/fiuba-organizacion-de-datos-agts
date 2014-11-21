@@ -5,13 +5,12 @@
  *      Author: Alumnos
  */
 
-#include "PPMC.h"
 #include <iostream>
 #include <string>
 #include <vector>
 #include <sstream>
 #include "../fiuba.datos.archivos/Archivo.h"
-#include "../fiuba.datos.hashing/Jenkins.h"
+#include "../fiuba.datos.ppmc/PPMC.h"
 
 using namespace std;
 int main(){

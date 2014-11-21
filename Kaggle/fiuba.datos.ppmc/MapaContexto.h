@@ -22,7 +22,7 @@ public:
 	virtual ~MapaContexto();
 
 private:
-	std::map<unsigned, Contexto> *hashContexto;
+	std::map<unsigned, Contexto*> *hashContexto;
 	int devolverPrimo(int numeroModelo);
 };
 

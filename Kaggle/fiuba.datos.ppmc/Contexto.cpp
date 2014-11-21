@@ -2,12 +2,9 @@
 
 using namespace std;
 
-Contexto::Contexto(unsigned primo){
+Contexto::Contexto(unsigned long primo){
 	this->unMapa = new MapaFrecuencia();
 	this->unHash = new Jenkins(primo);
-}
-Contexto::Contexto(){
-
 }
 
 //SE USA UNA LISTA. NO HASHEAMOS. PODRIA CAMBIAR!!.

@@ -24,9 +24,8 @@ private:
 		Modelo0* modelo0; //ESTOS MODELOS HAY QUE GUARDARLOS EN
 		Modelo1* modelo1; //MEMORIA, NO SE PERSISTEN
 		ModelosSuperiores* modelosSuperiores[3];
-		//std::vector<ModelosSuperiores*> modelosSuperiores;
-		std::vector<std::string>* devolverCincoPalabras(std::vector<std::string>* palabrasLimpias, int inicio, int fin);
-		void cargarModelosSuperiores(std::vector<std::string>* cincoPalabrasTemporales);
+		std::vector<std::string>* devolverPalabras(std::vector<std::string>* palabrasLimpias, int inicio, int fin, int cantPalabras);
+		void cargarModelosSuperiores(std::vector<std::string>* cincoPalabrasTemporales, int cantidadDeModelos);
 		void cargarModelo1(std::vector<std::string>* cincoPalabrasTemporales);
 		void cargarModelo0(std::vector<std::string>* cincoPalabrasTemporales);
 		void agregarContextoSuperiorEn(Contexto* unContexto, int numeroDeModelo);

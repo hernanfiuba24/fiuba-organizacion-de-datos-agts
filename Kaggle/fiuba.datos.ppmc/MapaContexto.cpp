@@ -10,7 +10,7 @@
 using namespace std;
 
 MapaContexto::MapaContexto() {
-	this->hashContexto = new map<unsigned, Contexto>;
+	this->hashContexto = new map<unsigned, Contexto*>;
 }
 
 void MapaContexto::agregarContexto(unsigned clave, string nombrePalabra, int numeroModelo){
@@ -18,12 +18,14 @@ void MapaContexto::agregarContexto(unsigned clave, string nombrePalabra, int num
     Contexto* unContexto = new Contexto(primo);
     unContexto->agregarPalabra(nombrePalabra);
 
-	(*this->hashContexto)[clave] = *unContexto;
+    pair<unsigned, Contexto*> hashContexto = make_pair(clave, unContexto);
+
+	this->hashContexto->insert(hashContexto);
 }
 
 void MapaContexto::agregarContextoExistente(unsigned clave, string nombrePalabra){
-	Contexto contextoExistente = (*this->hashContexto)[clave];
-	contextoExistente.agregarPalabra(nombrePalabra);
+	Contexto* contextoExistente = (*this->hashContexto)[clave];
+	contextoExistente->agregarPalabra(nombrePalabra);
 
 }
 //CAMBIAR PRIMOS??????????? PELA
@@ -41,11 +43,11 @@ int MapaContexto::devolverPrimo(int numeroModelo){
 	return primo;
 }
 Contexto MapaContexto::getContextos(unsigned clave){
-	return (*this->hashContexto)[clave];
+	return (*(*this->hashContexto)[clave]);
 }
 
 bool MapaContexto:: existeClave(unsigned clave){
-    return (this->hashContexto->find(clave) == this->hashContexto->end());
+    return (this->hashContexto->find(clave) != this->hashContexto->end());
 
 }
 
