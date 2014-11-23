@@ -15,6 +15,7 @@ class MapaFrecuencia {
 public:
 	MapaFrecuencia();
 	unsigned getFrecuencia(unsigned clave);
+	std::map<unsigned, unsigned>* getHashFrecuencia();
 	void incrementarFrecuencia(unsigned clave);
 	bool existeClave(unsigned clave);
 	void agregarClave(unsigned clave);

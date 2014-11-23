@@ -15,6 +15,10 @@ Modelo0::Modelo0(unsigned long primo){
 	//this->palabras = new vector<Palabra*>;
 }
 
+MapaFrecuencia* Modelo0::getMapaFrecuencia(){
+	return this->unMapa;
+}
+
 void Modelo0::agregarPalabra(string unNombre){
 
 	unsigned clave = this->unHash->hashearConMod(unNombre);
