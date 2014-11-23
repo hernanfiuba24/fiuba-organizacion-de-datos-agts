@@ -13,6 +13,10 @@ MapaFrecuencia::MapaFrecuencia() {
 	this->hashFrecuencia = new map<unsigned, unsigned>;
 }
 
+map<unsigned, unsigned>* MapaFrecuencia::getHashFrecuencia(){
+	return this->hashFrecuencia;
+}
+
 void MapaFrecuencia::incrementarFrecuencia(unsigned clave){
 	(*this->hashFrecuencia)[clave]++;
 }
