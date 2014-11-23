@@ -30,6 +30,7 @@ private:
 		void cargarModelo0(std::vector<std::string>* cincoPalabrasTemporales);
 		void agregarContextoSuperiorEn(Contexto* unContexto, int numeroDeModelo);
 		unsigned long devolverTamanioDeMapa(int numeroDeModelo);
+		void  chequeoCasoParticular(std::vector<std::string>* palabrasLimpias, int inicio);
 
 public:
 	PPMC(int cantidadDeModelos);

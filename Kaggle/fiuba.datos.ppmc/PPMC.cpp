@@ -1,10 +1,3 @@
-/*
- * PPMC.cpp
- *
- *  Created on: 18/10/2014
- *      Author: ezequiel
- */
-
 #include "PPMC.h"
 
 using namespace std;
@@ -57,7 +50,8 @@ void PPMC::entrenarPalabras(vector<string>* palabrasLimpias){
 	int tam = palabrasLimpias->size();
 	vector<string>* cincoPalabrasTemporales;
 	vector<string>* palabrasTemporales;
-	for(int inicio = 0; inicio <= (tam - 5); inicio++){
+	int inicio;
+	for(inicio = 0; inicio <= (tam - 5); inicio++){
 
 		cincoPalabrasTemporales = this->devolverPalabras(palabrasLimpias, inicio, inicio+4, 5);
 		string ultimaPalabraDeCincoPalabras = (*cincoPalabrasTemporales)[4];
@@ -69,27 +63,10 @@ void PPMC::entrenarPalabras(vector<string>* palabrasLimpias){
 		//CHEQUEO EL PUNTO PORQUE ME ROMPE LOS CONTEXTOS
 
 		if (ultimaPalabraDeCincoPalabras == "."){
-			unsigned inicioAux= inicio+1;
-			unsigned tamanio = 4;
-			unsigned modelo = 2;
-
-			for(int i=0; i<tamanio;i++){
-				//devolverPalabras devuelve una cantidad de palabras pasadas del vector palabrasLimpias
-				palabrasTemporales = this->devolverPalabras(palabrasLimpias, inicioAux, inicioAux+tamanio-1, tamanio);
-
-				if (modelo >= 1)
-				   this->cargarModelosSuperiores(palabrasTemporales, modelo);
-				if (modelo >= 1)
-				   this->cargarModelo1(palabrasTemporales);
-				this->cargarModelo0(palabrasTemporales);
-				inicioAux++;
-				tamanio--;
-				modelo--;
-				delete palabrasTemporales;
-			 }
-			inicio+=5;
-
+            this->chequeoCasoParticular(palabrasLimpias, inicio);
+     		inicio+=4;
 		}
+
 	delete cincoPalabrasTemporales;
 	}
 }
@@ -146,9 +123,31 @@ void PPMC::cargarModelo0(vector<string>* cincoPalabrasTemporales){
 	this->modelo0->agregarPalabra((*cincoPalabrasTemporales)[0]);
 }
 
+void PPMC::chequeoCasoParticular(vector<string>* palabrasLimpias, int inicio){
+	unsigned inicioAux= inicio+1;
+	unsigned tamanio = 4;
+	unsigned modelo = 3;
+    int iteraciones = 3;
+    std::vector<string>* palabrasTemporales;
+	for(int i=1; i<=iteraciones;i++){
+		//devolverPalabras devuelve una cantidad de palabras pasadas del vector palabrasLimpias
+		palabrasTemporales = this->devolverPalabras(palabrasLimpias, inicioAux, inicioAux+tamanio-1, tamanio);
+
+		if (modelo >= 2)
+		   this->cargarModelosSuperiores(palabrasTemporales, modelo-1);
+		if (modelo >= 1){
+		   this->cargarModelo1(palabrasTemporales);
+		   this->cargarModelo0(palabrasTemporales);
+		}
+		inicioAux++;
+		tamanio--;
+		modelo--;
+		delete palabrasTemporales;
+	 }
+}
+
 PPMC::~PPMC() {
 	delete this->modelo0;
 	delete this->modelo1;
 	delete[] this->modelosSuperiores;
 }
-
