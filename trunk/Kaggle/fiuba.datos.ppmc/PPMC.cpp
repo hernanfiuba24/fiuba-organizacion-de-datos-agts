@@ -54,34 +54,38 @@ void PPMC::entrenar(string rutaArchivo){
 //CORREGIR ESTO VA A RECIBIR UN VECTOR<STRING>, NOSE CUANTAS PALABRAS VAN A VENIR
 //TODO DEPENDE DEL PELA!!!!!!
 void PPMC::entrenarPalabras(vector<string>* palabrasLimpias){
-	int tamanio = palabrasLimpias->size();
+	int tam = palabrasLimpias->size();
 	vector<string>* cincoPalabrasTemporales;
-	for(int inicio = 0; inicio <= (tamanio - 5); inicio++){
+	vector<string>* palabrasTemporales;
+	for(int inicio = 0; inicio <= (tam - 5); inicio++){
 
 		cincoPalabrasTemporales = this->devolverPalabras(palabrasLimpias, inicio, inicio+4, 5);
 		string ultimaPalabraDeCincoPalabras = (*cincoPalabrasTemporales)[4];
-		this->cargarModelosSuperiores(cincoPalabrasTemporales, 2);
+		this->cargarModelosSuperiores(cincoPalabrasTemporales, 3);
 
 		this->cargarModelo1(cincoPalabrasTemporales);
 		this->cargarModelo0(cincoPalabrasTemporales);
 
 		//CHEQUEO EL PUNTO PORQUE ME ROMPE LOS CONTEXTOS
-		int inicioAux= inicio+1;
-		if (ultimaPalabraDeCincoPalabras == "."){
-			int tamanio = 4;
-			int modelo = 3;
-			for(int i=0; i<tamanio;i++){
-				//Devolver palabras devuelve una cantidad de palabras pasadas del vector palabrasLimpias
-				cincoPalabrasTemporales = this->devolverPalabras(palabrasLimpias, inicioAux, inicioAux+tamanio-1, tamanio);
 
-				if (modelo >= 2)
-				   this->cargarModelosSuperiores(cincoPalabrasTemporales, modelo-1);
+		if (ultimaPalabraDeCincoPalabras == "."){
+			unsigned inicioAux= inicio+1;
+			unsigned tamanio = 4;
+			unsigned modelo = 2;
+
+			for(int i=0; i<tamanio;i++){
+				//devolverPalabras devuelve una cantidad de palabras pasadas del vector palabrasLimpias
+				palabrasTemporales = this->devolverPalabras(palabrasLimpias, inicioAux, inicioAux+tamanio-1, tamanio);
+
 				if (modelo >= 1)
-				   this->cargarModelo1(cincoPalabrasTemporales);
-				this->cargarModelo0(cincoPalabrasTemporales);
+				   this->cargarModelosSuperiores(palabrasTemporales, modelo);
+				if (modelo >= 1)
+				   this->cargarModelo1(palabrasTemporales);
+				this->cargarModelo0(palabrasTemporales);
 				inicioAux++;
 				tamanio--;
 				modelo--;
+				delete palabrasTemporales;
 			 }
 			inicio+=5;
 
@@ -104,22 +108,22 @@ vector<string>* PPMC::devolverPalabras(vector<string>* palabrasLimpias, int inic
 
 }
 
-void PPMC::cargarModelosSuperiores(vector<string>* cincoPalabrasTemporales, int numeroModelo){
+void PPMC::cargarModelosSuperiores(vector<string>* palabrasTemporales, int numeroModelo){
 
 	//VOY BORRANDO LOS STRINGS QUE AGREGO A LOS MODELOS
 
 	//int numeroModelo = 3;
 	while (numeroModelo > 0){
 		int i;
-		string nombreContexto = (*cincoPalabrasTemporales)[0];
+		string nombreContexto = (*palabrasTemporales)[0];
 		for(i=1;i<=numeroModelo;i++)
-			nombreContexto = nombreContexto + " " + (*cincoPalabrasTemporales)[i];
+			nombreContexto = nombreContexto + " " + (*palabrasTemporales)[i];
 
-		string nombrePalabra = (*cincoPalabrasTemporales)[i];
+		string nombrePalabra = (*palabrasTemporales)[i];
 
 		this->modelosSuperiores[numeroModelo-1]->agregarContexto(nombreContexto, nombrePalabra);
 
-		cincoPalabrasTemporales->pop_back();
+		palabrasTemporales->pop_back();
 		numeroModelo--;
 	}
 }
