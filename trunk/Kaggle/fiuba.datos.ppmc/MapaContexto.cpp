@@ -10,10 +10,10 @@
 using namespace std;
 
 MapaContexto::MapaContexto() {
-	this->hashContexto = new map<unsigned, Contexto*>;
+	this->hashContexto = new map<unsigned long, Contexto*>;
 }
 
-void MapaContexto::agregarContexto(unsigned clave, string nombrePalabra, int numeroModelo){
+void MapaContexto::agregarContexto(unsigned long clave, string nombrePalabra, int numeroModelo){
     int primo = this->devolverPrimo(numeroModelo);
     Contexto* unContexto = new Contexto(primo);
     unContexto->agregarPalabra(nombrePalabra);
@@ -23,7 +23,7 @@ void MapaContexto::agregarContexto(unsigned clave, string nombrePalabra, int num
 	this->hashContexto->insert(hashContexto);
 }
 
-void MapaContexto::agregarContextoExistente(unsigned clave, string nombrePalabra){
+void MapaContexto::agregarContextoExistente(unsigned long clave, string nombrePalabra){
 	Contexto* contextoExistente = (*this->hashContexto)[clave];
 	contextoExistente->agregarPalabra(nombrePalabra);
 
@@ -42,11 +42,11 @@ int MapaContexto::devolverPrimo(int numeroModelo){
 
 	return primo;
 }
-Contexto MapaContexto::getContextos(unsigned clave){
+Contexto MapaContexto::getContextos(unsigned long clave){
 	return (*(*this->hashContexto)[clave]);
 }
 
-bool MapaContexto:: existeClave(unsigned clave){
+bool MapaContexto:: existeClave(unsigned long clave){
     return (this->hashContexto->find(clave) != this->hashContexto->end());
 
 }

@@ -63,12 +63,15 @@ void PPMC::entrenarPalabras(vector<string>* palabrasLimpias){
 		//CHEQUEO EL PUNTO PORQUE ME ROMPE LOS CONTEXTOS
 
 		if (ultimaPalabraDeCincoPalabras == "."){
-            this->chequeoCasoParticular(palabrasLimpias, inicio);
+            this->chequeoCasoParticular(palabrasLimpias, inicio, 4, 3, 3);
      		inicio+=4;
 		}
-
-	delete cincoPalabrasTemporales;
-	}
+		delete cincoPalabrasTemporales;
+	 }
+	this->chequeoCasoParticular(palabrasLimpias, inicio-1, tam-inicio, tam-inicio-1, tam-inicio-1);
+	vector<string>* ultimaPalabrasTemporales;
+	ultimaPalabrasTemporales = this->devolverPalabras(palabrasLimpias, tam-1,tam-1, 1);
+	this->cargarModelo0(ultimaPalabrasTemporales);
 }
 
 vector<string>* PPMC::devolverPalabras(vector<string>* palabrasLimpias, int inicio, int fin, int cantPalabras){
@@ -123,11 +126,8 @@ void PPMC::cargarModelo0(vector<string>* cincoPalabrasTemporales){
 	this->modelo0->agregarPalabra((*cincoPalabrasTemporales)[0]);
 }
 
-void PPMC::chequeoCasoParticular(vector<string>* palabrasLimpias, int inicio){
+void PPMC::chequeoCasoParticular(vector<string>* palabrasLimpias, int inicio, unsigned tamanio, unsigned modelo, int iteraciones){
 	unsigned inicioAux= inicio+1;
-	unsigned tamanio = 4;
-	unsigned modelo = 3;
-    int iteraciones = 3;
     std::vector<string>* palabrasTemporales;
 	for(int i=1; i<=iteraciones;i++){
 		//devolverPalabras devuelve una cantidad de palabras pasadas del vector palabrasLimpias
@@ -143,7 +143,7 @@ void PPMC::chequeoCasoParticular(vector<string>* palabrasLimpias, int inicio){
 		tamanio--;
 		modelo--;
 		delete palabrasTemporales;
-	 }
+	}
 }
 
 PPMC::~PPMC() {

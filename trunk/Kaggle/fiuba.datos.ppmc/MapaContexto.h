@@ -15,14 +15,14 @@
 class MapaContexto {
 public:
 	MapaContexto();
-	Contexto getContextos(unsigned clave);
-	void agregarContexto(unsigned clave, std:: string nombrePalabra, int numeroModelo);
-	void agregarContextoExistente(unsigned clave, std:: string nombrePalabra);
-	bool existeClave(unsigned);
+	Contexto getContextos(unsigned long clave);
+	void agregarContexto(unsigned long clave, std:: string nombrePalabra, int numeroModelo);
+	void agregarContextoExistente(unsigned long clave, std:: string nombrePalabra);
+	bool existeClave(unsigned long);
 	virtual ~MapaContexto();
 
 private:
-	std::map<unsigned, Contexto*> *hashContexto;
+	std::map<unsigned long, Contexto*> *hashContexto;
 	int devolverPrimo(int numeroModelo);
 };
 
