@@ -6,17 +6,16 @@
  */
 
 #include "Parser.h"
-#include "Buffer.h"
+#include "BufferParser.h"
 
 using namespace std;
 
 Parser::Parser() {
-	this->ultimasPalabras = new list<string>;
+	this->ultimasPalabras = new vector<string>;
 	this->ultimaPalabra = 0;
 }
-
-list<string>* Parser::devolverPalabras(Buffer* buffer, char valorParseo) {
-	list<string>* palabrasParseadas = new list<string>;
+vector<string>* Parser::devolverPalabras(BufferParser* buffer, char valorParseo) {
+	vector<string>* palabrasParseadas = new vector<string>;
 	string s(buffer->getBuffer());
 	stringstream streamBuffer(s);
 	string palabraTemporal = "";
@@ -27,12 +26,12 @@ list<string>* Parser::devolverPalabras(Buffer* buffer, char valorParseo) {
 }
 
 
-list<string>* Parser::devolverFrases(string texto, char valorParseo){
+vector<string>* Parser::devolverFrases(string texto, char valorParseo){
 	stringstream stream(texto);
-	list<string>* palabrasParseadas = new list<string>;
+	vector<string>* palabrasParseadas = new vector<string>;
 	string fraseTemporal = "";
 	while (std::getline(stream, fraseTemporal, valorParseo)) {
-		palabrasParseadas->push_back(fraseTemporal.substr(fraseTemporal.find_first_of(',') + 1, fraseTemporal.length() - 1));
+		palabrasParseadas->push_back(fraseTemporal.substr(fraseTemporal.find_first_of(',') + 2, fraseTemporal.length() - 2));
 	}
 	return palabrasParseadas;
 }
