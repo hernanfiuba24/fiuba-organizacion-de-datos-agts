@@ -32,6 +32,7 @@ public:
 	void entrenar(std::string rutaArchivo);
 	void entrenarPalabras(std::vector<std::string>* palabrasLimpias);
 	Modelo0* getModelo0();
+	ModelosSuperiores *getModelo4();
 	~PPMC();
 };
 

@@ -15,6 +15,11 @@ PPMC::PPMC(int cantidadDeModelos){
 Modelo0* PPMC::getModelo0(){
 	return this->modelo0;
 }
+
+ModelosSuperiores* PPMC::getModelo4(){
+	return this->modelosSuperiores[2];
+}
+
 unsigned long PPMC::devolverTamanioDeMapa(int numeroDeModelo){
 
 	unsigned long primo;
