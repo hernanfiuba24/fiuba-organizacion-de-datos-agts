@@ -8,7 +8,7 @@ using namespace std;
 
 void mostrarModelo4(PPMC *unPPMC){
 
-	/* ESTO ESTA HECHO A LOS PONCHASOS. VASMOS ESCALANDO HASTA OBTENER EL "MAP"  */
+	/* ESTO ESTA HECHO A LOS PONCHASOS. VASMOS ESCALANDO HASTA OBTENER EL "MAP" */
     ModelosSuperiores* unModelo4 = unPPMC->getModelo4();
 	MapaContexto* unMapaContexto = unModelo4->getMapa();
 	map<unsigned long, Contexto*>* mapaHashCtx = unMapaContexto->getMapaHash();
@@ -17,10 +17,10 @@ void mostrarModelo4(PPMC *unPPMC){
 		iterContexto != mapaHashCtx->end(); ++iterContexto ){
 
 			cout << iterContexto->first << '\t' << "MapaFrecuencia:";
-	        map<unsigned, unsigned>* mapaHashFrecuencia = iterContexto->second->getMapaFrecuencia()->getHashFrecuencia();
-	        for ( map<unsigned, unsigned>::const_iterator iter2 = mapaHashFrecuencia->begin();
+	        map<unsigned long, pair<string, unsigned> >* mapaHashFrecuencia = iterContexto->second->getMapaFrecuencia()->getHashFrecuencia();
+	        for ( map<unsigned long, pair<string, unsigned> >::const_iterator iter2 = mapaHashFrecuencia->begin();
 	        	iter2 != mapaHashFrecuencia->end(); ++iter2 ){
-	        		cout << iter2->first << '\t' << iter2->second << " ";
+	        	cout << iter2->first << '\t' << iter2->second.first << '\t' << iter2->second.second << "  ";
 			}
             cout<< '\n';
 	}
@@ -31,11 +31,11 @@ void mostrarModelo0(PPMC *unPPMC){
    /* ESTO ESTA HECHO A LOS PONCHASOS. VASMOS ESCALANDO HASTA OBTENER EL "MAP"  */
 	Modelo0* unModelo0 = unPPMC->getModelo0();
 	MapaFrecuencia* unMapaF = unModelo0->getMapaFrecuencia();
-	map<unsigned, unsigned>* mapaHashFrec = unMapaF->getHashFrecuencia();
+	map<unsigned long, pair<string, unsigned> >* mapaHashFrec = unMapaF->getHashFrecuencia();
 
-	for ( map<unsigned, unsigned>::const_iterator iter = mapaHashFrec->begin();
+	for ( map<unsigned long, pair<string, unsigned> >::const_iterator iter = mapaHashFrec->begin();
 			iter != mapaHashFrec->end(); ++iter )
-		    cout << iter->first << '\t' << iter->second << '\n';
+		    cout << iter->first << '\t' << iter->second.first << '\t' << iter->second.second << '\n';
 }
 
 /*             PROGRAMA PRINCIPAL                        */
@@ -81,7 +81,7 @@ int main(){
 	PPMC* unPPMC = new PPMC(4);
 	unPPMC->entrenarPalabras(palabrasLimpias);
 
-    mostrarModelo0(unPPMC);
+//    mostrarModelo0(unPPMC);
 
 	cout << endl;
 	cout << endl;

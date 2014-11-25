@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <list>
 #include <fstream>
 #include <string>
 #include "../fiuba.datos.ppmc/Modelo0.h"
@@ -33,6 +34,7 @@ public:
 	void entrenarPalabras(std::vector<std::string>* palabrasLimpias);
 	Modelo0* getModelo0();
 	ModelosSuperiores *getModelo4();
+	void predecir(std::list<std::string>* frasesACompletar);
 	~PPMC();
 };
 
