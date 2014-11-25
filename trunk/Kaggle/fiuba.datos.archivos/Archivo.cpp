@@ -13,7 +13,7 @@ Archivo::Archivo(string rutaArchivo, int tamanioBuffer) {
 	this->handle.open(rutaArchivo.c_str(), ios::in);
 	this->inicioProximaLectura = 0;
 	this->tamanioBuffer = tamanioBuffer;
-	this->buffer = new Buffer(this->tamanioBuffer + 1);
+	this->buffer = new BufferParser(this->tamanioBuffer + 1);
 	this->parser = new Parser();
 }
 
@@ -27,20 +27,20 @@ void Archivo::cargarBuffer(){
 }
 
 void Archivo::cargar(){
-	this->buffer->cargar(this->handle, this->inicioProximaLectura);
+	this->buffer->cargar(this->inicioProximaLectura, this->handle);
 }
 
-int Archivo::cargarInicioProximaLectura(){
+void Archivo::cargarInicioProximaLectura(){
 	string texto(this->buffer->getBuffer());
     this->inicioProximaLectura = texto.find_last_of('\n');
-    this->buffer->rellenarBuffer(this->inicioProximaLectura);
+    //this->buffer->rellenarBuffer(this->inicioProximaLectura);
 }
 
-list<string>* Archivo::parsearBuffer(char valorParseo){
+vector<string>* Archivo::parsearBuffer(char valorParseo){
 	return this->parser->devolverPalabras(this->buffer, valorParseo);
 }
 
-list<string>* Archivo::parsearTest(string rutaArchivo, char valorParseo){
+vector<string>* Archivo::parsearTest(string rutaArchivo, char valorParseo){
 	ifstream archivoTest(rutaArchivo.c_str(), ios::in);
 	char c = archivoTest.get();
     string textoTest = "";
