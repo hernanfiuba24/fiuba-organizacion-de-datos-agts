@@ -19,6 +19,7 @@ public:
 	void agregarContexto(unsigned long clave, std:: string nombrePalabra, int numeroModelo);
 	void agregarContextoExistente(unsigned long clave, std:: string nombrePalabra);
 	bool existeClave(unsigned long);
+	std::map<unsigned long, Contexto*>* getMapaHash();
 	virtual ~MapaContexto();
 
 private:

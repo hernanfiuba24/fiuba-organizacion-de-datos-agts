@@ -8,6 +8,10 @@ ModelosSuperiores::ModelosSuperiores(unsigned long primo, int numeroDeModelo){
 	this->numeroModelo = numeroDeModelo;
 }
 
+MapaContexto* ModelosSuperiores::getMapa(){
+	return this->contextos;
+}
+
 ModelosSuperiores::~ModelosSuperiores() {
 	delete this->contextos;
 	delete this->unHash;

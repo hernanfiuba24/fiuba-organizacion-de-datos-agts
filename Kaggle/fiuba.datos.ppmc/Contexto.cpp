@@ -7,6 +7,10 @@ Contexto::Contexto(unsigned long primo){
 	this->unHash = new Jenkins(primo);
 }
 
+MapaFrecuencia* Contexto::getMapaFrecuencia(){
+	return this->unMapa;
+}
+
 //SE USA UNA LISTA. NO HASHEAMOS. PODRIA CAMBIAR!!.
 void Contexto::agregarPalabra(string nombrePalabra){
 

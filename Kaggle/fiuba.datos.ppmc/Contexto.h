@@ -24,6 +24,7 @@ public:
 	void agregarPalabra(std::string nombrePalabra);
 	bool esIgualA(Contexto* unContexto);
 	std::string getNombre();
+	MapaFrecuencia* getMapaFrecuencia();
 	virtual ~Contexto();
 };
 

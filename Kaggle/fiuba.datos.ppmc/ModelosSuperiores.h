@@ -11,6 +11,7 @@ public:
 	ModelosSuperiores(unsigned long primo, int numeroModelo);
 	void agregarContexto(std::string nombreContexto, std::string nombrePalabra);
 	//Contexto* devolverContexto(Contexto* unContexto);
+	MapaContexto *getMapa();
 	virtual ~ModelosSuperiores();
 
 private:

@@ -13,6 +13,9 @@ MapaContexto::MapaContexto() {
 	this->hashContexto = new map<unsigned long, Contexto*>;
 }
 
+map<unsigned long, Contexto*>* MapaContexto::getMapaHash(){
+	return this->hashContexto;
+}
 void MapaContexto::agregarContexto(unsigned long clave, string nombrePalabra, int numeroModelo){
     int primo = this->devolverPrimo(numeroModelo);
     Contexto* unContexto = new Contexto(primo);
