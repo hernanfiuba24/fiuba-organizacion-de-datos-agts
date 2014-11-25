@@ -153,6 +153,24 @@ void PPMC::chequeoCasoParticular(vector<string>* palabrasLimpias, int inicio, un
 	}
 }
 
+void PPMC::predecir(list<string>* frasesACompletar){
+
+	unsigned numeroModelo = 4;
+	//indice tiene la ultima posicion del modelo actual
+	//(al principio el modelo es 4)
+//	int indice = this->posicionDondeFaltaPalabra(frasesACompletar);
+
+//	this->cargarModelo4();
+
+//	string contexto = this->devolverContexto(frasesACompletar, indice, numeroModelo);
+
+//	unsigned long clave = this->modelosSuperiores[2]->hashear(contexto);
+
+//	unsigned long clavePalabraACompletar =this->modelosSuperiores[2]->devolverClaveDelContextoConMayorFrecuencia(clave);
+
+
+}
+
 PPMC::~PPMC() {
 	delete this->modelo0;
 	delete this->modelo1;

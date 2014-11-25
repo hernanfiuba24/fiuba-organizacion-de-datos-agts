@@ -22,11 +22,11 @@ void Contexto::agregarPalabra(string nombrePalabra){
 		this->palabras->push_back(unaPalabra);
 	}
 	*/
-	unsigned clave = this->unHash->hashearConMod(nombrePalabra);
+	unsigned long clave = this->unHash->hashearConMod(nombrePalabra);
 	if (this->unMapa->existeClave(clave))
 			this->unMapa->incrementarFrecuencia(clave);
 		else
-			this->unMapa->agregarClave(clave);
+			this->unMapa->agregarClave(clave, nombrePalabra);
 }
 /*
  Contexto::devolverPalabra(Palabra* unaPalabra){
