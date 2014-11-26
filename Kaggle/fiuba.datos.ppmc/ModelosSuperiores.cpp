@@ -16,6 +16,7 @@ ModelosSuperiores::~ModelosSuperiores() {
 	delete this->contextos;
 	delete this->unHash;
 }
+
 void ModelosSuperiores::agregarContexto(string nombreContexto, string nombrePalabra){
 
 	unsigned clave = this->unHash->hashearConMod(nombreContexto);
@@ -27,26 +28,16 @@ void ModelosSuperiores::agregarContexto(string nombreContexto, string nombrePala
 
 }
 
-	/*Jenkins *unHash = new Jenkins();
-	uint32_t indice = unHash->hashearCon32Bits(unContexto->getNombre());
-    if(this->existeContexto(unContexto, indice)){
-    	this->contextos[indice].agregarPalabra(unContexto->devolverPrimeraPalabra());
- 	}
-    else{
-    	Palabra* unEscape = new Palabra("esc");
-    	unContexto->agregarPalabra(unEscape);
-    	this->contextos[indice] = *unContexto;
-    }
+unsigned long ModelosSuperiores::hashearContexto(string contextoAHashear){
 
-bool ModelosSuperiores::existeContexto(Contexto* unContexto, uint32_t indice){
-	if (this->contextos[indice].getNombre() == unContexto->getNombre())
-		return true;
-	return false;
+	return this->unHash->hashearConMod(contextoAHashear);
 }
 
-bool ModelosSuperiores::existeContexto(Contexto* unContexto, uint64_t indice){
-	if (this->contextos[indice].getNombre() == unContexto->getNombre())
-		return true;
-	return false;
+unsigned long ModelosSuperiores::hashearPalabra(unsigned long claveContexto, string palabraActual){
+	return this->contextos->hashearPalabra(claveContexto, palabraActual);
 }
-*/
+
+bool ModelosSuperiores::existeContexto(unsigned long claveContexto){
+
+	return this->contextos->existeClave(claveContexto);
+}

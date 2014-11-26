@@ -45,13 +45,20 @@ int MapaContexto::devolverPrimo(int numeroModelo){
 
 	return primo;
 }
+
 Contexto MapaContexto::getContextos(unsigned long clave){
 	return (*(*this->hashContexto)[clave]);
 }
 
-bool MapaContexto:: existeClave(unsigned long clave){
+bool MapaContexto::existeClave(unsigned long clave){
     return (this->hashContexto->find(clave) != this->hashContexto->end());
 
+}
+
+unsigned long MapaContexto::hashearPalabra(unsigned long claveContexto, std::string palabraActual){
+
+	Contexto* unContexto = this->hashContexto[claveContexto];
+	return unContexto->hashear(palabraActual);
 }
 
 MapaContexto::~MapaContexto() {

@@ -25,6 +25,7 @@ public:
 	bool esIgualA(Contexto* unContexto);
 	std::string getNombre();
 	MapaFrecuencia* getMapaFrecuencia();
+	unsigned long hashear(std::string palabraActual);
 	virtual ~Contexto();
 };
 
