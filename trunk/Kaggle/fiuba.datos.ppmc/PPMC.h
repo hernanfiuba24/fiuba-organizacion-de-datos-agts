@@ -15,17 +15,21 @@
 
 class PPMC {
 private:
-	    int cantidadDeModelos;
-		Modelo0* modelo0; //ESTOS MODELOS HAY QUE GUARDARLOS EN
-		Modelo1* modelo1; //MEMORIA, NO SE PERSISTEN
-		ModelosSuperiores* modelosSuperiores[3];
-		std::vector<std::string>* devolverPalabras(std::vector<std::string>* palabrasLimpias, int inicio, int fin, int cantPalabras);
-		void cargarModelosSuperiores(std::vector<std::string>* cincoPalabrasTemporales, int cantidadDeModelos);
-		void cargarModelo1(std::vector<std::string>* cincoPalabrasTemporales);
-		void cargarModelo0(std::vector<std::string>* cincoPalabrasTemporales);
-		void agregarContextoSuperiorEn(Contexto* unContexto, int numeroDeModelo);
-		unsigned long devolverTamanioDeMapa(int numeroDeModelo);
-		void  chequeoCasoParticular(std::vector<std::string>* palabrasLimpias, int inicio, unsigned tamanio, unsigned modelo, int iteraciones);
+	int cantidadDeModelos;
+	Modelo0* modelo0; //ESTOS MODELOS HAY QUE GUARDARLOS EN
+	Modelo1* modelo1; //MEMORIA, NO SE PERSISTEN
+	ModelosSuperiores* modelosSuperiores[3];
+	std::vector<std::string>* devolverPalabras(std::vector<std::string>* palabrasLimpias, int inicio, int fin, int cantPalabras);
+	void cargarModelosSuperiores(std::vector<std::string>* cincoPalabrasTemporales, int cantidadDeModelos);
+	void cargarModelo1(std::vector<std::string>* cincoPalabrasTemporales);
+	void cargarModelo0(std::vector<std::string>* cincoPalabrasTemporales);
+	void agregarContextoSuperiorEn(Contexto* unContexto, int numeroDeModelo);
+	unsigned long devolverTamanioDeMapa(int numeroDeModelo);
+	void  chequeoCasoParticular(std::vector<std::string>* palabrasLimpias, int inicio, unsigned tamanio, unsigned modelo, int iteraciones);
+	void inicializarFrecuencias(std::vector<float>* frecuencias);
+	void cargarModelo(int numeroModelo);
+	std::string devolverContexto(std::list<std::string>* fraseACompletar, int numeroModelo, int index);
+	std::list<std::string>* predecir(std::list<std::string>* fraseACompletar);
 
 public:
 	PPMC(int cantidadDeModelos);
@@ -34,7 +38,7 @@ public:
 	void entrenarPalabras(std::vector<std::string>* palabrasLimpias);
 	Modelo0* getModelo0();
 	ModelosSuperiores *getModelo4();
-	void predecir(std::list<std::string>* frasesACompletar);
+	void completarFrases(std::vector<std::list<std::string>*>* frasesACompletar);
 	~PPMC();
 };
 

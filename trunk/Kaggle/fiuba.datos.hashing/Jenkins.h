@@ -15,10 +15,10 @@
 class Jenkins {
 public:
 	Jenkins(unsigned primo);
-	uint32_t hashearCon32Bits(std::string nombre);
 	unsigned hashearConMod(std::string nombre);
 	virtual ~Jenkins();
 private:
+	uint32_t hashearCon32Bits(std::string nombre);
 	unsigned primo;
 };
 

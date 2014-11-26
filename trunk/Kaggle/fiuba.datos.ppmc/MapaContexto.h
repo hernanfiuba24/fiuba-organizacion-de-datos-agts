@@ -20,6 +20,7 @@ public:
 	void agregarContextoExistente(unsigned long clave, std:: string nombrePalabra);
 	bool existeClave(unsigned long);
 	std::map<unsigned long, Contexto*>* getMapaHash();
+	unsigned long hashearPalabra(unsigned long claveContexto, std::string palabraActual);
 	virtual ~MapaContexto();
 
 private:

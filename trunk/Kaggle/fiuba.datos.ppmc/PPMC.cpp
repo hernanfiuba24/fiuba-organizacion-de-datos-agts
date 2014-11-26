@@ -2,29 +2,31 @@
 
 using namespace std;
 
-PPMC::PPMC(int cantidadDeModelos){
+PPMC::PPMC(int cantidadDeModelos) {
 	this->cantidadDeModelos = cantidadDeModelos;
 	this->modelo0 = new Modelo0(100001);
 	this->modelo1 = new Modelo1(150001, 1);
-	for(int numeroDeModelo = 2; numeroDeModelo<=(cantidadDeModelos); numeroDeModelo++){
+	for (int numeroDeModelo = 2; numeroDeModelo <= (cantidadDeModelos);
+			numeroDeModelo++) {
 		unsigned long tamanio = this->devolverTamanioDeMapa(numeroDeModelo);
-		ModelosSuperiores* modelo = new ModelosSuperiores(tamanio, numeroDeModelo);
-		this->modelosSuperiores[numeroDeModelo-2] = modelo;
+		ModelosSuperiores* modelo = new ModelosSuperiores(tamanio,
+				numeroDeModelo);
+		this->modelosSuperiores[numeroDeModelo - 2] = modelo;
 	}
 }
-Modelo0* PPMC::getModelo0(){
+Modelo0* PPMC::getModelo0() {
 	return this->modelo0;
 }
 
-ModelosSuperiores* PPMC::getModelo4(){
+ModelosSuperiores* PPMC::getModelo4() {
 	return this->modelosSuperiores[2];
 }
 
-unsigned long PPMC::devolverTamanioDeMapa(int numeroDeModelo){
+unsigned long PPMC::devolverTamanioDeMapa(int numeroDeModelo) {
 
 	unsigned long primo;
 
-	if(numeroDeModelo == 2)
+	if (numeroDeModelo == 2)
 		primo = 180001; //NUMERO DE MERSENE 2^15 - 1
 	else if (numeroDeModelo == 3)
 		primo = 250001; //NUMERO DE MERSENNE 2^16 - 1
@@ -34,33 +36,33 @@ unsigned long PPMC::devolverTamanioDeMapa(int numeroDeModelo){
 	return primo;
 }
 
-void PPMC::entrenar(string rutaArchivo){
+void PPMC::entrenar(string rutaArchivo) {
 	ifstream setDeEntrenamiento;
-	setDeEntrenamiento.open(rutaArchivo.c_str(), ios::in );	//NOSE QUE HACE C_STR() PERO SINO TIRA ERROR
+	setDeEntrenamiento.open(rutaArchivo.c_str(), ios::in); //NOSE QUE HACE C_STR() PERO SINO TIRA ERROR
 
 	string linea;
 
-	if (setDeEntrenamiento.is_open()){
-		while ( getline(setDeEntrenamiento, linea)){
+	if (setDeEntrenamiento.is_open()) {
+		while (getline(setDeEntrenamiento, linea)) {
 			cout << linea << endl;
 		}
-	setDeEntrenamiento.close();
-	}
-	else{
+		setDeEntrenamiento.close();
+	} else {
 		//ESCRIBIR EXCEPCION POR SI EL ARCHIVO NO ABRE
 	}
 }
 
 //CORREGIR ESTO VA A RECIBIR UN VECTOR<STRING>, NOSE CUANTAS PALABRAS VAN A VENIR
 //TODO DEPENDE DEL PELA!!!!!!
-void PPMC::entrenarPalabras(vector<string>* palabrasLimpias){
+void PPMC::entrenarPalabras(vector<string>* palabrasLimpias) {
 	int tam = palabrasLimpias->size();
 	vector<string>* cincoPalabrasTemporales;
 	vector<string>* palabrasTemporales;
 	int inicio;
-	for(inicio = 0; inicio <= (tam - 5); inicio++){
+	for (inicio = 0; inicio <= (tam - 5); inicio++) {
 
-		cincoPalabrasTemporales = this->devolverPalabras(palabrasLimpias, inicio, inicio+4, 5);
+		cincoPalabrasTemporales = this->devolverPalabras(palabrasLimpias,
+				inicio, inicio + 4, 5);
 		string ultimaPalabraDeCincoPalabras = (*cincoPalabrasTemporales)[4];
 		this->cargarModelosSuperiores(cincoPalabrasTemporales, 3);
 
@@ -69,24 +71,27 @@ void PPMC::entrenarPalabras(vector<string>* palabrasLimpias){
 
 		//CHEQUEO EL PUNTO PORQUE ME ROMPE LOS CONTEXTOS
 
-		if (ultimaPalabraDeCincoPalabras == "."){
-            this->chequeoCasoParticular(palabrasLimpias, inicio, 4, 3, 3);
-     		inicio+=4;
+		if (ultimaPalabraDeCincoPalabras == ".") {
+			this->chequeoCasoParticular(palabrasLimpias, inicio, 4, 3, 3);
+			inicio += 4;
 		}
 		delete cincoPalabrasTemporales;
-	 }
-	this->chequeoCasoParticular(palabrasLimpias, inicio-1, tam-inicio, tam-inicio-1, tam-inicio-1);
+	}
+	this->chequeoCasoParticular(palabrasLimpias, inicio - 1, tam - inicio,
+			tam - inicio - 1, tam - inicio - 1);
 	vector<string>* ultimaPalabrasTemporales;
-	ultimaPalabrasTemporales = this->devolverPalabras(palabrasLimpias, tam-1,tam-1, 1);
+	ultimaPalabrasTemporales = this->devolverPalabras(palabrasLimpias, tam - 1,
+			tam - 1, 1);
 	this->cargarModelo0(ultimaPalabrasTemporales);
 }
 
-vector<string>* PPMC::devolverPalabras(vector<string>* palabrasLimpias, int inicio, int fin, int cantPalabras){
+vector<string>* PPMC::devolverPalabras(vector<string>* palabrasLimpias,
+		int inicio, int fin, int cantPalabras) {
 	vector<string>* cincoPalabrasTemporales = new vector<string>;
 	cincoPalabrasTemporales->resize(cantPalabras);
 	int i = inicio;
-	while (i <= fin){
-		(*cincoPalabrasTemporales)[i-inicio] = (*palabrasLimpias)[i];
+	while (i <= fin) {
+		(*cincoPalabrasTemporales)[i - inicio] = (*palabrasLimpias)[i];
 		string s = (*palabrasLimpias)[i];
 		i++;
 	}
@@ -95,27 +100,29 @@ vector<string>* PPMC::devolverPalabras(vector<string>* palabrasLimpias, int inic
 
 }
 
-void PPMC::cargarModelosSuperiores(vector<string>* palabrasTemporales, int numeroModelo){
+void PPMC::cargarModelosSuperiores(vector<string>* palabrasTemporales,
+		int numeroModelo) {
 
 	//VOY BORRANDO LOS STRINGS QUE AGREGO A LOS MODELOS
 
 	//int numeroModelo = 3;
-	while (numeroModelo > 0){
+	while (numeroModelo > 0) {
 		int i;
 		string nombreContexto = (*palabrasTemporales)[0];
-		for(i=1;i<=numeroModelo;i++)
+		for (i = 1; i <= numeroModelo; i++)
 			nombreContexto = nombreContexto + " " + (*palabrasTemporales)[i];
 
 		string nombrePalabra = (*palabrasTemporales)[i];
 
-		this->modelosSuperiores[numeroModelo-1]->agregarContexto(nombreContexto, nombrePalabra);
+		this->modelosSuperiores[numeroModelo - 1]->agregarContexto(
+				nombreContexto, nombrePalabra);
 
 		palabrasTemporales->pop_back();
 		numeroModelo--;
 	}
 }
 
-void PPMC::cargarModelo1(vector<string>* cincoPalabrasTemporales){
+void PPMC::cargarModelo1(vector<string>* cincoPalabrasTemporales) {
 	//EL VECTOR DE CINCO PALABRAS EN ESTE MOMENTO TIENE DOS ELEMENTOS
 	//LOS PRIMEROS DOS
 
@@ -127,24 +134,26 @@ void PPMC::cargarModelo1(vector<string>* cincoPalabrasTemporales){
 	cincoPalabrasTemporales->pop_back();
 }
 
-void PPMC::cargarModelo0(vector<string>* cincoPalabrasTemporales){
+void PPMC::cargarModelo0(vector<string>* cincoPalabrasTemporales) {
 	//EL VECTOR DE CINCO PALABRAS EN ESTE MOMENTO TIENE UN SOLO ELEMENTO
 	//EL ELEMENTO QUE QUEDA ES EL PRIMERO
 	this->modelo0->agregarPalabra((*cincoPalabrasTemporales)[0]);
 }
 
-void PPMC::chequeoCasoParticular(vector<string>* palabrasLimpias, int inicio, unsigned tamanio, unsigned modelo, int iteraciones){
-	unsigned inicioAux= inicio+1;
-    std::vector<string>* palabrasTemporales;
-	for(int i=1; i<=iteraciones;i++){
+void PPMC::chequeoCasoParticular(vector<string>* palabrasLimpias, int inicio,
+		unsigned tamanio, unsigned modelo, int iteraciones) {
+	unsigned inicioAux = inicio + 1;
+	std::vector<string>* palabrasTemporales;
+	for (int i = 1; i <= iteraciones; i++) {
 		//devolverPalabras devuelve una cantidad de palabras pasadas del vector palabrasLimpias
-		palabrasTemporales = this->devolverPalabras(palabrasLimpias, inicioAux, inicioAux+tamanio-1, tamanio);
+		palabrasTemporales = this->devolverPalabras(palabrasLimpias, inicioAux,
+				inicioAux + tamanio - 1, tamanio);
 
 		if (modelo >= 2)
-		   this->cargarModelosSuperiores(palabrasTemporales, modelo-1);
-		if (modelo >= 1){
-		   this->cargarModelo1(palabrasTemporales);
-		   this->cargarModelo0(palabrasTemporales);
+			this->cargarModelosSuperiores(palabrasTemporales, modelo - 1);
+		if (modelo >= 1) {
+			this->cargarModelo1(palabrasTemporales);
+			this->cargarModelo0(palabrasTemporales);
 		}
 		inicioAux++;
 		tamanio--;
@@ -153,22 +162,86 @@ void PPMC::chequeoCasoParticular(vector<string>* palabrasLimpias, int inicio, un
 	}
 }
 
-void PPMC::predecir(list<string>* frasesACompletar){
+void PPMC::completarFrases(vector<list<string>*>* frasesACompletar) {
+	for (int i = 0; i < frasesACompletar->size(); i++) {
+		(*frasesACompletar)[i] = this->predecir((*frasesACompletar)[i]);
+	}
+//	parser.agregarFraseCompleta(id, frase);
+}
+
+list<string>* PPMC::predecir(list<string>* fraseACompletar) {
 
 	unsigned numeroModelo = 4;
-	//indice tiene la ultima posicion del modelo actual
-	//(al principio el modelo es 4)
-//	int indice = this->posicionDondeFaltaPalabra(frasesACompletar);
+	vector<float>* frecuencias = new vector<float>;
+	int tam = fraseACompletar->size();
+	frecuencias->resize(tam);
 
-//	this->cargarModelo4();
+	this->inicializarFrecuencias(frecuencias);
 
-//	string contexto = this->devolverContexto(frasesACompletar, indice, numeroModelo);
+	for (numeroModelo; numeroModelo >= 1; numeroModelo--) {
+		int index = 0;
+		this->cargarModelo(numeroModelo);
 
-//	unsigned long clave = this->modelosSuperiores[2]->hashear(contexto);
+		for (index; index < tam - numeroModelo; index++) {
 
-//	unsigned long clavePalabraACompletar =this->modelosSuperiores[2]->devolverClaveDelContextoConMayorFrecuencia(clave);
+			string contextoActual = this->devolverContexto(fraseACompletar,	numeroModelo, index);
 
+			string palabraActual = (*fraseACompletar)[index + numeroModelo];
 
+			unsigned long claveContexto =
+					this->modelosSuperiores[numeroModelo-2]->hashearContexto(contextoActual);
+
+			bool existeContexto = this->modelosSuperiores[numeroModelo-2]->existeContexto(claveContexto);
+
+			if (existeContexto) {
+
+				//REVISAR ESTO PORQUE SI PIDO LA CLAVE DE LA PALABRA ES PORQUE YA EXISTE.
+				//NOSE SI ESTOY MEDIO QUEMADO O ESTA MAL
+				unsigned long clavePalabra =
+						this->modelosSuperiores[numeroModelo-2]->hashearPalabra(claveContexto, palabraActual);
+				bool existePalabraEnContexto =
+						this->modelosSuperiores[numeroModelo-2]->existePalabraEnContexto(claveContexto, clavePalabra);
+				if (existePalabraEnContexto) {
+					int frecActualuis =
+							this->modelosSuperiores[numeroModelo-2]->devolverFrecuencia(claveContexto, clavePalabra);
+					bool frecuenciaEsCero = ((*frecuencias)[numeroModelo + index] == 0);
+					if (frecuenciaEsCero)
+						(*frecuencias)[numeroModelo + index] = frecActualuis;
+					else
+						(*frecuencias)[numeroModelo + index] *= frecActualuis;
+				}
+			} else
+				(*frecuencias)[numeroModelo + index] *= 0.4; //STUPID BACKOFF
+		}
+	}
+
+	return fraseACompletar;
+
+}
+
+void PPMC::inicializarFrecuencias(vector<float>* frecuencias) {
+
+	for (int i = 0; i < frecuencias->size(); i++) {
+		(*frecuencias)[i] = 0;
+	}
+}
+
+void PPMC::cargarModelo(int numeroModelo){
+
+	//ACA HAY QUE VER COMO CARGAR EL MODELO EN MEMORIA
+}
+
+string PPMC::devolverContexto(list<string>* fraseACompletar, int numeroModelo, int index){
+
+	string contexto = (*fraseACompletar)[index-1];
+
+	while(numeroModelo > 0){
+		index -= 2;
+		contexto = (*fraseACompletar)[index-1] + " " + contexto;
+		numeroModelo--;
+	}
+
+	return contexto;
 }
 
 PPMC::~PPMC() {
