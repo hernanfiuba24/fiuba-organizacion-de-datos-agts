@@ -25,6 +25,14 @@ unsigned long Contexto::hashear(string palabraActual){
 	return this->unHash->hashearConMod(palabraActual);
 }
 
+bool Contexto::existePalabra(unsigned long clavePalabra){
+	return this->unMapa->existeClave(clavePalabra);
+}
+
+unsigned Contexto::getFrecuencia(unsigned long clavePalabra){
+	return this->unMapa->getFrecuencia(clavePalabra);
+}
+
 Contexto::~Contexto() {
 	delete this->unHash;
 	delete this->unMapa;

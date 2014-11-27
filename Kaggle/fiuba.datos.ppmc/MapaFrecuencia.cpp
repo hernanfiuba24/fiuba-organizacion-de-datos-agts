@@ -22,7 +22,10 @@ void MapaFrecuencia::incrementarFrecuencia(unsigned long clave){
 }
 
 unsigned MapaFrecuencia::getFrecuencia(unsigned long clave){
-	return (*this->hashFrecuencia)[clave].second;
+	//pair<string, unsigned> unPair = (*this->hashFrecuencia)[clave];
+	//return unPair.second;
+	map<unsigned long, pair<string, unsigned> >::iterator iterMapFrec = this->hashFrecuencia->find(clave);
+	return (*iterMapFrec).second.second;
 }
 
 bool MapaFrecuencia::existeClave(unsigned long clave){

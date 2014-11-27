@@ -55,10 +55,15 @@ bool MapaContexto::existeClave(unsigned long clave){
 
 }
 
-unsigned long MapaContexto::hashearPalabra(unsigned long claveContexto, std::string palabraActual){
+unsigned long MapaContexto::hashearPalabra(unsigned long claveContexto, string palabraActual){
 
-	Contexto* unContexto = this->hashContexto[claveContexto];
+	Contexto* unContexto = (*this->hashContexto)[claveContexto];
 	return unContexto->hashear(palabraActual);
+}
+
+unsigned MapaContexto::getFrecuencia(unsigned long claveContexto, unsigned long clavePalabra){
+	Contexto* contexto = (*this->hashContexto)[claveContexto];
+	return contexto->getFrecuencia(clavePalabra);
 }
 
 MapaContexto::~MapaContexto() {

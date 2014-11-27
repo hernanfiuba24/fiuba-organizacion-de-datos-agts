@@ -30,6 +30,9 @@ void Modelo1::agregarContexto(string nombreContexto, string nombrePalabra){
 		this->contextos->agregarContexto(clave, nombrePalabra, this->numeroModelo);
 
 }
+float Modelo1::devolverPenalizacion(){
+	return 0.064;
+}
 
 Modelo1::~Modelo1() {
 	//CONTROLAR ESTE DESTRUCTOR!!!!

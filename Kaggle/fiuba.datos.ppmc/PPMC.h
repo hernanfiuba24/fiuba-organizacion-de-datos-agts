@@ -26,10 +26,10 @@ private:
 	void agregarContextoSuperiorEn(Contexto* unContexto, int numeroDeModelo);
 	unsigned long devolverTamanioDeMapa(int numeroDeModelo);
 	void  chequeoCasoParticular(std::vector<std::string>* palabrasLimpias, int inicio, unsigned tamanio, unsigned modelo, int iteraciones);
-	void inicializarFrecuencias(std::vector<float>* frecuencias);
+	void inicializarFrecuencias(std::vector<std::pair< float, bool > >* frecuencias);
 	void cargarModelo(int numeroModelo);
 	std::string devolverContexto(std::list<std::string>* fraseACompletar, int numeroModelo, int index);
-	std::list<std::string>* predecir(std::list<std::string>* fraseACompletar);
+	float devolverPenalizacion(unsigned numeroModelo);
 
 public:
 	PPMC(int cantidadDeModelos);
@@ -39,6 +39,7 @@ public:
 	Modelo0* getModelo0();
 	ModelosSuperiores *getModelo4();
 	void completarFrases(std::vector<std::list<std::string>*>* frasesACompletar);
+	void predecir(std::list<std::string>* fraseACompletar, unsigned numeroModelo);
 	~PPMC();
 };
 

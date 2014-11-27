@@ -29,6 +29,9 @@ void Modelo0::agregarPalabra(string unNombre){
 
 }
 
+float Modelo0::devolverPenalizacion(){
+	return 0.0256;
+}
 Modelo0::~Modelo0() {
 	//CONTROLAR ESTE DESTRUCTOR!!!!
 //	for (list<Palabra*>::iterator it = this->palabras->begin(); it <= this->palabras->end();it++){

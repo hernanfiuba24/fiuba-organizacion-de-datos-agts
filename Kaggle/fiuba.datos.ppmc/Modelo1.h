@@ -20,6 +20,7 @@ public:
 	Modelo1(unsigned long primo, int numeroModelo);
 	void agregarContexto(std::string nombreContexto, std::string nombrePalabra);
 	//Contexto* devolverContexto(Contexto* unContexto);
+	float devolverPenalizacion();
 	virtual ~Modelo1();
 
 private:

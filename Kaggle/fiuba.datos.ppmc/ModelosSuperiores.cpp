@@ -41,3 +41,38 @@ bool ModelosSuperiores::existeContexto(unsigned long claveContexto){
 
 	return this->contextos->existeClave(claveContexto);
 }
+
+bool ModelosSuperiores::existePalabraEnContexto(unsigned long claveContexto, unsigned long clavePalabra){
+	Contexto contexto = this->contextos->getContextos(claveContexto);
+	return contexto.existePalabra(clavePalabra);
+}
+
+unsigned ModelosSuperiores::devolverFrecuencia(string nombreContexto, string nombrePalabra){
+
+	unsigned frecuencia = 0;
+	unsigned long claveContexto = this->hashearContexto(nombreContexto);
+
+	bool existeContexto = this->existeContexto(claveContexto);
+
+	if (existeContexto) {
+		unsigned long clavePalabra =
+				this->hashearPalabra(claveContexto, nombrePalabra);
+		bool existePalabraEnContexto =
+				this->existePalabraEnContexto(claveContexto, clavePalabra);
+		if (existePalabraEnContexto) {
+			frecuencia =  this->contextos->getFrecuencia(claveContexto, clavePalabra);
+		}
+	}
+	return frecuencia;
+}
+
+float ModelosSuperiores::devolverPenalizacion(unsigned numeroModelo){
+	float penalizacion;
+	if (numeroModelo == 2)
+	    penalizacion = 0.16;
+	else if (numeroModelo == 3)
+		penalizacion = 0.4;
+	else
+		penalizacion = 1;
+    return penalizacion;
+}
