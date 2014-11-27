@@ -4,6 +4,7 @@
 #include <sstream>
 #include "../fiuba.datos.ppmc/PPMC.h"
 #include "../fiuba.datos.archivos/Archivo.h"
+#include <time.h>
 
 using namespace std;
 
@@ -61,17 +62,45 @@ void mostrarModelo0(PPMC *unPPMC){
 		    cout << iter->first << '\t' << iter->second.first << '\t' << iter->second.second << '\n';
 }
 
+// Get current date/time, format is YYYY-MM-DD.HH:mm:ss
+const std::string currentDateTime() {
+    time_t     now = time(0);
+    struct tm  tstruct;
+    char       buf[80];
+    tstruct = *localtime(&now);
+    // Visit http://en.cppreference.com/w/cpp/chrono/c/strftime
+    // for more information about date/time format
+    strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
+
+    return buf;
+}
+
 /*             PROGRAMA PRINCIPAL                        */
 
 int main(){
+	std::cout << "currentDateTime()=" << currentDateTime() << std::endl;
 	/*DESCOMENTAR ESTO PARA PROBAR PARSER*/
 	//como tengo solo 1 G de Ram, solo voy leyendo de a 500Kb
-	Archivo* unArchivo = new Archivo("/home/hernan/Escritorio/train_v2.txt", 500);
+	cout<< "Creando archivo"<<endl;
+	Archivo* unArchivo = new Archivo("/home/ezequiel/Descargas/train_v2.txt", 100000000);
+	cout<< "Archivo creado"<<endl;
+	cout<<endl;
+	cout<< "Cargando Buffer..."<<endl;
 	unArchivo->cargarBuffer();
+	cout<< "Buffer cargado."<<endl;
+	cout<< endl;
+
+	cout<< "Parseando Buffer..."<<endl;
 	vector<string>* palabrasLimpias = unArchivo->parsearBuffer(' ');
 
+	cout<< "Buffer PARSEADO"<<endl;
+	cout<< endl;
+
+	cout<< "Entrenando..."<<endl;
 	PPMC* unPPMC = new PPMC(4);
 	unPPMC->entrenarPalabras(palabrasLimpias);
+
+	cout<< "FIN Entrenado..."<<endl;
 
 	cout<<endl;
 	cout<< "Modelo 0:"<<endl;
@@ -88,6 +117,8 @@ int main(){
 	cout << endl;
 	cout<< "Modelo 4:"<<endl;
 	mostrarModelo(unPPMC, 4);
+
+	std::cout << "currentDateTime()=" << currentDateTime() << std::endl;
 
 	delete []palabrasLimpias;
 	return 0;
