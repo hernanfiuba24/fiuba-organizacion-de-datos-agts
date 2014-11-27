@@ -37,6 +37,9 @@ public:
 	void entrenar(std::string rutaArchivo);
 	void entrenarPalabras(std::vector<std::string>* palabrasLimpias);
 	Modelo0* getModelo0();
+	Modelo1* getModelo1();
+	ModelosSuperiores *getModelo2();
+	ModelosSuperiores *getModelo3();
 	ModelosSuperiores *getModelo4();
 	void completarFrases(std::vector<std::list<std::string>*>* frasesACompletar);
 	void predecir(std::list<std::string>* fraseACompletar, unsigned numeroModelo);
