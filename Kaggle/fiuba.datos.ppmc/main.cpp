@@ -3,24 +3,47 @@
 #include <vector>
 #include <sstream>
 #include "../fiuba.datos.ppmc/PPMC.h"
+#include "../fiuba.datos.archivos/Archivo.h"
 
 using namespace std;
 
-void mostrarModelo4(PPMC *unPPMC){
+void mostrarModelo(PPMC *unPPMC, int modelo){
 
-	/* ESTO ESTA HECHO A LOS PONCHASOS. VASMOS ESCALANDO HASTA OBTENER EL "MAP" */
-    ModelosSuperiores* unModelo4 = unPPMC->getModelo4();
-	MapaContexto* unMapaContexto = unModelo4->getMapa();
+	/* ESTO ES MUY RUSTICO. VAMOS ESCALANDO HASTA OBTENER EL "MAP"*/
+	MapaContexto       *unMapaContexto;
+	Modelo1            *unModelo1;
+	ModelosSuperiores  *unModelo2;
+	ModelosSuperiores  *unModelo3;
+	ModelosSuperiores  *unModelo4;
+	switch ( modelo ) {
+
+	 	case 1:
+			unModelo1 = unPPMC->getModelo1();
+			unMapaContexto = unModelo1->getMapa();
+			break;
+	    case 2:
+			unModelo2 = unPPMC->getModelo2();
+			unMapaContexto = unModelo2->getMapa();
+			break;
+		case 3:
+			unModelo3 = unPPMC->getModelo3();
+			unMapaContexto = unModelo3->getMapa();
+			break;
+		case 4:
+			unModelo4 = unPPMC->getModelo4();
+			unMapaContexto = unModelo4->getMapa();
+			break;
+	}
 	map<unsigned long, Contexto*>* mapaHashCtx = unMapaContexto->getMapaHash();
 
 	for ( map<unsigned long, Contexto*>::const_iterator iterContexto = mapaHashCtx->begin();
 		iterContexto != mapaHashCtx->end(); ++iterContexto ){
 
 			cout << iterContexto->first << '\t' << "MapaFrecuencia:";
-	        map<unsigned long, pair<string, unsigned> >* mapaHashFrecuencia = iterContexto->second->getMapaFrecuencia()->getHashFrecuencia();
+	        map<unsigned long,pair<string, unsigned> >* mapaHashFrecuencia = iterContexto->second->getMapaFrecuencia()->getHashFrecuencia();
 	        for ( map<unsigned long, pair<string, unsigned> >::const_iterator iter2 = mapaHashFrecuencia->begin();
 	        	iter2 != mapaHashFrecuencia->end(); ++iter2 ){
-	        	cout << iter2->first << '\t' << iter2->second.first << '\t' << iter2->second.second << "  ";
+	        		cout << iter2->first << '\t' << iter2->second.first << '\t'  <<  iter2->second.second << " ";
 			}
             cout<< '\n';
 	}
@@ -42,13 +65,34 @@ void mostrarModelo0(PPMC *unPPMC){
 
 int main(){
 	/*DESCOMENTAR ESTO PARA PROBAR PARSER*/
-//	Archivo* unArchivo = new Archivo("C:\\train_v2.txt", 500);
-//	unArchivo->cargarBuffer();
-//	unArchivo->parsearBuffer(' ');
+	//como tengo solo 1 G de Ram, solo voy leyendo de a 500Kb
+	Archivo* unArchivo = new Archivo("/home/hernan/Escritorio/train_v2.txt", 500);
+	unArchivo->cargarBuffer();
+	vector<string>* palabrasLimpias = unArchivo->parsearBuffer(' ');
 
+	PPMC* unPPMC = new PPMC(4);
+	unPPMC->entrenarPalabras(palabrasLimpias);
+
+	cout<<endl;
+	cout<< "Modelo 0:"<<endl;
+	mostrarModelo0(unPPMC);
+	cout << endl;
+	cout<< "Modelo 1:"<<endl;
+	mostrarModelo(unPPMC, 1);
+	cout << endl;
+	cout<< "Modelo 2:"<<endl;
+	mostrarModelo(unPPMC, 2);
+	cout << endl;
+	cout<< "Modelo 3:"<<endl;
+	mostrarModelo(unPPMC, 3);
+	cout << endl;
+	cout<< "Modelo 4:"<<endl;
+	mostrarModelo(unPPMC, 4);
+
+	delete []palabrasLimpias;
+	return 0;
 /******************************************************/
-
-	/*DESCOMENTAR ESTO PARA PROBAR PPMC*/
+	/*DESCOMENTAR ESTO PARA PROBAR PPMC*
 	vector<string>* palabrasLimpias = new vector<string>;
 	palabrasLimpias->push_back("hola");
 	palabrasLimpias->push_back("como");
@@ -105,5 +149,7 @@ int main(){
 	unPPMC->predecir(fraseACompletar, 4);
 
 	return 0;
+
+	*/
 
 }

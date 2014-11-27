@@ -18,6 +18,16 @@ Modelo0* PPMC::getModelo0() {
 	return this->modelo0;
 }
 
+Modelo1* PPMC::getModelo1(){
+	return this->modelo1;
+}
+ModelosSuperiores* PPMC::getModelo2(){
+		return this->modelosSuperiores[0];
+}
+ModelosSuperiores* PPMC::getModelo3(){
+	return this->modelosSuperiores[1];
+}
+
 ModelosSuperiores* PPMC::getModelo4() {
 	return this->modelosSuperiores[2];
 }

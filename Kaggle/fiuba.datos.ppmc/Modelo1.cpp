@@ -30,6 +30,10 @@ void Modelo1::agregarContexto(string nombreContexto, string nombrePalabra){
 		this->contextos->agregarContexto(clave, nombrePalabra, this->numeroModelo);
 
 }
+
+MapaContexto* Modelo1::getMapa(){
+	return this->contextos;
+}
 float Modelo1::devolverPenalizacion(){
 	return 0.064;
 }
