@@ -20,6 +20,7 @@ public:
 	MapaFrecuencia* getMapaFrecuencia();
 	void agregarPalabra(std::string unNombre);
 	MapaFrecuencia* devolverPalabra(MapaFrecuencia* unaPalabra);
+	float devolverPenalizacion();
 	virtual ~Modelo0();
 
 private:

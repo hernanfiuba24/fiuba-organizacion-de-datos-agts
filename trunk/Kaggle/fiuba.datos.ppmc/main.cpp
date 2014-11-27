@@ -90,6 +90,20 @@ int main(){
 
 	cout << endl;
 
+	list<string>* fraseACompletar = new list<string>;
+
+	fraseACompletar->push_back("hola");
+	fraseACompletar->push_back("como");
+	fraseACompletar->push_back("estas");
+	fraseACompletar->push_back("esto");
+	fraseACompletar->push_back("es");
+	fraseACompletar->push_back("un");
+	fraseACompletar->push_back("re");
+	fraseACompletar->push_back("loco");
+	fraseACompletar->push_back(".");
+
+	unPPMC->predecir(fraseACompletar, 4);
+
 	return 0;
 
 }

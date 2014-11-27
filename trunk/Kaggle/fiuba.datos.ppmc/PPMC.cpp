@@ -163,66 +163,52 @@ void PPMC::chequeoCasoParticular(vector<string>* palabrasLimpias, int inicio,
 }
 
 void PPMC::completarFrases(vector<list<string>*>* frasesACompletar) {
-	for (int i = 0; i < frasesACompletar->size(); i++) {
-		(*frasesACompletar)[i] = this->predecir((*frasesACompletar)[i]);
-	}
-//	parser.agregarFraseCompleta(id, frase);
-}
-
-list<string>* PPMC::predecir(list<string>* fraseACompletar) {
 
 	unsigned numeroModelo = 4;
-	vector<float>* frecuencias = new vector<float>;
+	for (numeroModelo; numeroModelo >= 1; numeroModelo--) {
+
+		this->cargarModelo(numeroModelo);
+		for (int i = 0; i < frasesACompletar->size(); i++) {
+			this->predecir((*frasesACompletar)[i], numeroModelo);
+		}
+//	parser.agregarFraseCompleta(id, frase);
+	}
+}
+
+void PPMC::predecir(list<string>* fraseACompletar, unsigned numeroModelo) {
+
+	vector< pair<float, bool> >* frecuencias = new vector<pair< float, bool > >;
 	int tam = fraseACompletar->size();
 	frecuencias->resize(tam);
 
 	this->inicializarFrecuencias(frecuencias);
+	int index = 0;
+	for (index; index < tam - numeroModelo; index++) {
 
-	for (numeroModelo; numeroModelo >= 1; numeroModelo--) {
-		int index = 0;
-		this->cargarModelo(numeroModelo);
+		string contexto = this->devolverContexto(fraseACompletar, numeroModelo, index+numeroModelo);
 
-		for (index; index < tam - numeroModelo; index++) {
+		list<string>::iterator iterFrase = fraseACompletar->begin();
+		advance(iterFrase, (index+numeroModelo));
+		string palabra = *iterFrase;
 
-			string contextoActual = this->devolverContexto(fraseACompletar,	numeroModelo, index);
-
-			string palabraActual = (*fraseACompletar)[index + numeroModelo];
-
-			unsigned long claveContexto =
-					this->modelosSuperiores[numeroModelo-2]->hashearContexto(contextoActual);
-
-			bool existeContexto = this->modelosSuperiores[numeroModelo-2]->existeContexto(claveContexto);
-
-			if (existeContexto) {
-
-				//REVISAR ESTO PORQUE SI PIDO LA CLAVE DE LA PALABRA ES PORQUE YA EXISTE.
-				//NOSE SI ESTOY MEDIO QUEMADO O ESTA MAL
-				unsigned long clavePalabra =
-						this->modelosSuperiores[numeroModelo-2]->hashearPalabra(claveContexto, palabraActual);
-				bool existePalabraEnContexto =
-						this->modelosSuperiores[numeroModelo-2]->existePalabraEnContexto(claveContexto, clavePalabra);
-				if (existePalabraEnContexto) {
-					int frecActualuis =
-							this->modelosSuperiores[numeroModelo-2]->devolverFrecuencia(claveContexto, clavePalabra);
-					bool frecuenciaEsCero = ((*frecuencias)[numeroModelo + index] == 0);
-					if (frecuenciaEsCero)
-						(*frecuencias)[numeroModelo + index] = frecActualuis;
-					else
-						(*frecuencias)[numeroModelo + index] *= frecActualuis;
-				}
-			} else
-				(*frecuencias)[numeroModelo + index] *= 0.4; //STUPID BACKOFF
+		unsigned frecuencia = this->modelosSuperiores[numeroModelo-2]->devolverFrecuencia(contexto, palabra);
+		bool frecuenciaEsCero = (frecuencia == 0);
+		bool noBajaDeNivel = ((*frecuencias)[numeroModelo + index].second == false);
+		float penalizacion;
+		if ((!frecuenciaEsCero) && (noBajaDeNivel)){
+			penalizacion = this->devolverPenalizacion(numeroModelo);
+			(*frecuencias)[numeroModelo + index].first = (penalizacion*frecuencia);
+			(*frecuencias)[numeroModelo + index].second = true;
 		}
+
 	}
-
-	return fraseACompletar;
-
 }
 
-void PPMC::inicializarFrecuencias(vector<float>* frecuencias) {
+void PPMC::inicializarFrecuencias(vector< pair< float, bool > >* frecuencias){
 
-	for (int i = 0; i < frecuencias->size(); i++) {
-		(*frecuencias)[i] = 0;
+	for (unsigned i = 0; i < frecuencias->size(); i++) {
+		(*frecuencias)[i].first = 0;
+		(*frecuencias)[i].second = false;
 	}
 }
 
@@ -231,17 +217,32 @@ void PPMC::cargarModelo(int numeroModelo){
 	//ACA HAY QUE VER COMO CARGAR EL MODELO EN MEMORIA
 }
 
-string PPMC::devolverContexto(list<string>* fraseACompletar, int numeroModelo, int index){
+string PPMC::devolverContexto(list<string>* fraseACompletar, int numeroModelo, int inicio){
+	int indice = inicio-1;
 
-	string contexto = (*fraseACompletar)[index-1];
+	list<string>::iterator iterFrase = fraseACompletar->begin();
+	advance(iterFrase, indice);
+	string contexto = *iterFrase;
 
-	while(numeroModelo > 0){
-		index -= 2;
-		contexto = (*fraseACompletar)[index-1] + " " + contexto;
-		numeroModelo--;
+	for(indice;indice>(inicio-numeroModelo);--indice){
+		iterFrase--;
+		contexto = *iterFrase + " " + contexto;
 	}
 
 	return contexto;
+}
+
+float PPMC::devolverPenalizacion(unsigned numeroModelo){
+	float penalizacion;
+
+	if (numeroModelo >= 2)
+		penalizacion = this->modelosSuperiores[numeroModelo-2]->devolverPenalizacion(numeroModelo);
+	else if (numeroModelo == 1)
+		penalizacion = this->modelo1->devolverPenalizacion();
+	else if (numeroModelo == 0)
+		penalizacion = this->modelo0->devolverPenalizacion();
+
+	return penalizacion;
 }
 
 PPMC::~PPMC() {

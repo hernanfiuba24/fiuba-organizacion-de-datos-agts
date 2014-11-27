@@ -21,6 +21,7 @@ public:
 	bool existeClave(unsigned long);
 	std::map<unsigned long, Contexto*>* getMapaHash();
 	unsigned long hashearPalabra(unsigned long claveContexto, std::string palabraActual);
+	unsigned getFrecuencia(unsigned long claveContexto, unsigned long clavePalabra);
 	virtual ~MapaContexto();
 
 private:
