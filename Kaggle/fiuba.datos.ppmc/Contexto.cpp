@@ -29,7 +29,7 @@ bool Contexto::existePalabra(unsigned long clavePalabra){
 	return this->unMapa->existeClave(clavePalabra);
 }
 
-unsigned Contexto::getFrecuencia(unsigned long clavePalabra){
+unsigned long Contexto::getFrecuencia(unsigned long clavePalabra){
 	return this->unMapa->getFrecuencia(clavePalabra);
 }
 

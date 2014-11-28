@@ -27,7 +27,7 @@ public:
 	MapaFrecuencia* getMapaFrecuencia();
 	unsigned long hashear(std::string palabraActual);
 	bool existePalabra(unsigned long clavePalabra);
-	unsigned getFrecuencia(unsigned long clavePalabra);
+	unsigned long getFrecuencia(unsigned long clavePalabra);
 	virtual ~Contexto();
 };
 

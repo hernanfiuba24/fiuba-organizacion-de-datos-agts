@@ -61,7 +61,7 @@ unsigned long MapaContexto::hashearPalabra(unsigned long claveContexto, string p
 	return unContexto->hashear(palabraActual);
 }
 
-unsigned MapaContexto::getFrecuencia(unsigned long claveContexto, unsigned long clavePalabra){
+unsigned long MapaContexto::getFrecuencia(unsigned long claveContexto, unsigned long clavePalabra){
 	Contexto* contexto = (*this->hashContexto)[claveContexto];
 	return contexto->getFrecuencia(clavePalabra);
 }

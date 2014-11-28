@@ -47,9 +47,9 @@ bool ModelosSuperiores::existePalabraEnContexto(unsigned long claveContexto, uns
 	return contexto.existePalabra(clavePalabra);
 }
 
-unsigned ModelosSuperiores::devolverFrecuencia(string nombreContexto, string nombrePalabra){
+unsigned long ModelosSuperiores::devolverFrecuencia(string nombreContexto, string nombrePalabra){
 
-	unsigned frecuencia = 0;
+	unsigned long frecuencia = 0;
 	unsigned long claveContexto = this->hashearContexto(nombreContexto);
 
 	bool existeContexto = this->existeContexto(claveContexto);

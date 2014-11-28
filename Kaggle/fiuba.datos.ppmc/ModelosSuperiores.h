@@ -10,7 +10,7 @@ public:
 	ModelosSuperiores(unsigned long primo, int numeroModelo);
 	void agregarContexto(std::string nombreContexto, std::string nombrePalabra);
 	MapaContexto *getMapa();
-	unsigned devolverFrecuencia(std::string nombreContexto, std::string nombrePalabra);
+	unsigned long devolverFrecuencia(std::string nombreContexto, std::string nombrePalabra);
 	float devolverPenalizacion(unsigned numeroModelo);
 	virtual ~ModelosSuperiores();
 
