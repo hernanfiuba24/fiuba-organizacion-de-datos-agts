@@ -41,8 +41,8 @@ void mostrarModelo(PPMC *unPPMC, int modelo){
 		iterContexto != mapaHashCtx->end(); ++iterContexto ){
 
 			cout << iterContexto->first << '\t' << "MapaFrecuencia:";
-	        map<unsigned long,pair<string, unsigned> >* mapaHashFrecuencia = iterContexto->second->getMapaFrecuencia()->getHashFrecuencia();
-	        for ( map<unsigned long, pair<string, unsigned> >::const_iterator iter2 = mapaHashFrecuencia->begin();
+	        map<unsigned long,pair<string, unsigned long> >* mapaHashFrecuencia = iterContexto->second->getMapaFrecuencia()->getHashFrecuencia();
+	        for ( map<unsigned long, pair<string, unsigned long> >::const_iterator iter2 = mapaHashFrecuencia->begin();
 	        	iter2 != mapaHashFrecuencia->end(); ++iter2 ){
 	        		cout << iter2->first << '\t' << iter2->second.first << '\t'  <<  iter2->second.second << " ";
 			}
@@ -50,9 +50,10 @@ void mostrarModelo(PPMC *unPPMC, int modelo){
 	}
 }
 
+/*
 void mostrarModelo0(PPMC *unPPMC){
 
-   /* ESTO ESTA HECHO A LOS PONCHASOS. VASMOS ESCALANDO HASTA OBTENER EL "MAP"  */
+   /* ESTO ESTA HECHO A LOS PONCHASOS. VASMOS ESCALANDO HASTA OBTENER EL "MAP"
 	Modelo0* unModelo0 = unPPMC->getModelo0();
 	MapaFrecuencia* unMapaF = unModelo0->getMapaFrecuencia();
 	map<unsigned long, pair<string, unsigned> >* mapaHashFrec = unMapaF->getHashFrecuencia();
@@ -75,14 +76,15 @@ const std::string currentDateTime() {
     return buf;
 }
 
-/*             PROGRAMA PRINCIPAL                        */
+             PROGRAMA PRINCIPAL                        */
 
 int main(){
+	/*
 	std::cout << "currentDateTime()=" << currentDateTime() << std::endl;
-	/*DESCOMENTAR ESTO PARA PROBAR PARSER*/
+	/*DESCOMENTAR ESTO PARA PROBAR PARSER
 	//como tengo solo 1 G de Ram, solo voy leyendo de a 500Kb
 	cout<< "Creando archivo"<<endl;
-	Archivo* unArchivo = new Archivo("/home/ezequiel/Descargas/train_v2.txt", 100000000);
+	Archivo* unArchivo = new Archivo("/home/hernan/Escritorio/train_v2.txt", 100000);
 	cout<< "Archivo creado"<<endl;
 	cout<<endl;
 	cout<< "Cargando Buffer..."<<endl;
@@ -122,8 +124,9 @@ int main(){
 
 	delete []palabrasLimpias;
 	return 0;
-/******************************************************/
-	/*DESCOMENTAR ESTO PARA PROBAR PPMC*
+******************************************************/
+	/*DESCOMENTAR ESTO PARA PROBAR PPMC*/
+
 	vector<string>* palabrasLimpias = new vector<string>;
 	palabrasLimpias->push_back("hola");
 	palabrasLimpias->push_back("como");
@@ -161,7 +164,7 @@ int main(){
 	cout << endl;
 	cout << endl;
 
-    mostrarModelo4(unPPMC);
+    mostrarModelo(unPPMC, 4);
 
 	cout << endl;
 
@@ -180,7 +183,5 @@ int main(){
 	unPPMC->predecir(fraseACompletar, 4);
 
 	return 0;
-
-	*/
 
 }

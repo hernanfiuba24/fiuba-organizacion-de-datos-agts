@@ -201,7 +201,7 @@ void PPMC::predecir(list<string>* fraseACompletar, unsigned numeroModelo) {
 		advance(iterFrase, (index+numeroModelo));
 		string palabra = *iterFrase;
 
-		unsigned frecuencia = this->modelosSuperiores[numeroModelo-2]->devolverFrecuencia(contexto, palabra);
+		unsigned long frecuencia = this->modelosSuperiores[numeroModelo-2]->devolverFrecuencia(contexto, palabra);
 		bool frecuenciaEsCero = (frecuencia == 0);
 		bool noBajaDeNivel = ((*frecuencias)[numeroModelo + index].second == false);
 		float penalizacion;

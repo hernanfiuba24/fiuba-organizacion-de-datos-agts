@@ -10,10 +10,10 @@
 using namespace std;
 
 MapaFrecuencia::MapaFrecuencia() {
-	this->hashFrecuencia = new map<unsigned long, pair<string, unsigned> >;
+	this->hashFrecuencia = new map<unsigned long, pair<string, unsigned long> >;
 }
 
-map<unsigned long, pair<string, unsigned> >* MapaFrecuencia::getHashFrecuencia(){
+map<unsigned long, pair<string, unsigned long> >* MapaFrecuencia::getHashFrecuencia(){
 	return this->hashFrecuencia;
 }
 
@@ -21,10 +21,10 @@ void MapaFrecuencia::incrementarFrecuencia(unsigned long clave){
 	(*this->hashFrecuencia)[clave].second++;
 }
 
-unsigned MapaFrecuencia::getFrecuencia(unsigned long clave){
+unsigned long MapaFrecuencia::getFrecuencia(unsigned long clave){
 	//pair<string, unsigned> unPair = (*this->hashFrecuencia)[clave];
 	//return unPair.second;
-	map<unsigned long, pair<string, unsigned> >::iterator iterMapFrec = this->hashFrecuencia->find(clave);
+	map<unsigned long, pair<string, unsigned long> >::iterator iterMapFrec = this->hashFrecuencia->find(clave);
 	return (*iterMapFrec).second.second;
 }
 
@@ -35,7 +35,7 @@ bool MapaFrecuencia::existeClave(unsigned long clave){
 }
 
 void MapaFrecuencia::agregarClave(unsigned long clave, string palabraAgregar){
-	pair<string, unsigned> palabraFrecuencia (palabraAgregar,1);
+	pair<string, unsigned long> palabraFrecuencia (palabraAgregar,1);
 	(*this->hashFrecuencia)[clave] = palabraFrecuencia;
 }
 
