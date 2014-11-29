@@ -47,6 +47,14 @@ bool ModelosSuperiores::existePalabraEnContexto(unsigned long claveContexto, uns
 	return contexto->existePalabra(clavePalabra);
 }
 
+Jenkins* ModelosSuperiores::getJenkins(){
+	return this->unHash;
+}
+
+int ModelosSuperiores::getNumeroModelo(){
+	return this->numeroModelo;
+}
+
 unsigned long ModelosSuperiores::devolverFrecuencia(string nombreContexto, string nombrePalabra){
 
 	unsigned long frecuencia = 0;

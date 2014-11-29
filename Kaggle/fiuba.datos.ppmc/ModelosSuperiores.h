@@ -12,6 +12,8 @@ public:
 	MapaContexto *getMapa();
 	unsigned long devolverFrecuencia(std::string nombreContexto, std::string nombrePalabra);
 	float devolverPenalizacion(unsigned numeroModelo);
+	Jenkins* getJenkins();
+	int getNumeroModelo();
 	virtual ~ModelosSuperiores();
 //	void mostrarModelo(unsigned numeroModelo);
 
