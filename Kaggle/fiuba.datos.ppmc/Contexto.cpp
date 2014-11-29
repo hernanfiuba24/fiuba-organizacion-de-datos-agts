@@ -21,6 +21,10 @@ void Contexto::agregarPalabra(string nombrePalabra){
 			this->unMapa->agregarClave(clave, nombrePalabra);
 }
 
+Jenkins* Contexto::getJenkins(){
+	return this->unHash;
+}
+
 unsigned long Contexto::hashear(string palabraActual){
 	return this->unHash->hashearConMod(palabraActual);
 }
