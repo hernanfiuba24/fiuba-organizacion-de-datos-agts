@@ -34,6 +34,13 @@ void Modelo1::agregarContexto(string nombreContexto, string nombrePalabra){
 MapaContexto* Modelo1::getMapa(){
 	return this->contextos;
 }
+
+
+Jenkins* Modelo1::getJenkins(){
+	return this->unHash;
+}
+
+
 float Modelo1::devolverPenalizacion(){
 	return 0.064;
 }
