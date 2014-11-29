@@ -23,10 +23,10 @@ public:
 private:
 	void SerializarModelo0(Modelo0* modelo0);
 	void SerializarModelo1(Modelo1* modelo1);
+	void SerializarModelosSuperiores(ModelosSuperiores* modelo);
 	void DeserializarModelo0();
 	bool esUnContextoExistente(std::string nombreContexto);
     CMarkup xml;
-	//Parser* parseador;
 };
 
 #endif /* SERIALIZADORXML_H_ */
