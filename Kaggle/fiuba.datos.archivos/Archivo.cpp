@@ -52,6 +52,7 @@ vector<string>* Archivo::parsearTest(string rutaArchivo, char valorParseo){
 	return this->parser->devolverFrases(textoTest, valorParseo);
 }
 
+
 Archivo::~Archivo() {
 	this->handle.close();
 	delete[] this->buffer;

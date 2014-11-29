@@ -25,6 +25,29 @@ vector<string>* Parser::devolverPalabras(BufferParser* buffer, char valorParseo)
 	return palabrasParseadas;
 }
 
+vector<string>* Parser::split(string texto, char valorParseo) {
+	vector<string>* palabrasParseadas = new vector<string>;
+	stringstream streamBuffer(texto);
+	string palabraTemporal = "";
+	while (std::getline(streamBuffer, palabraTemporal, valorParseo)) {
+		palabrasParseadas->push_back(palabraTemporal);
+	}
+	return palabrasParseadas;
+}
+
+
+string Parser::ParsearArchivoTxt(string rutaArchivo){
+	ifstream archivoTest(rutaArchivo.c_str(), ios::in);
+	char c = archivoTest.get();
+    string contenidoArchivoTxt = "";
+	while (archivoTest.good()) {
+		contenidoArchivoTxt += c;
+		c = archivoTest.get();
+	}
+
+	return contenidoArchivoTxt;
+}
+
 
 vector<string>* Parser::devolverFrases(string texto, char valorParseo){
 	stringstream stream(texto);
