@@ -210,6 +210,21 @@ int main() {
 	unPPMC->entrenarPalabras(palabrasLimpias);
 
 //	mostrarModelo0(unPPMC);
+	 cout<<endl;
+		cout<< "Modelo 0:"<<endl;
+		 mostrarModelo0(unPPMC);
+		 cout << endl;
+		 cout<< "Modelo 1:"<<endl;
+		 mostrarModelo(unPPMC, 1);
+		 cout << endl;
+		 cout<< "Modelo 2:"<<endl;
+		 mostrarModelo(unPPMC, 2);
+		 cout << endl;
+		 cout<< "Modelo 3:"<<endl;
+		 mostrarModelo(unPPMC, 3);
+		cout << endl;
+		cout << "Modelo 4:" << endl;
+		mostrarModelo(unPPMC, 4);
 
 	cout << endl;
 	cout << endl;

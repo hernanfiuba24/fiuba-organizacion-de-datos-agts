@@ -11,6 +11,7 @@
 #include "../fiuba.datos.ppmc/ModelosSuperiores.h"
 #include "../fiuba.datos.ppmc/MapaFrecuencia.h"
 #include "../fiuba.datos.ppmc/MapaContexto.h"
+#include "../fiuba.datos.predictor/FrecuenciaModelo.h"
 
 
 class PPMC {
@@ -26,7 +27,7 @@ private:
 	void agregarContextoSuperiorEn(Contexto* unContexto, int numeroDeModelo);
 	unsigned long devolverTamanioDeMapa(int numeroDeModelo);
 	void  chequeoCasoParticular(std::vector<std::string>* palabrasLimpias, int inicio, unsigned tamanio, unsigned modelo, int iteraciones);
-	void inicializarFrecuencias(std::vector<std::pair< float, unsigned > >* frecuencias);
+	void inicializarFrecuencias(std::vector<FrecuenciaModelo* >* frecuencias);
 	void cargarModelo(int numeroModelo);
 	std::string devolverContexto(std::vector<std::string>* fraseACompletar, int numeroModelo, int index);
 	float devolverPenalizacion(unsigned numeroModelo);
@@ -42,7 +43,7 @@ public:
 	ModelosSuperiores *getModelo3();
 	ModelosSuperiores *getModelo4();
 	void completarFrases(std::vector<std::string>* frasesACompletar);
-	std::vector< std::pair<float, unsigned> >* predecir(std::vector<std::string>* fraseACompletar, unsigned numeroModelo);
+	std::vector< FrecuenciaModelo * >* predecir(std::vector<std::string>* fraseACompletar, unsigned numeroModelo);
 	~PPMC();
 };
 
