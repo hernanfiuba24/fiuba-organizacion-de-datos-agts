@@ -22,6 +22,7 @@ public:
 	//Contexto* devolverContexto(Contexto* unContexto);
 	MapaContexto* getMapa();
 	float devolverPenalizacion();
+	Jenkins* getJenkins();
 	virtual ~Modelo1();
 
 private:
