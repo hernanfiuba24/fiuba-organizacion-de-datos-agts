@@ -18,13 +18,15 @@ public:
 	SerializadorXml();
 	void Serializar(PPMC* ppmc);
 	std::vector<std::string>* DeserializarModelo(std::string numeroModelo);
+	Modelo0* DeserializarModelo0();
+	Modelo1* DeserializarModelo1();
+	ModelosSuperiores* DeserializarModelosSuperiores();
 	virtual ~SerializadorXml();
 
 private:
 	void SerializarModelo0(Modelo0* modelo0);
 	void SerializarModelo1(Modelo1* modelo1);
 	void SerializarModelosSuperiores(ModelosSuperiores* modelo);
-	void DeserializarModelo0();
 	bool esUnContextoExistente(std::string nombreContexto);
     CMarkup xml;
 };

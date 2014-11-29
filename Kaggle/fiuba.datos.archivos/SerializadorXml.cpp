@@ -13,6 +13,9 @@ using namespace std;
 SerializadorXml::SerializadorXml() {}
 
 
+SerializadorXml::~SerializadorXml() {}
+
+
 void SerializadorXml::Serializar(PPMC* ppmc){
 
 	SerializarModelo0(ppmc->getModelo0());
@@ -47,7 +50,7 @@ void SerializadorXml::SerializarModelo0(Modelo0* modelo0){
 	}
 
 	this->xml.OutOfElem();
-	this->xml.Save( "C:\\modelo_0.xml" );
+	this->xml.Save( "D:\\Modelo0.xml" );
 	this->xml.RemoveElem();
 }
 
@@ -130,4 +133,34 @@ void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo){
 }
 
 
-SerializadorXml::~SerializadorXml() {}
+Modelo0* SerializadorXml::DeserializarModelo0(){
+
+	unsigned long primo;
+	unsigned long hashPalabra;
+	int frecuenciaPalabra;
+	xml.Load( "D:\\Modelo_0.xml" );
+	xml.FindElem(); // root MODELO_X elemento
+
+	stringstream(xml.GetAttrib("primoJenkins")) >> primo;
+	Modelo0* modelo = new Modelo0(primo);
+
+	xml.IntoElem(); // dentro MODELO_X
+
+	while ( xml.FindElem("PALABRA") ){
+		Palabra* palabra = new Palabra(xml.GetAttrib("palabra"));
+		stringstream(xml.GetAttrib("frecuencia")) >> frecuenciaPalabra;
+		stringstream(xml.GetAttrib("hash")) >> hashPalabra;
+		palabra->setFrecuencia(frecuenciaPalabra);
+		modelo->setMapaFrecuencia(hashPalabra, palabra);
+	}
+
+	xml.OutOfElem();
+	xml.RemoveElem();
+
+}
+
+
+Modelo1* SerializadorXml::DeserializarModelo1(){}
+
+
+ModelosSuperiores* SerializadorXml::DeserializarModelosSuperiores(){}
