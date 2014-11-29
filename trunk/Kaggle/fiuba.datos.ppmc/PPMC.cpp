@@ -172,53 +172,68 @@ void PPMC::chequeoCasoParticular(vector<string>* palabrasLimpias, int inicio,
 	}
 }
 
-void PPMC::completarFrases(vector<list<string>*>* frasesACompletar) {
+void PPMC::completarFrases(vector<string>* frasesACompletar) {
 
+//FALTA TERMINAR!!!!
+/*	vector< pair<float, unsigned> >* frecuencias;
 	unsigned numeroModelo = 4;
 	for (numeroModelo; numeroModelo >= 1; numeroModelo--) {
 
 		this->cargarModelo(numeroModelo);
 		for (int i = 0; i < frasesACompletar->size(); i++) {
-			this->predecir((*frasesACompletar)[i], numeroModelo);
+			frecuencias = this->predecir(frasesACompletar, numeroModelo);
 		}
-//	parser.agregarFraseCompleta(id, frase);
+	//DESCOMENTAR ESTO DESPUES
+	//	delete this->modelosSuperiores[numeroModelo];
+	int i;
+	float menorFrecuencia = (*frecuencias)[0].first;
+	float frecTemporal;
+	for(i = 1; i < frecuencias->size(); i++){
+		frecTemporal = (*frecuencias)[i].first;
+		if (menorFrecuencia > frecTemporal)
+			menorFrecuencia = frecTemporal;
 	}
+//	parser.agregarFraseCompleta(id, frase);
+	}*/
 }
 
-void PPMC::predecir(list<string>* fraseACompletar, unsigned numeroModelo) {
+vector< pair<float, unsigned> >* PPMC::predecir(vector<string>* frasesACompletar, unsigned numeroModelo) {
 
-	vector< pair<float, bool> >* frecuencias = new vector<pair< float, bool > >;
-	int tam = fraseACompletar->size();
+	vector< pair<float, unsigned> >* frecuencias = new vector<pair< float, unsigned > >;
+	int tam = frasesACompletar->size();
 	frecuencias->resize(tam);
 
 	this->inicializarFrecuencias(frecuencias);
 	int index = 0;
 	for (index; index < tam - numeroModelo; index++) {
 
-		string contexto = this->devolverContexto(fraseACompletar, numeroModelo, index+numeroModelo);
-
-		list<string>::iterator iterFrase = fraseACompletar->begin();
-		advance(iterFrase, (index+numeroModelo));
-		string palabra = *iterFrase;
-
-		unsigned long frecuencia = this->modelosSuperiores[numeroModelo-2]->devolverFrecuencia(contexto, palabra);
-		bool frecuenciaEsCero = (frecuencia == 0);
-		bool noBajaDeNivel = ((*frecuencias)[numeroModelo + index].second == false);
-		float penalizacion;
-		if ((!frecuenciaEsCero) && (noBajaDeNivel)){
-			penalizacion = this->devolverPenalizacion(numeroModelo);
-			(*frecuencias)[numeroModelo + index].first = (penalizacion*frecuencia);
-			(*frecuencias)[numeroModelo + index].second = true;
+		string contexto = this->devolverContexto(frasesACompletar, numeroModelo, index+numeroModelo);
+		string esPunto = (*frasesACompletar)[index+numeroModelo-1];
+		if (esPunto == "."){
+			index += 3;
 		}
+		else{
+			string palabra = (*frasesACompletar)[(index+numeroModelo)];
 
+			unsigned long frecuencia = this->modelosSuperiores[numeroModelo-2]->devolverFrecuencia(contexto, palabra);
+			bool frecuenciaEsCero = (frecuencia == 0);
+			bool bajaDeNivel = ((*frecuencias)[numeroModelo + index].second == NULL);
+			float penalizacion;
+			if ((!frecuenciaEsCero) && (bajaDeNivel)){
+				penalizacion = this->devolverPenalizacion(numeroModelo);
+				(*frecuencias)[numeroModelo + index].first = (penalizacion*frecuencia);
+				(*frecuencias)[numeroModelo + index].second = numeroModelo;
+			}
+		}
 	}
+	return frecuencias;
 }
 
-void PPMC::inicializarFrecuencias(vector< pair< float, bool > >* frecuencias){
+void PPMC::inicializarFrecuencias(vector< pair< float, unsigned > >* frecuencias){
 
 	for (unsigned i = 0; i < frecuencias->size(); i++) {
 		(*frecuencias)[i].first = 0;
-		(*frecuencias)[i].second = false;
+		(*frecuencias)[i].second = NULL;
 	}
 }
 
@@ -227,16 +242,17 @@ void PPMC::cargarModelo(int numeroModelo){
 	//ACA HAY QUE VER COMO CARGAR EL MODELO EN MEMORIA
 }
 
-string PPMC::devolverContexto(list<string>* fraseACompletar, int numeroModelo, int inicio){
+string PPMC::devolverContexto(vector<string>* frasesACompletar, int numeroModelo, int inicio){
 	int indice = inicio-1;
 
-	list<string>::iterator iterFrase = fraseACompletar->begin();
-	advance(iterFrase, indice);
-	string contexto = *iterFrase;
+	//list<string>::iterator iterFrase = fraseACompletar->begin();
+	//advance(iterFrase, indice);
+	//string contexto = *iterFrase;
 
-	for(indice;indice>(inicio-numeroModelo);--indice){
-		iterFrase--;
-		contexto = *iterFrase + " " + contexto;
+	string contexto = (*frasesACompletar)[indice];
+	indice--;
+	for(indice;indice>=(inicio-numeroModelo);indice--){
+		contexto = (*frasesACompletar)[indice] + " " + contexto;
 	}
 
 	return contexto;

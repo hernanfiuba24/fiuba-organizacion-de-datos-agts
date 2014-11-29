@@ -13,6 +13,7 @@ public:
 	unsigned long devolverFrecuencia(std::string nombreContexto, std::string nombrePalabra);
 	float devolverPenalizacion(unsigned numeroModelo);
 	virtual ~ModelosSuperiores();
+//	void mostrarModelo(unsigned numeroModelo);
 
 private:
 	MapaContexto *contextos;

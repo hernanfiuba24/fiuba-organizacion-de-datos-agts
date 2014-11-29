@@ -6,36 +6,42 @@
  */
 
 #include "MapaFrecuencia.h"
-
+#include <iostream>
 using namespace std;
 
 MapaFrecuencia::MapaFrecuencia() {
-	this->hashFrecuencia = new map<unsigned long, pair<string, unsigned long> >;
+	this->hashFrecuencia = new map<unsigned long, Palabra*>;
 }
 
-map<unsigned long, pair<string, unsigned long> >* MapaFrecuencia::getHashFrecuencia(){
+map<unsigned long, Palabra* >* MapaFrecuencia::getHashFrecuencia(){
 	return this->hashFrecuencia;
 }
 
 void MapaFrecuencia::incrementarFrecuencia(unsigned long clave){
-	(*this->hashFrecuencia)[clave].second++;
+	Palabra* unaPalabra = (*this->hashFrecuencia)[clave];
+	unaPalabra->incrementarFrecuencia();
 }
 
 unsigned long MapaFrecuencia::getFrecuencia(unsigned long clave){
-	//pair<string, unsigned> unPair = (*this->hashFrecuencia)[clave];
-	//return unPair.second;
-	map<unsigned long, pair<string, unsigned long> >::iterator iterMapFrec = this->hashFrecuencia->find(clave);
-	return (*iterMapFrec).second.second;
+	//Palabra* unaPalabra = (*this->hashFrecuencia)[clave];
+	map<unsigned long, Palabra*>::iterator iter = this->hashFrecuencia->find(clave);
+	unsigned long frecuencia = (*iter).second->getFrecuencia();
+	return frecuencia;
 }
 
 bool MapaFrecuencia::existeClave(unsigned long clave){
-	if (this->hashFrecuencia->find(clave) == this->hashFrecuencia->end())
+	map<unsigned long, Palabra*>::iterator iter = this->hashFrecuencia->find(clave);
+	if ( iter  == this->hashFrecuencia->end())
 		return false;
+	string nombrepalabra = (*iter).second->getPalabra();
+	unsigned long fre = (*iter).second->getFrecuencia();
 	return true;
 }
 
 void MapaFrecuencia::agregarClave(unsigned long clave, string palabraAgregar){
-	pair<string, unsigned long> palabraFrecuencia (palabraAgregar,1);
-	(*this->hashFrecuencia)[clave] = palabraFrecuencia;
+	Palabra* unaPalabra = new Palabra(palabraAgregar);
+	(*this->hashFrecuencia).insert( make_pair(clave, unaPalabra));
+//	pair<string, unsigned long> palabraFrecuencia (palabraAgregar,1);
+//	(*this->hashFrecuencia)[clave] = palabraFrecuencia;
 }
 

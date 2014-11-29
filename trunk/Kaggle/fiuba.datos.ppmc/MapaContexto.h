@@ -15,7 +15,7 @@
 class MapaContexto {
 public:
 	MapaContexto();
-	Contexto getContextos(unsigned long clave);
+	Contexto* getContextos(unsigned long clave);
 	void agregarContexto(unsigned long clave, std:: string nombrePalabra, int numeroModelo);
 	void agregarContextoExistente(unsigned long clave, std:: string nombrePalabra);
 	bool existeClave(unsigned long);
