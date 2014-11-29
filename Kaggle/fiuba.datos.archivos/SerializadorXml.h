@@ -21,6 +21,8 @@ public:
 	virtual ~SerializadorXml();
 
 private:
+	void SerializarModelo0(Modelo0* modelo0);
+	void SerializarModelo1(Modelo1* modelo1);
 	bool esUnContextoExistente(std::string nombreContexto);
     CMarkup xml;
 	Parser* parseador;
