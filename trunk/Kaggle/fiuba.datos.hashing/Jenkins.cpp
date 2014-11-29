@@ -36,6 +36,10 @@ unsigned Jenkins::hashearConMod(string unNombre){
 	return resultadoHash % this->primo;
 }
 
+unsigned Jenkins::getPrimo(){
+	return this->primo;
+}
+
 Jenkins::~Jenkins() {
 }
 

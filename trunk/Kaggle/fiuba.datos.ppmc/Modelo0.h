@@ -21,6 +21,7 @@ public:
 	void agregarPalabra(std::string unNombre);
 	MapaFrecuencia* devolverPalabra(MapaFrecuencia* unaPalabra);
 	float devolverPenalizacion();
+	Jenkins* getJenkins();
 	virtual ~Modelo0();
 
 private:
