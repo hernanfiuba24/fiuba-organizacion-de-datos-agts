@@ -15,6 +15,7 @@ public:
 	Palabra(std::string unaPalabra);
 	std::string getPalabra();
 	unsigned long getFrecuencia();
+	void setFrecuencia(int frecuencia);
 	void incrementarFrecuencia();
 	void inicializarPalabra(std::string unaPalabra);
 

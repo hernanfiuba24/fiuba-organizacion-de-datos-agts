@@ -13,6 +13,7 @@ MapaFrecuencia::MapaFrecuencia() {
 	this->hashFrecuencia = new map<unsigned long, Palabra*>;
 }
 
+
 map<unsigned long, Palabra* >* MapaFrecuencia::getHashFrecuencia(){
 	return this->hashFrecuencia;
 }
@@ -43,5 +44,10 @@ void MapaFrecuencia::agregarClave(unsigned long clave, string palabraAgregar){
 	(*this->hashFrecuencia).insert( make_pair(clave, unaPalabra));
 //	pair<string, unsigned long> palabraFrecuencia (palabraAgregar,1);
 //	(*this->hashFrecuencia)[clave] = palabraFrecuencia;
+}
+
+
+void MapaFrecuencia::agregarClave(unsigned long hashPalabra, Palabra* palabraAgregar){
+	(*this->hashFrecuencia).insert( make_pair(hashPalabra, palabraAgregar));
 }
 

@@ -20,6 +20,7 @@ public:
 	void incrementarFrecuencia(unsigned long clave);
 	bool existeClave(unsigned long clave);
 	void agregarClave(unsigned long clave, std::string palabraAgregar);
+	void agregarClave(unsigned long hashPalabra, Palabra* palabraAgregar);
 	//bool esIgualA(MapaFrecuencia* unaPalabra);
 
 private:

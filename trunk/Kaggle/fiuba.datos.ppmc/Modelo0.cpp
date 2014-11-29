@@ -18,6 +18,10 @@ MapaFrecuencia* Modelo0::getMapaFrecuencia(){
 	return this->unMapa;
 }
 
+void Modelo0::setMapaFrecuencia(unsigned long hash, Palabra* palabra){
+	return this->unMapa->agregarClave(hash, palabra->getPalabra());
+}
+
 void Modelo0::agregarPalabra(string unNombre){
 
 	unsigned long clave = this->unHash->hashearConMod(unNombre);

@@ -18,6 +18,7 @@ class Modelo0 {
 public:
 	Modelo0(unsigned long primo);
 	MapaFrecuencia* getMapaFrecuencia();
+	void setMapaFrecuencia(unsigned long hash, Palabra* palabra);
 	void agregarPalabra(std::string unNombre);
 	MapaFrecuencia* devolverPalabra(MapaFrecuencia* unaPalabra);
 	float devolverPenalizacion();
