@@ -171,11 +171,11 @@ void PPMC::chequeoCasoParticular(vector<string>* palabrasLimpias, int inicio,
 		delete palabrasTemporales;
 	}
 }
-
+/*
 void PPMC::completarFrases(vector<string>* frasesACompletar) {
 
 //FALTA TERMINAR!!!!
-/*	vector< pair<float, unsigned> >* frecuencias;
+	vector< FrecuenciaModelo* >* frecuencias;
 	unsigned numeroModelo = 4;
 	for (numeroModelo; numeroModelo >= 1; numeroModelo--) {
 
@@ -194,12 +194,13 @@ void PPMC::completarFrases(vector<string>* frasesACompletar) {
 			menorFrecuencia = frecTemporal;
 	}
 //	parser.agregarFraseCompleta(id, frase);
-	}*/
+
 }
+}
+*/
+vector< FrecuenciaModelo*>* PPMC::predecir(vector<string>* frasesACompletar, unsigned numeroModelo) {
 
-vector< pair<float, unsigned> >* PPMC::predecir(vector<string>* frasesACompletar, unsigned numeroModelo) {
-
-	vector< pair<float, unsigned> >* frecuencias = new vector<pair< float, unsigned > >;
+	vector< FrecuenciaModelo* >* frecuencias = new vector<FrecuenciaModelo* >;
 	int tam = frasesACompletar->size();
 	frecuencias->resize(tam);
 
@@ -217,23 +218,23 @@ vector< pair<float, unsigned> >* PPMC::predecir(vector<string>* frasesACompletar
 
 			unsigned long frecuencia = this->modelosSuperiores[numeroModelo-2]->devolverFrecuencia(contexto, palabra);
 			bool frecuenciaEsCero = (frecuencia == 0);
-			bool bajaDeNivel = ((*frecuencias)[numeroModelo + index].second == NULL);
+			bool bajaDeNivel = ((*frecuencias)[numeroModelo + index]->getModelo()== NULL);
 			float penalizacion;
 			if ((!frecuenciaEsCero) && (bajaDeNivel)){
 				penalizacion = this->devolverPenalizacion(numeroModelo);
-				(*frecuencias)[numeroModelo + index].first = (penalizacion*frecuencia);
-				(*frecuencias)[numeroModelo + index].second = numeroModelo;
+				(*frecuencias)[numeroModelo + index]->setFrecuencia(penalizacion*frecuencia);
+				(*frecuencias)[numeroModelo + index]->setModelo(numeroModelo);
 			}
 		}
 	}
 	return frecuencias;
 }
 
-void PPMC::inicializarFrecuencias(vector< pair< float, unsigned > >* frecuencias){
-
+void PPMC::inicializarFrecuencias(vector< FrecuenciaModelo* >* frecuencias){
+	unsigned tam = frecuencias->size();
 	for (unsigned i = 0; i < frecuencias->size(); i++) {
-		(*frecuencias)[i].first = 0;
-		(*frecuencias)[i].second = NULL;
+		FrecuenciaModelo *unFrecMod = new FrecuenciaModelo(0, NULL);
+		(*frecuencias)[i] = unFrecMod;
 	}
 }
 
