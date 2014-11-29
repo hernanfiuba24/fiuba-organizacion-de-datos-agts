@@ -23,7 +23,7 @@ public:
 	Contexto(unsigned long primo);
 	void agregarPalabra(std::string nombrePalabra);
 	bool esIgualA(Contexto* unContexto);
-	std::string getNombre();
+	Jenkins* getJenkins();
 	MapaFrecuencia* getMapaFrecuencia();
 	unsigned long hashear(std::string palabraActual);
 	bool existePalabra(unsigned long clavePalabra);
