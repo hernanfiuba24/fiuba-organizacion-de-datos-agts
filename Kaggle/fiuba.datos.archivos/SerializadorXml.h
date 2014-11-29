@@ -7,7 +7,8 @@
 #include <vector>
 #include <string>
 #include "Markup.h"
-#include "fiuba.datos.archivos/Parser.h"
+#include "Parser.h"
+#include "../fiuba.datos.ppmc/PPMC.h"
 
 #ifndef SERIALIZADORXML_H_
 #define SERIALIZADORXML_H_
@@ -15,7 +16,7 @@
 class SerializadorXml {
 public:
 	SerializadorXml();
-	void Serializar(std::string rutaArchivoOrigen, std::string rutaArchivoXml);
+	void Serializar(PPMC* ppmc);
 	std::vector<std::string>* DeserializarModelo(std::string numeroModelo);
 	virtual ~SerializadorXml();
 
