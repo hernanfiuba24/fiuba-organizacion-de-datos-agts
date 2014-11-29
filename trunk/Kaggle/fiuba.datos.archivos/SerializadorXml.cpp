@@ -76,6 +76,7 @@ void SerializadorXml::SerializarModelo0(Modelo0* modelo0){
 
 void SerializadorXml::SerializarModelo1(Modelo1* modelo1){
 	this->xml.AddElem( "MODELO_1" );
+	this->xml.SetAttrib( "primoJenkins", modelo1->getJenkins()->getPrimo() );
 	this->xml.IntoElem();
 
 	std::map<unsigned long, Contexto*>* contextos = modelo1->getMapa()->getMapaHash();
@@ -88,17 +89,15 @@ void SerializadorXml::SerializarModelo1(Modelo1* modelo1){
 
 		this->xml.AddElem( "CONTEXTO" );
 		this->xml.SetAttrib( "hash", hashContexto );
+		this->xml.SetAttrib( "primoJenkins", (*iterContexto).second->getJenkins()->getPrimo() );
 		this->xml.IntoElem();
 
 		while(iterPalabra != unContexto->end()){
-			unsigned long hashPalabra = (*iterPalabra).first;
-			int frecuenciaPalabra = (*iterPalabra).second->getFrecuencia();
-			string valorPalabra = (*iterPalabra).second->getPalabra();
 
 			this->xml.AddElem( "PALABRA" );
-			this->xml.SetAttrib( "hash", hashPalabra );
-			this->xml.SetAttrib( "valor", valorPalabra );
-			this->xml.SetAttrib( "frecuencia", frecuenciaPalabra );
+			this->xml.SetAttrib( "hash", (*iterPalabra).first );
+			this->xml.SetAttrib( "valor", (*iterPalabra).second->getPalabra() );
+			this->xml.SetAttrib( "frecuencia", (*iterPalabra).second->getFrecuencia() );
 
 			iterPalabra++;
 		}
