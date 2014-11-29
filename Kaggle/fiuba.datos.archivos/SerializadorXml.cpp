@@ -56,11 +56,13 @@ void SerializadorXml::SerializarModelo0(Modelo0* modelo0){
 	this->xml.IntoElem();
 
 	while(it != hashFrecuencia->end()){
+		unsigned primoJenkins = modelo0->getJenkins()->getPrimo();
 		unsigned long hashPalabra = (*it).first;
 		string palabra = (*it).second->getPalabra();
 		unsigned long int frecuencia = (*it).second->getFrecuencia();
 
 		this->xml.AddElem("PALABRA");
+		this->xml.SetAttrib("primoJenkins", primoJenkins);
 		this->xml.SetAttrib("hash", hashPalabra);
 		this->xml.SetAttrib("palabra", palabra);
 		this->xml.SetAttrib("frecuencia", frecuencia);
@@ -69,7 +71,7 @@ void SerializadorXml::SerializarModelo0(Modelo0* modelo0){
 
 	this->xml.OutOfElem();
 	this->xml.Save( "C:\\modelo_0.xml" );
-
+	this->xml.RemoveElem();
 }
 
 void SerializadorXml::SerializarModelo1(Modelo1* modelo1){
@@ -106,6 +108,7 @@ void SerializadorXml::SerializarModelo1(Modelo1* modelo1){
 
 	this->xml.OutOfElem();
 	this->xml.Save( "C:\\Modelo_1.xml" );
+	this->xml.RemoveElem();
 }
 
 SerializadorXml::~SerializadorXml() {

@@ -17,6 +17,7 @@ public:
 	Jenkins(unsigned primo);
 	unsigned hashearConMod(std::string nombre);
 	virtual ~Jenkins();
+	unsigned getPrimo();
 private:
 	uint32_t hashearCon32Bits(std::string nombre);
 	unsigned primo;
