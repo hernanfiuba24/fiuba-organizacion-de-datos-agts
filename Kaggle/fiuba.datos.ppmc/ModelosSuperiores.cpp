@@ -43,8 +43,8 @@ bool ModelosSuperiores::existeContexto(unsigned long claveContexto){
 }
 
 bool ModelosSuperiores::existePalabraEnContexto(unsigned long claveContexto, unsigned long clavePalabra){
-	Contexto contexto = this->contextos->getContextos(claveContexto);
-	return contexto.existePalabra(clavePalabra);
+	Contexto* contexto = this->contextos->getContextos(claveContexto);
+	return contexto->existePalabra(clavePalabra);
 }
 
 unsigned long ModelosSuperiores::devolverFrecuencia(string nombreContexto, string nombrePalabra){
@@ -76,3 +76,21 @@ float ModelosSuperiores::devolverPenalizacion(unsigned numeroModelo){
 		penalizacion = 1;
     return penalizacion;
 }
+
+/*void ModelosSuperiores::mostrarModelo(unsigned modelo){
+
+	map<unsigned long, Contexto*>* mapaHashCtx = this->contextos->getMapaHash();
+
+
+	for ( map<unsigned long, Contexto*>::const_iterator iterContexto = mapaHashCtx->begin();
+		iterContexto != mapaHashCtx->end(); ++iterContexto ){
+
+			cout << iterContexto->first << '\t' << "MapaFrecuencia:";
+	        map<unsigned long, Palabra* >* mapaHashFrecuencia = iterContexto->second->getMapaFrecuencia()->getHashFrecuencia();
+	        for ( map<unsigned long, Palabra*>::const_iterator iter2 = mapaHashFrecuencia->begin();
+	        	iter2 != mapaHashFrecuencia->end(); ++iter2 ){
+	        		cout << iter2->first << '\t' << iter2->second->getPalabra() << '\t'  <<  iter2->second->getFrecuencia() << " ";
+			}
+            cout<< '\n';
+	}
+}*/

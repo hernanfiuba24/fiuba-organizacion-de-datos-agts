@@ -9,13 +9,14 @@
 #define FIUBA_DATOS_PPMC_MAPAFRECUENCIA_H_
 #include <string>
 #include <map>
+#include "../fiuba.datos.ppmc/Palabra.h"
 
 
 class MapaFrecuencia {
 public:
 	MapaFrecuencia();
 	unsigned long getFrecuencia(unsigned long clave);
-	std::map<unsigned long, std::pair<std::string, unsigned long> >* getHashFrecuencia();
+	std::map<unsigned long, Palabra* >* getHashFrecuencia();
 	void incrementarFrecuencia(unsigned long clave);
 	bool existeClave(unsigned long clave);
 	void agregarClave(unsigned long clave, std::string palabraAgregar);
@@ -24,7 +25,7 @@ public:
 private:
 	//size_t frecuencia;
 	//std::string nombre;
-	std::map<unsigned long, std::pair<std::string, unsigned long> >* hashFrecuencia;
+	std::map<unsigned long, Palabra*> *hashFrecuencia;
 };
 
 #endif /* FIUBA_DATOS_PPMC_MAPAFRECUENCIA_H_ */

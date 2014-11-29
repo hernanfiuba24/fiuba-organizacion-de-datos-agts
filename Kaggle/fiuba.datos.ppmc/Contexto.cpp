@@ -11,7 +11,7 @@ MapaFrecuencia* Contexto::getMapaFrecuencia(){
 	return this->unMapa;
 }
 
-//SE USA UNA LISTA. NO HASHEAMOS. PODRIA CAMBIAR!!.
+
 void Contexto::agregarPalabra(string nombrePalabra){
 
 	unsigned long clave = this->unHash->hashearConMod(nombrePalabra);
@@ -30,7 +30,8 @@ bool Contexto::existePalabra(unsigned long clavePalabra){
 }
 
 unsigned long Contexto::getFrecuencia(unsigned long clavePalabra){
-	return this->unMapa->getFrecuencia(clavePalabra);
+	unsigned long frec = this->unMapa->getFrecuencia(clavePalabra);
+	return frec;
 }
 
 Contexto::~Contexto() {
