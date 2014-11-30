@@ -11,14 +11,14 @@
 class FrecuenciaModelo {
 public:
 	FrecuenciaModelo();
-	FrecuenciaModelo(unsigned long unaFrecuencia, unsigned unModelo);
-	void setFrecuencia(unsigned long unFecuencia);
+	FrecuenciaModelo(float unaFrecuencia, unsigned unModelo);
+	void setFrecuencia(float unaFrecuencia);
 	void setModelo(unsigned unModelo);
 	unsigned long getFrecuencia();
 	unsigned getModelo();
 	virtual ~FrecuenciaModelo();
 private:
-	 unsigned long frecuencia;
+	 float frecuencia;
 	 unsigned modelo;
 };
 

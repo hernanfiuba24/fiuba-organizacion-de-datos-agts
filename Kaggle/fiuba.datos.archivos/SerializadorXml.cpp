@@ -175,4 +175,4 @@ Modelo0* SerializadorXml::DeserializarModelo0(){
 Modelo1* SerializadorXml::DeserializarModelo1(){}
 
 
-ModelosSuperiores* SerializadorXml::DeserializarModelosSuperiores(){}
+ModelosSuperiores* SerializadorXml::DeserializarModelosSuperiores(unsigned numeroModelo){}

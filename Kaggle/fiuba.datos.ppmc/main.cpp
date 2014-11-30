@@ -5,6 +5,8 @@
 #include "../fiuba.datos.ppmc/PPMC.h"
 #include "../fiuba.datos.archivos/Archivo.h"
 #include "../fiuba.datos.archivos/SerializadorXml.h"
+#include "../fiuba.datos.predictor/Frase.h"
+#include "../fiuba.datos.predictor/Predictor.h"
 #include <time.h>
 
 using namespace std;
@@ -87,7 +89,7 @@ int main() {
 	std::cout << "currentDateTime()=" << currentDateTime() << std::endl;
 	/*DESCOMENTAR ESTO PARA PROBAR PARSER*/
 	//como tengo solo 1 G de Ram, solo voy leyendo de a 500Kb
-		cout<< "Creando archivo"<<endl;
+/*		cout<< "Creando archivo"<<endl;
 	 Archivo* unArchivo = new Archivo("/home/ezequiel/Descargas/train_v2.txt", 30000000);
 	 cout<< "Archivo creado"<<endl;
 	 cout<<endl;
@@ -123,7 +125,7 @@ int main() {
 	cout << endl;
 	cout << "Modelo 4:" << endl;
 	mostrarModelo(unPPMC, 4);*/
-	 cout << "Inicio Serializador" << endl;
+/*	 cout << "Inicio Serializador" << endl;
 	 SerializadorXml* unSer = new SerializadorXml();
 	 unSer->Serializar(unPPMC);
 	 cout << "Fin Serializar" << endl;
@@ -134,7 +136,7 @@ int main() {
 	 return 0;
 	/******************************************************/
 	//DESCOMENTAR ESTO PARA PROBAR PPMC*
-/*	vector<string>* palabrasLimpias = new vector<string>;
+	vector<string>* palabrasLimpias = new vector<string>;
 	palabrasLimpias->push_back("hola");
 	palabrasLimpias->push_back("como");
 	palabrasLimpias->push_back("estas");
@@ -238,18 +240,38 @@ int main() {
 
 	cout << endl;
 
-	vector<string>* frasesACompletar = new vector<string>;
+	vector<string>* frase1 = new vector<string>;
 
-	frasesACompletar->push_back("hola");
-	frasesACompletar->push_back("como");
-	frasesACompletar->push_back("estas");
-	frasesACompletar->push_back("esto");
-	frasesACompletar->push_back("es");
-	frasesACompletar->push_back("un");
-	frasesACompletar->push_back(".");
+	frase1->push_back("hola");
+	frase1->push_back("como");
+	frase1->push_back("estas");
+	frase1->push_back("esto");
+	frase1->push_back("es");
+	frase1->push_back("un");
+	frase1->push_back(".");
 
-	unPPMC->predecir(frasesACompletar, 4);
+	vector<string>* frase2 = new vector<string>;
+
+	frase2->push_back("la");
+	frase2->push_back("casa");
+	frase2->push_back("es");
+	frase2->push_back("blanca");
+	frase2->push_back("y");
+	frase2->push_back(".");
+
+	Frase* unaFrase1 = new Frase(frase1);
+	Frase* unaFrase2 = new Frase(frase2);
+
+	vector<Frase*>* frasesACompletar = new vector<Frase*>;
+	frasesACompletar->push_back(unaFrase1);
+	frasesACompletar->push_back(unaFrase2);
+
+	Predictor* unPred = new Predictor();
+
+	unPred->completarFrases(frasesACompletar, unPPMC->getModelo1(), unPPMC->getModelo0());
+
+	//unPPMC->(frasesACompletar, 4);
 
 	return 0;
-*/
+
 }
