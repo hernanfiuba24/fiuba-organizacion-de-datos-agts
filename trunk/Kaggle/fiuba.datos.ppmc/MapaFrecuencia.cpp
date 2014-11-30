@@ -34,8 +34,6 @@ bool MapaFrecuencia::existeClave(unsigned long clave){
 	map<unsigned long, Palabra*>::iterator iter = this->hashFrecuencia->find(clave);
 	if ( iter  == this->hashFrecuencia->end())
 		return false;
-	string nombrepalabra = (*iter).second->getPalabra();
-	unsigned long fre = (*iter).second->getFrecuencia();
 	return true;
 }
 

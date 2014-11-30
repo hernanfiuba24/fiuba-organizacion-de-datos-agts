@@ -46,22 +46,6 @@ unsigned long PPMC::devolverTamanioDeMapa(int numeroDeModelo) {
 	return primo;
 }
 
-void PPMC::entrenar(string rutaArchivo) {
-	ifstream setDeEntrenamiento;
-	setDeEntrenamiento.open(rutaArchivo.c_str(), ios::in); //NOSE QUE HACE C_STR() PERO SINO TIRA ERROR
-
-	string linea;
-
-	if (setDeEntrenamiento.is_open()) {
-		while (getline(setDeEntrenamiento, linea)) {
-			cout << linea << endl;
-		}
-		setDeEntrenamiento.close();
-	} else {
-		//ESCRIBIR EXCEPCION POR SI EL ARCHIVO NO ABRE
-	}
-}
-
 //CORREGIR ESTO VA A RECIBIR UN VECTOR<STRING>, NOSE CUANTAS PALABRAS VAN A VENIR
 //TODO DEPENDE DEL PELA!!!!!!
 void PPMC::entrenarPalabras(vector<string>* palabrasLimpias) {
@@ -197,7 +181,7 @@ void PPMC::completarFrases(vector<string>* frasesACompletar) {
 
 }
 }
-*/
+
 vector< FrecuenciaModelo*>* PPMC::predecir(vector<string>* frasesACompletar, unsigned numeroModelo) {
 
 	vector< FrecuenciaModelo* >* frecuencias = new vector<FrecuenciaModelo* >;
@@ -211,6 +195,7 @@ vector< FrecuenciaModelo*>* PPMC::predecir(vector<string>* frasesACompletar, uns
 		string contexto = this->devolverContexto(frasesACompletar, numeroModelo, index+numeroModelo);
 		string esPunto = (*frasesACompletar)[index+numeroModelo-1];
 		if (esPunto == "."){
+			(*frasesACompletar)[index+numeroModelo-1]
 			index += 3;
 		}
 		else{
@@ -258,19 +243,8 @@ string PPMC::devolverContexto(vector<string>* frasesACompletar, int numeroModelo
 
 	return contexto;
 }
+*/
 
-float PPMC::devolverPenalizacion(unsigned numeroModelo){
-	float penalizacion;
-
-	if (numeroModelo >= 2)
-		penalizacion = this->modelosSuperiores[numeroModelo-2]->devolverPenalizacion(numeroModelo);
-	else if (numeroModelo == 1)
-		penalizacion = this->modelo1->devolverPenalizacion();
-	else if (numeroModelo == 0)
-		penalizacion = this->modelo0->devolverPenalizacion();
-
-	return penalizacion;
-}
 
 PPMC::~PPMC() {
 	delete this->modelo0;

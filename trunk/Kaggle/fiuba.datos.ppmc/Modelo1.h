@@ -18,8 +18,12 @@
 class Modelo1 {
 public:
 	Modelo1(unsigned long primo, int numeroModelo);
+	unsigned long devolverFrecuencia(std::string nombreContexto, std::string nombrePalabra);
 	void agregarContexto(std::string nombreContexto, std::string nombrePalabra);
-	//Contexto* devolverContexto(Contexto* unContexto);
+	unsigned long hashearContexto(std::string contextoAHashear);
+	bool existeContexto(unsigned long claveContexto);
+	unsigned long hashearPalabra(unsigned long claveContexto, std::string palabraActual);
+	bool existePalabraEnContexto(unsigned long claveContexto, unsigned long clavePalabra);
 	MapaContexto* getMapa();
 	float devolverPenalizacion();
 	Jenkins* getJenkins();

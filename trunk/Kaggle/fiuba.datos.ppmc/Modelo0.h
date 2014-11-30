@@ -21,6 +21,8 @@ public:
 	void setMapaFrecuencia(unsigned long hash, Palabra* palabra);
 	void agregarPalabra(std::string unNombre);
 	MapaFrecuencia* devolverPalabra(MapaFrecuencia* unaPalabra);
+	unsigned long devolverFrecuencia(std::string palabra);
+	unsigned long hashearPalabra(std::string palabra);
 	float devolverPenalizacion();
 	Jenkins* getJenkins();
 	virtual ~Modelo0();

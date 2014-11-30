@@ -45,11 +45,45 @@ float Modelo1::devolverPenalizacion(){
 	return 0.064;
 }
 
+unsigned long Modelo1::hashearContexto(string contextoAHashear){
+
+	return this->unHash->hashearConMod(contextoAHashear);
+}
+
+bool Modelo1::existeContexto(unsigned long claveContexto){
+
+	return this->contextos->existeClave(claveContexto);
+}
+
+unsigned long Modelo1::hashearPalabra(unsigned long claveContexto, string palabraActual){
+	return this->contextos->hashearPalabra(claveContexto, palabraActual);
+}
+
+bool Modelo1::existePalabraEnContexto(unsigned long claveContexto, unsigned long clavePalabra){
+	Contexto* contexto = this->contextos->getContextos(claveContexto);
+	return contexto->existePalabra(clavePalabra);
+}
+
+unsigned long Modelo1::devolverFrecuencia(string nombreContexto, string nombrePalabra){
+
+	unsigned long frecuencia = 0;
+	unsigned long claveContexto = this->hashearContexto(nombreContexto);
+
+	bool existeContexto = this->existeContexto(claveContexto);
+
+	if (existeContexto) {
+		unsigned long clavePalabra =
+				this->hashearPalabra(claveContexto, nombrePalabra);
+		bool existePalabraEnContexto =
+				this->existePalabraEnContexto(claveContexto, clavePalabra);
+		if (existePalabraEnContexto) {
+			frecuencia =  this->contextos->getFrecuencia(claveContexto, clavePalabra);
+		}
+	}
+	return frecuencia;
+}
+
 Modelo1::~Modelo1() {
-	//CONTROLAR ESTE DESTRUCTOR!!!!
-//	for (list<Palabra*>::iterator it = this->contextos->begin(); it <= this->contextos->end();it++){
-//		delete (*it);
-//	}
 	delete this->contextos;
 	delete this->unHash;
 }

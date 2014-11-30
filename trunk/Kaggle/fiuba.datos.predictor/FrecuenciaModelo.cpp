@@ -11,11 +11,11 @@ FrecuenciaModelo::FrecuenciaModelo(){
 
 }
 
-FrecuenciaModelo::FrecuenciaModelo(unsigned long unaFrecuencia, unsigned unModelo){
+FrecuenciaModelo::FrecuenciaModelo(float unaFrecuencia, unsigned unModelo){
 	this->frecuencia = unaFrecuencia;
 	this->modelo = unModelo;
 }
-void FrecuenciaModelo::setFrecuencia(unsigned long unaFrecuencia){
+void FrecuenciaModelo::setFrecuencia(float unaFrecuencia){
 	this->frecuencia = unaFrecuencia;
 }
 void FrecuenciaModelo::setModelo(unsigned unModelo){

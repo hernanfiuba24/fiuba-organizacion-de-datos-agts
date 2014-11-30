@@ -20,7 +20,7 @@ public:
 	std::vector<std::string>* DeserializarModelo(std::string numeroModelo);
 	Modelo0* DeserializarModelo0();
 	Modelo1* DeserializarModelo1();
-	ModelosSuperiores* DeserializarModelosSuperiores();
+	ModelosSuperiores* DeserializarModelosSuperiores(unsigned numeroModelo);
 	virtual ~SerializadorXml();
 
 private:

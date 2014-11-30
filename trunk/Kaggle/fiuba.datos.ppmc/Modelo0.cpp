@@ -41,11 +41,19 @@ Jenkins* Modelo0::getJenkins(){
 	return this->unHash;
 }
 
+unsigned long Modelo0::hashearPalabra(string palabra){
+	return this->unHash->hashearConMod(palabra);
+}
+
+unsigned long Modelo0::devolverFrecuencia(string palabra){
+	unsigned long clavePalabra =
+					this->hashearPalabra(palabra);
+	bool existePalabra = this->unMapa->existeClave(clavePalabra);
+	if (existePalabra)
+		this->unMapa->getFrecuencia(clavePalabra);
+}
+
 Modelo0::~Modelo0() {
-	//CONTROLAR ESTE DESTRUCTOR!!!!
-//	for (list<Palabra*>::iterator it = this->palabras->begin(); it <= this->palabras->end();it++){
-//		delete (*it);
-//	}
 	delete this->unMapa;
 }
 
