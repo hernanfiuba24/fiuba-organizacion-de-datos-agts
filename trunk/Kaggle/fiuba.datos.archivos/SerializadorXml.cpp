@@ -32,18 +32,18 @@ void SerializadorXml::SerializarModelo0(Modelo0* modelo0){
 	std::map<unsigned long, Palabra*>* hashFrecuencia = mapaFrecuencia->getHashFrecuencia();
 	std::map<unsigned long, Palabra*>::iterator it = hashFrecuencia->begin();
 
+	unsigned primoJenkins = modelo0->getJenkins()->getPrimo();
 	this->xml.AddElem( "MODELO_0" );
+	this->xml.SetAttrib("primoJenkins", primoJenkins);
 	this->xml.IntoElem();
 
-	int umbral = 150;
+	unsigned int umbral = 150;
 	while(it != hashFrecuencia->end()){
-		unsigned primoJenkins = modelo0->getJenkins()->getPrimo();
 		unsigned long hashPalabra = (*it).first;
 		string palabra = (*it).second->getPalabra();
 		unsigned long int frecuencia = (*it).second->getFrecuencia();
 		if (frecuencia > umbral){
 			this->xml.AddElem("PALABRA");
-			this->xml.SetAttrib("primoJenkins", primoJenkins);
 			this->xml.SetAttrib("hash", hashPalabra);
 			this->xml.SetAttrib("palabra", palabra);
 			this->xml.SetAttrib("frecuencia", frecuencia);
@@ -51,7 +51,8 @@ void SerializadorXml::SerializarModelo0(Modelo0* modelo0){
 		it++;
 
 	}
-
+	//Ruta Windows(No deberia existir): D:\\Modelo0.xml
+	//Ruta UBUNTU: /home/ezequiel/Descargas/Modelo0.xml
 	this->xml.OutOfElem();
 	this->xml.Save( "D:\\Modelo0.xml" );
 	this->xml.RemoveElem();
@@ -116,7 +117,7 @@ void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo){
 //		this->xml.SetAttrib( "hash", hashContexto );
 //		this->xml.SetAttrib( "primoJenkins", (*iterContexto).second->getJenkins()->getPrimo() );
 //		this->xml.IntoElem();
-		int umbral = 3;
+		unsigned umbral = 3;
 		bool puedoEntrar = true;
 		while(iterPalabra != unContexto->end()){
 			if ((*iterPalabra).second->getFrecuencia() > umbral){
@@ -139,7 +140,7 @@ void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo){
 	}
 	//Ruta en UBUNTU: /home/ezequiel/Descargas/Modelo_
 	this->xml.OutOfElem();
-	this->xml.Save( "D:\\Modelo_" + nroModeloString + ".xml" );
+	this->xml.Save( "/home/ezequiel/Descargas/Modelo_" + nroModeloString + ".xml" );
 	this->xml.RemoveElem();
 }
 
