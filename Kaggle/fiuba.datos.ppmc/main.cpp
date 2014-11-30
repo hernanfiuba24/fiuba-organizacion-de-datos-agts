@@ -88,7 +88,7 @@ int main() {
 	/*DESCOMENTAR ESTO PARA PROBAR PARSER*/
 	//como tengo solo 1 G de Ram, solo voy leyendo de a 500Kb
 		cout<< "Creando archivo"<<endl;
-	 Archivo* unArchivo = new Archivo("/home/ezequiel/Descargas/train_v2.txt", 10000000);
+	 Archivo* unArchivo = new Archivo("/home/ezequiel/Descargas/train_v2.txt", 30000000);
 	 cout<< "Archivo creado"<<endl;
 	 cout<<endl;
 	 cout<< "Cargando Buffer..."<<endl;
