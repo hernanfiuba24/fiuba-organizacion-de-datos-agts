@@ -4,6 +4,7 @@
 #include <sstream>
 #include "../fiuba.datos.ppmc/PPMC.h"
 #include "../fiuba.datos.archivos/Archivo.h"
+#include "../fiuba.datos.archivos/SerializadorXml.h"
 #include <time.h>
 
 using namespace std;
@@ -83,11 +84,11 @@ const std::string currentDateTime() {
 /*             PROGRAMA PRINCIPAL                        */
 
 int main() {
-//	std::cout << "currentDateTime()=" << currentDateTime() << std::endl;
+	std::cout << "currentDateTime()=" << currentDateTime() << std::endl;
 	/*DESCOMENTAR ESTO PARA PROBAR PARSER*/
 	//como tengo solo 1 G de Ram, solo voy leyendo de a 500Kb
-	/*	cout<< "Creando archivo"<<endl;
-	 Archivo* unArchivo = new Archivo("/home/ezequiel/Descargas/train_v2.txt", 300000);
+		cout<< "Creando archivo"<<endl;
+	 Archivo* unArchivo = new Archivo("/home/ezequiel/Descargas/train_v2.txt", 10000000);
 	 cout<< "Archivo creado"<<endl;
 	 cout<<endl;
 	 cout<< "Cargando Buffer..."<<endl;
@@ -121,15 +122,19 @@ int main() {
 	 mostrarModelo(unPPMC, 3);
 	cout << endl;
 	cout << "Modelo 4:" << endl;
-	mostrarModelo(unPPMC, 4);
+	mostrarModelo(unPPMC, 4);*/
+	 cout << "Inicio Serializador" << endl;
+	 SerializadorXml* unSer = new SerializadorXml();
+	 unSer->Serializar(unPPMC);
+	 cout << "Fin Serializar" << endl;
 
 	 std::cout << "currentDateTime()=" << currentDateTime() << std::endl;
 
 	 delete []palabrasLimpias;
-	 return 0;*/
+	 return 0;
 	/******************************************************/
 	//DESCOMENTAR ESTO PARA PROBAR PPMC*
-	vector<string>* palabrasLimpias = new vector<string>;
+/*	vector<string>* palabrasLimpias = new vector<string>;
 	palabrasLimpias->push_back("hola");
 	palabrasLimpias->push_back("como");
 	palabrasLimpias->push_back("estas");
@@ -246,5 +251,5 @@ int main() {
 	unPPMC->predecir(frasesACompletar, 4);
 
 	return 0;
-
+*/
 }

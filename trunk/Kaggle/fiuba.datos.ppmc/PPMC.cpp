@@ -37,11 +37,11 @@ unsigned long PPMC::devolverTamanioDeMapa(int numeroDeModelo) {
 	unsigned long primo;
 
 	if (numeroDeModelo == 2)
-		primo = 180001; //NUMERO DE MERSENE 2^15 - 1
+		primo = 250001; //NUMERO DE MERSENE 2^15 - 1
 	else if (numeroDeModelo == 3)
-		primo = 250001; //NUMERO DE MERSENNE 2^16 - 1
+		primo = 350001; //NUMERO DE MERSENNE 2^16 - 1
 	else if (numeroDeModelo == 4)
-		primo = 350001; //NUMERO DE MERSENNE 2^18 - 1
+		primo = 550001; //NUMERO DE MERSENNE 2^18 - 1
 
 	return primo;
 }
