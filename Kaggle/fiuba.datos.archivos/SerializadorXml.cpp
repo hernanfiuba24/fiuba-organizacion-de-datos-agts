@@ -35,18 +35,21 @@ void SerializadorXml::SerializarModelo0(Modelo0* modelo0){
 	this->xml.AddElem( "MODELO_0" );
 	this->xml.IntoElem();
 
+	int umbral = 150;
 	while(it != hashFrecuencia->end()){
 		unsigned primoJenkins = modelo0->getJenkins()->getPrimo();
 		unsigned long hashPalabra = (*it).first;
 		string palabra = (*it).second->getPalabra();
 		unsigned long int frecuencia = (*it).second->getFrecuencia();
-
-		this->xml.AddElem("PALABRA");
-		this->xml.SetAttrib("primoJenkins", primoJenkins);
-		this->xml.SetAttrib("hash", hashPalabra);
-		this->xml.SetAttrib("palabra", palabra);
-		this->xml.SetAttrib("frecuencia", frecuencia);
+		if (frecuencia > umbral){
+			this->xml.AddElem("PALABRA");
+			this->xml.SetAttrib("primoJenkins", primoJenkins);
+			this->xml.SetAttrib("hash", hashPalabra);
+			this->xml.SetAttrib("palabra", palabra);
+			this->xml.SetAttrib("frecuencia", frecuencia);
+		}
 		it++;
+
 	}
 
 	this->xml.OutOfElem();
@@ -109,26 +112,34 @@ void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo){
 		std::map<unsigned long, Palabra*>* unContexto = (*iterContexto).second->getMapaFrecuencia()->getHashFrecuencia();
 		std::map<unsigned long, Palabra*>::iterator iterPalabra = unContexto->begin();
 
-		this->xml.AddElem( "CONTEXTO" );
-		this->xml.SetAttrib( "hash", hashContexto );
-		this->xml.SetAttrib( "primoJenkins", (*iterContexto).second->getJenkins()->getPrimo() );
-		this->xml.IntoElem();
-
+//		this->xml.AddElem( "CONTEXTO" );
+//		this->xml.SetAttrib( "hash", hashContexto );
+//		this->xml.SetAttrib( "primoJenkins", (*iterContexto).second->getJenkins()->getPrimo() );
+//		this->xml.IntoElem();
+		int umbral = 3;
+		bool puedoEntrar = true;
 		while(iterPalabra != unContexto->end()){
-
-			this->xml.AddElem( "PALABRA" );
-			this->xml.SetAttrib( "hash", (*iterPalabra).first );
-			this->xml.SetAttrib( "valor", (*iterPalabra).second->getPalabra() );
-			this->xml.SetAttrib( "frecuencia", (*iterPalabra).second->getFrecuencia() );
-
+			if ((*iterPalabra).second->getFrecuencia() > umbral){
+				if (puedoEntrar){
+					this->xml.AddElem( "CONTEXTO" );
+					this->xml.SetAttrib( "hash", hashContexto );
+					this->xml.SetAttrib( "primoJenkins", (*iterContexto).second->getJenkins()->getPrimo() );
+					this->xml.IntoElem();
+				}
+				this->xml.AddElem( "PALABRA" );
+				this->xml.SetAttrib( "hash", (*iterPalabra).first );
+				this->xml.SetAttrib( "valor", (*iterPalabra).second->getPalabra() );
+				this->xml.SetAttrib( "frecuencia", (*iterPalabra).second->getFrecuencia() );
+				puedoEntrar = false;
+			}
 			iterPalabra++;
 		}
 		this->xml.OutOfElem();
 		iterContexto++;
 	}
-
+	//Ruta en UBUNTU: /home/ezequiel/Descargas/Modelo_
 	this->xml.OutOfElem();
-	this->xml.Save( "C:\\Modelo_" + nroModeloString + ".xml" );
+	this->xml.Save( "D:\\Modelo_" + nroModeloString + ".xml" );
 	this->xml.RemoveElem();
 }
 
