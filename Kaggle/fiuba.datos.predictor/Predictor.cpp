@@ -125,11 +125,11 @@ ModelosSuperiores* Predictor::cargarModelosSuperiores(unsigned numeroModelo){
 	SerializadorXml* unSer = new SerializadorXml();
 
 	if (numeroModelo == 2 )
-		modeloSuperior = unSer->DeserializarModelosSuperiores(numeroModelo);
+		modeloSuperior = unSer->DeserializarModelosSuperiores(numeroModelo, "/home/matias/");
 	else if (numeroModelo == 3 )
-		modeloSuperior = unSer->DeserializarModelosSuperiores(numeroModelo);
+		modeloSuperior = unSer->DeserializarModelosSuperiores(numeroModelo, "/home/matias/");
 	else if (numeroModelo == 4 )
-		modeloSuperior = unSer->DeserializarModelosSuperiores(numeroModelo);
+		modeloSuperior = unSer->DeserializarModelosSuperiores(numeroModelo, "/home/matias/");
 
 	return modeloSuperior;
 }

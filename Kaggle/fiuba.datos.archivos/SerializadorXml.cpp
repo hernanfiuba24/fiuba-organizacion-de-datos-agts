@@ -16,18 +16,18 @@ SerializadorXml::SerializadorXml() {}
 SerializadorXml::~SerializadorXml() {}
 
 
-void SerializadorXml::Serializar(PPMC* ppmc){
+void SerializadorXml::Serializar(PPMC* ppmc, std::string path){
 
-	SerializarModelo0(ppmc->getModelo0());
-	SerializarModelo1(ppmc->getModelo1());
-	SerializarModelosSuperiores(ppmc->getModelo2());
-	SerializarModelosSuperiores(ppmc->getModelo3());
-	SerializarModelosSuperiores(ppmc->getModelo4());
+	SerializarModelo0(ppmc->getModelo0(), path);
+	SerializarModelo1(ppmc->getModelo1(), path);
+	SerializarModelosSuperiores(ppmc->getModelo2(), path);
+	SerializarModelosSuperiores(ppmc->getModelo3(), path);
+	SerializarModelosSuperiores(ppmc->getModelo4(), path);
 
 }
 
 
-void SerializadorXml::SerializarModelo0(Modelo0* modelo0){
+void SerializadorXml::SerializarModelo0(Modelo0* modelo0, std::string path){
 	MapaFrecuencia* mapaFrecuencia = modelo0->getMapaFrecuencia();
 	std::map<unsigned long, Palabra*>* hashFrecuencia = mapaFrecuencia->getHashFrecuencia();
 	std::map<unsigned long, Palabra*>::iterator it = hashFrecuencia->begin();
@@ -37,7 +37,7 @@ void SerializadorXml::SerializarModelo0(Modelo0* modelo0){
 	this->xml.SetAttrib("primoJenkins", primoJenkins);
 	this->xml.IntoElem();
 
-	unsigned int umbral = 150;
+	unsigned int umbral = 0;
 	while(it != hashFrecuencia->end()){
 		unsigned long hashPalabra = (*it).first;
 		string palabra = (*it).second->getPalabra();
@@ -54,12 +54,12 @@ void SerializadorXml::SerializarModelo0(Modelo0* modelo0){
 	//Ruta Windows(No deberia existir): D:\\Modelo0.xml
 	//Ruta UBUNTU: /home/ezequiel/Descargas/Modelo0.xml
 	this->xml.OutOfElem();
-	this->xml.Save( "D:\\Modelo0.xml" );
+	this->xml.Save( path + "Modelo_0.xml" );
 	this->xml.RemoveElem();
 }
 
 
-void SerializadorXml::SerializarModelo1(Modelo1* modelo1){
+void SerializadorXml::SerializarModelo1(Modelo1* modelo1, std::string path){
 	this->xml.AddElem( "MODELO_1" );
 	this->xml.SetAttrib( "primoJenkins", modelo1->getJenkins()->getPrimo() );
 	this->xml.IntoElem();
@@ -91,12 +91,12 @@ void SerializadorXml::SerializarModelo1(Modelo1* modelo1){
 	}
 
 	this->xml.OutOfElem();
-	this->xml.Save( "C:\\Modelo_1.xml" );
+	this->xml.Save( path + "Modelo_1.xml" );
 	this->xml.RemoveElem();
 }
 
 
-void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo){
+void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo, std::string path){
 	stringstream ss;
 	ss << modelo->getNumeroModelo();
 	string nroModeloString = ss.str();
@@ -140,17 +140,17 @@ void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo){
 	}
 	//Ruta en UBUNTU: /home/ezequiel/Descargas/Modelo_
 	this->xml.OutOfElem();
-	this->xml.Save( "/home/ezequiel/Descargas/Modelo_" + nroModeloString + ".xml" );
+	this->xml.Save( path + "Modelo_" + nroModeloString + ".xml" );
 	this->xml.RemoveElem();
 }
 
 
-Modelo0* SerializadorXml::DeserializarModelo0(){
+Modelo0* SerializadorXml::DeserializarModelo0(std::string path){
 
 	unsigned long primo;
 	unsigned long hashPalabra;
 	int frecuenciaPalabra;
-	xml.Load( "D:\\Modelo_0.xml" );
+	xml.Load( path + "Modelo_0.xml" );
 	xml.FindElem(); // root MODELO_X elemento
 
 	stringstream(xml.GetAttrib("primoJenkins")) >> primo;
@@ -168,11 +168,44 @@ Modelo0* SerializadorXml::DeserializarModelo0(){
 
 	xml.OutOfElem();
 	xml.RemoveElem();
+	return modelo;
+}
+
+
+Modelo1* SerializadorXml::DeserializarModelo1(std::string path){
 
 }
 
 
-Modelo1* SerializadorXml::DeserializarModelo1(){}
+ModelosSuperiores* SerializadorXml::DeserializarModelosSuperiores(unsigned numeroModelo, std::string path){}
 
+void SerializadorXml::ProbarDeserializador(Modelo0* modelo0){
+	MapaFrecuencia* mapaFrecuencia = modelo0->getMapaFrecuencia();
+		std::map<unsigned long, Palabra*>* hashFrecuencia = mapaFrecuencia->getHashFrecuencia();
+		std::map<unsigned long, Palabra*>::iterator it = hashFrecuencia->begin();
 
-ModelosSuperiores* SerializadorXml::DeserializarModelosSuperiores(unsigned numeroModelo){}
+		unsigned primoJenkins = modelo0->getJenkins()->getPrimo();
+		this->xml.AddElem( "MODELO_0" );
+		this->xml.SetAttrib("primoJenkins", primoJenkins);
+		this->xml.IntoElem();
+
+		unsigned int umbral = 0;
+		while(it != hashFrecuencia->end()){
+			unsigned long hashPalabra = (*it).first;
+			string palabra = (*it).second->getPalabra();
+			unsigned long int frecuencia = (*it).second->getFrecuencia();
+			if (frecuencia > umbral){
+				this->xml.AddElem("PALABRA");
+				this->xml.SetAttrib("hash", hashPalabra);
+				this->xml.SetAttrib("palabra", palabra);
+				this->xml.SetAttrib("frecuencia", frecuencia);
+			}
+			it++;
+
+		}
+		//Ruta Windows(No deberia existir): D:\\Modelo0.xml
+		//Ruta UBUNTU: /home/ezequiel/Descargas/Modelo0.xml
+		this->xml.OutOfElem();
+		this->xml.Save( "C:\\Modelo_00.xml" );
+		this->xml.RemoveElem();
+}

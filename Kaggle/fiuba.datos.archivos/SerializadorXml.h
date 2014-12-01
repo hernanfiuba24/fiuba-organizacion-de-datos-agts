@@ -16,17 +16,19 @@
 class SerializadorXml {
 public:
 	SerializadorXml();
-	void Serializar(PPMC* ppmc);
+	void Serializar(PPMC* ppmc, std::string path);
 	std::vector<std::string>* DeserializarModelo(std::string numeroModelo);
-	Modelo0* DeserializarModelo0();
-	Modelo1* DeserializarModelo1();
-	ModelosSuperiores* DeserializarModelosSuperiores(unsigned numeroModelo);
+	Modelo0* DeserializarModelo0(std::string path);
+	Modelo1* DeserializarModelo1(std::string path);
+	ModelosSuperiores* DeserializarModelosSuperiores(unsigned numeroModelo, std::string path);
 	virtual ~SerializadorXml();
+	//Metodo de prueba--- BORRAR
+	void ProbarDeserializador(Modelo0* modelo);
 
 private:
-	void SerializarModelo0(Modelo0* modelo0);
-	void SerializarModelo1(Modelo1* modelo1);
-	void SerializarModelosSuperiores(ModelosSuperiores* modelo);
+	void SerializarModelo0(Modelo0* modelo0, std::string path);
+	void SerializarModelo1(Modelo1* modelo1, std::string path);
+	void SerializarModelosSuperiores(ModelosSuperiores* modelo, std::string path);
 	bool esUnContextoExistente(std::string nombreContexto);
     CMarkup xml;
 };

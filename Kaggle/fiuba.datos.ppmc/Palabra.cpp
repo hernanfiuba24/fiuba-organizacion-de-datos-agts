@@ -18,8 +18,8 @@ unsigned long Palabra::getFrecuencia(){
 	return this->frecuencia;
 }
 
-void Palabra::setFrecuencia(int frecuencia){
-	this->frecuencia = frecuencia;
+void Palabra::setFrecuencia(unsigned long nuevaFrecuencia){
+	this->frecuencia = nuevaFrecuencia;
 }
 
 string Palabra::getPalabra(){
