@@ -16,15 +16,17 @@
 #include "../fiuba.datos.archivos/SerializadorXml.h"
 #include <vector>
 #include <string>
+#include "../fiuba.datos.ppmc/PPMC.h"
 
 class Predictor {
 public:
 	Predictor();
-	void completarFrases(std::vector<Frase*>* frasesACompletar, Modelo1* modelo1, Modelo0* modelo0);
+	void completarFrases(std::vector<Frase*>* frasesACompletar, Modelo1* modelo1, Modelo0* modelo0, PPMC *unPPMC);
 	void predecirUnaFrase(Frase* fraseACompletar, ModelosSuperiores* modelosSuperiores);
 	void predecirUnaFrase(Frase* fraseACompletar, Modelo1* modelo1);
 	void predecirUnaFrase(Frase* fraseACompletar, Modelo0* modelo0);
 	ModelosSuperiores* cargarModelosSuperiores(unsigned numeroModelo);
+	ModelosSuperiores* ProvisoriaCargarModelosSuperiores(unsigned numeroModelo,PPMC *unPPMC);
 	virtual ~Predictor();
 
 private:

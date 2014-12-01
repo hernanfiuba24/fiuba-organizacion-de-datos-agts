@@ -16,9 +16,10 @@ FrecuenciaModelo::FrecuenciaModelo(float unaFrecuencia, unsigned unModelo){
 	this->modelo = unModelo;
 }
 void FrecuenciaModelo::setFrecuencia(float unaFrecuencia){
-	this->frecuencia = unaFrecuencia;
+	this->frecuencia += unaFrecuencia;
 }
 void FrecuenciaModelo::setModelo(unsigned unModelo){
+	if (this->modelo < unModelo)
 		this->modelo = unModelo;
 	}
 unsigned long FrecuenciaModelo::getFrecuencia(){
