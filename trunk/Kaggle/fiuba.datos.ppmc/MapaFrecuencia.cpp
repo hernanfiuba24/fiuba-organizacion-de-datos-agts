@@ -30,6 +30,11 @@ unsigned long MapaFrecuencia::getFrecuencia(unsigned long clave){
 	return frecuencia;
 }
 
+void MapaFrecuencia::setFrecuencia(unsigned long clave, unsigned long frecuencia){
+	map<unsigned long, Palabra*>::iterator iter = this->hashFrecuencia->find(clave);
+	(*iter).second->setFrecuencia(frecuencia);
+}
+
 bool MapaFrecuencia::existeClave(unsigned long clave){
 	map<unsigned long, Palabra*>::iterator iter = this->hashFrecuencia->find(clave);
 	if ( iter  == this->hashFrecuencia->end())
