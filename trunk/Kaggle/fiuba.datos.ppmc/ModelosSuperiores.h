@@ -14,6 +14,7 @@ public:
 	float devolverPenalizacion(unsigned numeroModelo);
 	Jenkins* getJenkins();
 	int getNumeroModelo();
+	std::string devolverPalabraConMayorFrecuencia(std::string contexto);
 	virtual ~ModelosSuperiores();
 //	void mostrarModelo(unsigned numeroModelo);
 

@@ -54,3 +54,21 @@ void MapaFrecuencia::agregarClave(unsigned long hashPalabra, Palabra* palabraAgr
 	(*this->hashFrecuencia).insert( make_pair(hashPalabra, palabraAgregar));
 }
 
+string MapaFrecuencia::devolverPalabraConMayorFrecuencia(){
+	unsigned index = 0;
+	Palabra *palabraTemporal;
+	string 	nombrePalabraMayorFrec;
+	unsigned long frecuenciaTemporal;
+	unsigned long frecuenciaMaxima = 0;
+
+	for (map<unsigned long, Palabra*>::const_iterator iter =
+				this->hashFrecuencia->begin(); iter != this->hashFrecuencia->end(); ++iter){
+			palabraTemporal = iter->second;
+			frecuenciaTemporal = palabraTemporal->getFrecuencia();
+			if(frecuenciaMaxima < frecuenciaTemporal){
+				nombrePalabraMayorFrec = palabraTemporal->getPalabra();
+				frecuenciaMaxima = frecuenciaTemporal;
+			}
+	}
+	return nombrePalabraMayorFrec;
+}

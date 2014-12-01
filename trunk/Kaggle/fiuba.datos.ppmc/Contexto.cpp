@@ -37,6 +37,10 @@ unsigned long Contexto::getFrecuencia(unsigned long clavePalabra){
 	unsigned long frec = this->unMapa->getFrecuencia(clavePalabra);
 	return frec;
 }
+string Contexto::devolverPalabraConMayorFrecuencia(){
+	string palabraConMayorFrecuencia = this->unMapa->devolverPalabraConMayorFrecuencia();
+	return palabraConMayorFrecuencia;
+}
 
 Contexto::~Contexto() {
 	delete this->unHash;
