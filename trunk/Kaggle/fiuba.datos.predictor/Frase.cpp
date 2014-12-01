@@ -67,7 +67,7 @@ Completador* Frase::devolverFrecuenciaMinima(unsigned numeroFrase){
 		if (menorFrecuencia > frecTemporal){
 			menorFrecuencia = frecTemporal;
 			numeroModelo = (*this->frecuencias)[index]->getModelo();
-			//labraConMayorFrecuencia = (*this->frecuencias)[index]
+			palabraConMayorFrecuencia = (*this->frecuencias)[index]->getPalabraConMayorFrecuencia();
 		}
 	}
 	Completador* unComp = new Completador(numeroModelo, menorFrecuencia, numeroFrase, palabraConMayorFrecuencia);
@@ -95,7 +95,11 @@ string Frase::buscarPalabraConMayorFrecuencia(ModelosSuperiores *modelosSuperior
 	string palabraMayorFrec = modelosSuperiores->devolverPalabraConMayorFrecuencia(contexto);
 	return palabraMayorFrec;
 }
+
+void Frase::borrarFrecuencias(){
+	delete this->frecuencias;
+}
+
 Frase::~Frase() {
-	// TODO Auto-generated destructor stub
 }
 

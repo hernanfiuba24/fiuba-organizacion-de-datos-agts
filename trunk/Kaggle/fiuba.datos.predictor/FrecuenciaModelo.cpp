@@ -29,6 +29,10 @@ float FrecuenciaModelo::getFrecuencia(){
 	return this->frecuencia;
 }
 
+string FrecuenciaModelo::getPalabraConMayorFrecuencia(){
+	return this->palabraConMayorFrec;
+}
+
 unsigned FrecuenciaModelo::getModelo(){
 	return this->modelo;
 }
