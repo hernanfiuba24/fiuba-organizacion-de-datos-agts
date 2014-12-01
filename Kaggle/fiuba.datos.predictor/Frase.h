@@ -25,6 +25,7 @@ public:
 	void setModelo(unsigned numeroModelo, unsigned index);
 	Completador* devolverFrecuenciaMinima(unsigned numeroFrase);
 	void setPalabraConMayorFrecuencia(ModelosSuperiores* modelosSuperiores,std::string contexto, unsigned index, unsigned numeroModelo);
+	void borrarFrecuencias();
 	virtual ~Frase();
 
 private:

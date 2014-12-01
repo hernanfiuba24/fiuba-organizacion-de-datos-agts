@@ -45,6 +45,7 @@ private:
 	vector<Completador*>* completadorModelo3;
 	vector<Completador*>* completadorModelo2;
 	vector<Completador*>* completadorModelo1;
+	vector<Completador*>* completadorModelo0;
 
 };
 

@@ -14,6 +14,7 @@ Predictor::Predictor() {
 	this->completadorModelo3 = new vector<Completador*>;
 	this->completadorModelo2 = new vector<Completador*>;
 	this->completadorModelo1 = new vector<Completador*>;
+	this->completadorModelo0 = new vector<Completador*>;
 }
 //Paso el PPMC para ir cargando los modelos superiores
 //( esto es solo para el momento de testeo)
@@ -23,6 +24,7 @@ void Predictor::completarFrases(vector<Frase* >* frasesACompletar, Modelo1* mode
 
 	this->cargarCompletadores(frasesACompletar);
 
+	delete frasesACompletar;
 	//Recorrer los completadorModelo.
 	//Para el completadorModelo4 tengo el indice, el numeroDeFrase y la palabraConMayorFrec.
 	//Accedo a la frase [numeroDeFrase] y agrego palabraConMayorFrecuencia en [indice]. Asi para todos.
@@ -182,15 +184,21 @@ void Predictor::setearCompletadorModelo(Completador* unCompletador){
 	if (numeroModelo == 4)
 		this->completadorModelo4->push_back(unCompletador);
 	else if (numeroModelo == 3)
-			this->completadorModelo3->push_back(unCompletador);
+		this->completadorModelo3->push_back(unCompletador);
 	else if (numeroModelo == 2)
-			this->completadorModelo2->push_back(unCompletador);
+		this->completadorModelo2->push_back(unCompletador);
 	else if (numeroModelo == 1)
-			this->completadorModelo1->push_back(unCompletador);
-
+		this->completadorModelo1->push_back(unCompletador);
+	else if (numeroModelo == 0)
+		this->completadorModelo0->push_back(unCompletador);
 }
 
 
 Predictor::~Predictor() {
+	delete this->completadorModelo0;
+	delete this->completadorModelo1;
+	delete this->completadorModelo2;
+	delete this->completadorModelo3;
+	delete this->completadorModelo4;
 }
 

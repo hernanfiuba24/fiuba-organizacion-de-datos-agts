@@ -17,10 +17,6 @@ Completador::Completador(unsigned unNumeroModelo, unsigned unIndex, unsigned unN
 	this->palabraConMayorFrecuencia = unaPalabraConMayorFrecuencia;
 }
 
-string Completador::getPalabraConMayorFrecuencia(){
-	return this->palabraConMayorFrecuencia;
-}
-
 unsigned Completador::getNumeroFrase(){
 	return this->numeroFrase;
 }
