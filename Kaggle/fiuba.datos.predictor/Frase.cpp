@@ -29,7 +29,7 @@ void Frase::inicializarFrecuencias(){
 
 string Frase::devolverContexto(int numeroModelo, int inicio){
 
-	unsigned indice = inicio-1;
+	int indice = inicio-1;
 
 	string contexto = (*this->fraseACompletar)[indice];
 	indice--;

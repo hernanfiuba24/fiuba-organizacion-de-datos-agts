@@ -217,8 +217,8 @@ int main() {
 	unPPMC->entrenarPalabras(palabrasLimpias);
 
 //	mostrarModelo0(unPPMC);
-	 cout<<endl;
-		cout<< "Modelo 0:"<<endl;
+/*	 cout<<endl;
+	cout<< "Modelo 0:"<<endl;
 		 mostrarModelo0(unPPMC);
 		 cout << endl;
 		 cout<< "Modelo 1:"<<endl;
@@ -235,6 +235,7 @@ int main() {
 
 	cout << endl;
 	cout << endl;
+*/
 
 //    mostrarModelo(unPPMC, 4);
 
@@ -267,8 +268,9 @@ int main() {
 	frasesACompletar->push_back(unaFrase2);
 
 	Predictor* unPred = new Predictor();
-
-	unPred->completarFrases(frasesACompletar, unPPMC->getModelo1(), unPPMC->getModelo0());
+	Modelo1 *unModelo1 = unPPMC->getModelo1();
+	Modelo0 *unModelo0 = unPPMC->getModelo0();
+	unPred->completarFrases(frasesACompletar, unModelo1, unModelo0, unPPMC);
 
 	//unPPMC->(frasesACompletar, 4);
 

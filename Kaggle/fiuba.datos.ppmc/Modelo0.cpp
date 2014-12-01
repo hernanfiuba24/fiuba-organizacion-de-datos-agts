@@ -35,7 +35,7 @@ void Modelo0::agregarPalabra(string unNombre){
 }
 
 float Modelo0::devolverPenalizacion(){
-	return 0.0256;
+	return 0.0016; //0.2^4
 }
 
 Jenkins* Modelo0::getJenkins(){

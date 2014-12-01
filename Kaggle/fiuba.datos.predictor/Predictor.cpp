@@ -12,14 +12,16 @@ using namespace std;
 Predictor::Predictor() {
 
 }
-
-void Predictor::completarFrases(vector<Frase* >* frasesACompletar, Modelo1* modelo1, Modelo0* modelo0){
+//Paso el PPMC para ir cargando los modelos superiores
+//( esto es solo para el momento de testeo)
+void Predictor::completarFrases(vector<Frase* >* frasesACompletar, Modelo1* modelo1, Modelo0* modelo0, PPMC *unPPMC){
 
 //FALTA TERMINAR!!!!
 	unsigned numeroModelo = 4;
 	for (numeroModelo; numeroModelo >= 2; numeroModelo--) {
 
-		ModelosSuperiores* modeloSuperior = this->cargarModelosSuperiores(numeroModelo);
+		//ModelosSuperiores* modeloSuperior = this->cargarModelosSuperiores(numeroModelo);
+		ModelosSuperiores* modeloSuperior = this->ProvisoriaCargarModelosSuperiores(numeroModelo, unPPMC);
 		for (int i = 0; i < frasesACompletar->size(); i++) {
 			this->predecirUnaFrase((*frasesACompletar)[i], modeloSuperior);
 		}
@@ -56,9 +58,9 @@ void Predictor::predecirUnaFrase(Frase* fraseACompletar, ModelosSuperiores* mode
 
 		unsigned long frecuencia = modelosSuperiores->devolverFrecuencia(contexto, palabra);
 		bool frecuenciaEsCero = (frecuencia == 0);
-		bool bajaDeNivel = (fraseACompletar->getModelo(numeroModelo, index) == NULL);
+		//bool bajaDeNivel = (fraseACompletar->getModelo(numeroModelo, index) == NULL);
 		float penalizacion;
-		if ((!frecuenciaEsCero) && (bajaDeNivel)){
+		if ((!frecuenciaEsCero)){			//if ((!frecuenciaEsCero) && (bajaDeNivel)){
 			penalizacion = modelosSuperiores->devolverPenalizacion(numeroModelo);
 			fraseACompletar->setFrecuencia(penalizacion, frecuencia, numeroModelo, index);
 			fraseACompletar->setModelo(numeroModelo, index);
@@ -78,9 +80,9 @@ void Predictor::predecirUnaFrase(Frase* fraseACompletar, Modelo1* modelo1){
 
 		unsigned long frecuencia = modelo1->devolverFrecuencia(contexto, palabra);
 		bool frecuenciaEsCero = (frecuencia == 0);
-		bool bajaDeNivel = (fraseACompletar->getModelo(numeroModelo, index) == NULL);
+//		bool bajaDeNivel = (fraseACompletar->getModelo(numeroModelo, index) == NULL);
 		float penalizacion;
-		if ((!frecuenciaEsCero) && (bajaDeNivel)){
+		if ((!frecuenciaEsCero)){	//if ((!frecuenciaEsCero) && (bajaDeNivel)){
 			penalizacion = modelo1->devolverPenalizacion();
 			fraseACompletar->setFrecuencia(penalizacion, frecuencia, numeroModelo, index);
 			fraseACompletar->setModelo(numeroModelo, index);
@@ -91,7 +93,7 @@ void Predictor::predecirUnaFrase(Frase* fraseACompletar, Modelo1* modelo1){
 void Predictor::predecirUnaFrase(Frase* fraseACompletar, Modelo0* modelo0){
 
 	unsigned tam = fraseACompletar->getTamanioFrase();
-	unsigned index = 0;
+	unsigned index = 1;
 	unsigned numeroModelo = 0;
 	for (index; index < tam - numeroModelo; index++) {
 
@@ -134,7 +136,19 @@ ModelosSuperiores* Predictor::cargarModelosSuperiores(unsigned numeroModelo){
 	return modeloSuperior;
 }
 
+ModelosSuperiores* Predictor::ProvisoriaCargarModelosSuperiores(unsigned numeroModelo, PPMC *unPPMC){
 
+	 	ModelosSuperiores* modeloSuperior;
+
+		if (numeroModelo == 2 )
+			modeloSuperior = unPPMC->getModelo2();
+		else if (numeroModelo == 3 )
+			modeloSuperior = unPPMC->getModelo3();
+		else if (numeroModelo == 4 )
+			modeloSuperior = unPPMC->getModelo4();
+
+		return modeloSuperior;
+}
 
 
 Predictor::~Predictor() {
