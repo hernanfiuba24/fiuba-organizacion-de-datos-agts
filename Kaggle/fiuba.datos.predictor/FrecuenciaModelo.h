@@ -8,18 +8,24 @@
 #ifndef FIUBA_DATOS_PREDICTOR_FRECUENCIAMODELO_H_
 #define FIUBA_DATOS_PREDICTOR_FRECUENCIAMODELO_H_
 
+#include <string>
+
 class FrecuenciaModelo {
 public:
 	FrecuenciaModelo();
 	FrecuenciaModelo(float unaFrecuencia, unsigned unModelo);
 	void setFrecuencia(float unaFrecuencia);
 	void setModelo(unsigned unModelo);
-	unsigned long getFrecuencia();
+	float getFrecuencia();
 	unsigned getModelo();
+	bool esMayorElModelo(unsigned numeroModelo);
+	void setearPalabra(std:: string unaPalabra);
+	void setearPalabraConMayorFrecuencia(std::string unaPalabraConMayorFrecuencia);
 	virtual ~FrecuenciaModelo();
 private:
 	 float frecuencia;
 	 unsigned modelo;
+	 std::string palabraConMayorFrec;
 };
 
 #endif /* FIUBA_DATOS_PREDICTOR_FRECUENCIAMODELO_H_ */

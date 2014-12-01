@@ -9,6 +9,8 @@
 #define FIUBA_DATOS_PREDICTOR_FRASE_H_
 
 #include "../fiuba.datos.predictor/FrecuenciaModelo.h"
+#include "../fiuba.datos.predictor/Completador.h"
+#include "../fiuba.datos.ppmc/ModelosSuperiores.h"
 #include <vector>
 #include <string>
 
@@ -21,13 +23,18 @@ public:
 	std::string devolverPalabra(unsigned index);
 	void setFrecuencia(float penalizacion, unsigned long frecuencia, unsigned numeroModelo, unsigned index);
 	void setModelo(unsigned numeroModelo, unsigned index);
+	Completador* devolverFrecuenciaMinima(unsigned numeroFrase);
+	void setPalabraConMayorFrecuencia(ModelosSuperiores* modelosSuperiores,std::string contexto, unsigned index, unsigned numeroModelo);
 	virtual ~Frase();
 
 private:
 	std::vector< std::string >* fraseACompletar;
 	std::vector< FrecuenciaModelo* >* frecuencias;
 	unsigned indiceDondeCompletar;
+	unsigned tamanioFrecuencias;
 	void inicializarFrecuencias();
+	std::string buscarPalabraConMayorFrecuencia(ModelosSuperiores *modelosSuperiores, std::string contexto);
+
 };
 
 #endif /* FIUBA_DATOS_PREDICTOR_FRASE_H_ */

@@ -10,41 +10,47 @@
 using namespace std;
 
 Predictor::Predictor() {
-
+	this->completadorModelo4 = new vector<Completador*>;
+	this->completadorModelo3 = new vector<Completador*>;
+	this->completadorModelo2 = new vector<Completador*>;
+	this->completadorModelo1 = new vector<Completador*>;
 }
 //Paso el PPMC para ir cargando los modelos superiores
 //( esto es solo para el momento de testeo)
 void Predictor::completarFrases(vector<Frase* >* frasesACompletar, Modelo1* modelo1, Modelo0* modelo0, PPMC *unPPMC){
 
-//FALTA TERMINAR!!!!
-	unsigned numeroModelo = 4;
-	for (numeroModelo; numeroModelo >= 2; numeroModelo--) {
+	this->completarFrecuencias(frasesACompletar, modelo1, modelo0, unPPMC);
 
-		//ModelosSuperiores* modeloSuperior = this->cargarModelosSuperiores(numeroModelo);
-		ModelosSuperiores* modeloSuperior = this->ProvisoriaCargarModelosSuperiores(numeroModelo, unPPMC);
-		for (int i = 0; i < frasesACompletar->size(); i++) {
-			this->predecirUnaFrase((*frasesACompletar)[i], modeloSuperior);
-		}
-	//DESCOMENTAR ESTO DESPUES
-		delete modeloSuperior;
-/*	int i;
-	float menorFrecuencia = (*frecuencias)[0].first;
-	float frecTemporal;
-	for(i = 1; i < frecuencias->size(); i++){
-		frecTemporal = (*frecuencias)[i].first;
-		if (menorFrecuencia > frecTemporal)
-			menorFrecuencia = frecTemporal;
-		}*/
-//	parser.agregarFraseCompleta(id, frase);
+	this->cargarCompletadores(frasesACompletar);
 
-	}
+	//Recorrer los completadorModelo.
+	//Para el completadorModelo4 tengo el indice, el numeroDeFrase y la palabraConMayorFrec.
+	//Accedo a la frase [numeroDeFrase] y agrego palabraConMayorFrecuencia en [indice]. Asi para todos.
+	//Esto es lo que faltaria.
 
-	for (int i = 0; i < frasesACompletar->size(); i++)
-		this->predecirUnaFrase((*frasesACompletar)[i], modelo1);
-
-	for (int i = 0; i < frasesACompletar->size(); i++)
-			this->predecirUnaFrase((*frasesACompletar)[i], modelo0);
 }
+
+void Predictor::completarFrecuencias(vector<Frase* >* frasesACompletar, Modelo1* modelo1, Modelo0* modelo0, PPMC *unPPMC){
+		unsigned numeroModelo = 4;
+		unsigned tamanioFrases = frasesACompletar->size();
+		for (numeroModelo; numeroModelo >= 2; numeroModelo--) {
+
+			//ModelosSuperiores* modeloSuperior = this->cargarModelosSuperiores(numeroModelo);
+			ModelosSuperiores* modeloSuperior = this->ProvisoriaCargarModelosSuperiores(numeroModelo, unPPMC);
+			for (unsigned i = 0; i < tamanioFrases; i++)
+				this->predecirUnaFrase((*frasesACompletar)[i], modeloSuperior);
+		//DESCOMENTAR ESTO DESPUES
+			delete modeloSuperior;
+		}
+
+		for (unsigned i = 0; i < tamanioFrases; i++)
+			this->predecirUnaFrase((*frasesACompletar)[i], modelo1);
+
+		for (unsigned i = 0; i < tamanioFrases; i++)
+				this->predecirUnaFrase((*frasesACompletar)[i], modelo0);
+
+}
+
 
 void Predictor::predecirUnaFrase(Frase* fraseACompletar, ModelosSuperiores* modelosSuperiores){
 
@@ -64,6 +70,10 @@ void Predictor::predecirUnaFrase(Frase* fraseACompletar, ModelosSuperiores* mode
 			penalizacion = modelosSuperiores->devolverPenalizacion(numeroModelo);
 			fraseACompletar->setFrecuencia(penalizacion, frecuencia, numeroModelo, index);
 			fraseACompletar->setModelo(numeroModelo, index);
+			//Busca la palabra de mayor frecuencia para ese contexto
+			//palabraConMayorFrecuencia this->buscarPalabraConMayorFrecuencia(contexto);
+			fraseACompletar->setPalabraConMayorFrecuencia(modelosSuperiores, contexto, index, numeroModelo);
+
 		}
 	}
 }
@@ -111,6 +121,16 @@ void Predictor::predecirUnaFrase(Frase* fraseACompletar, Modelo0* modelo0){
 	}
 }
 
+void Predictor::cargarCompletadores(vector<Frase*>* frasesACompletar){
+
+	for (int i=0; i < frasesACompletar->size(); i++){
+
+		unsigned numeroFrase = i++;
+		Completador *unCompletador = this->hallarLaFrecuenciaMinima((*frasesACompletar)[i], numeroFrase);
+		this->setearCompletadorModelo(unCompletador);
+	}
+}
+
 string Predictor::devolverContexto(Frase* fraseACompletar, unsigned numeroModelo, unsigned inicio){
 
 	return fraseACompletar->devolverContexto(numeroModelo, inicio);
@@ -148,6 +168,26 @@ ModelosSuperiores* Predictor::ProvisoriaCargarModelosSuperiores(unsigned numeroM
 			modeloSuperior = unPPMC->getModelo4();
 
 		return modeloSuperior;
+}
+
+Completador* Predictor::hallarLaFrecuenciaMinima(Frase *fraseACompletar, unsigned numeroFrase){
+
+	Completador* unComp = fraseACompletar->devolverFrecuenciaMinima(numeroFrase);
+	return unComp;
+}
+
+void Predictor::setearCompletadorModelo(Completador* unCompletador){
+
+	unsigned numeroModelo = unCompletador->getNumeroModelo();
+	if (numeroModelo == 4)
+		this->completadorModelo4->push_back(unCompletador);
+	else if (numeroModelo == 3)
+			this->completadorModelo3->push_back(unCompletador);
+	else if (numeroModelo == 2)
+			this->completadorModelo2->push_back(unCompletador);
+	else if (numeroModelo == 1)
+			this->completadorModelo1->push_back(unCompletador);
+
 }
 
 

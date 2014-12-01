@@ -85,6 +85,13 @@ float ModelosSuperiores::devolverPenalizacion(unsigned numeroModelo){
     return penalizacion;
 }
 
+string ModelosSuperiores::devolverPalabraConMayorFrecuencia(string contexto){
+	unsigned long clave = this->unHash->hashearConMod(contexto);
+	Contexto *unContexto = this->contextos->getContextos(clave);
+
+	string palabraConMayorFrecuencia = unContexto->devolverPalabraConMayorFrecuencia();
+	return palabraConMayorFrecuencia;
+}
 /*void ModelosSuperiores::mostrarModelo(unsigned modelo){
 
 	map<unsigned long, Contexto*>* mapaHashCtx = this->contextos->getMapaHash();
