@@ -35,7 +35,7 @@ void Modelo0::agregarPalabra(string unNombre){
 }
 
 float Modelo0::devolverPenalizacion(){
-	return 0.0016; //0.2^4
+	return 0.0256; //0.2^4
 }
 
 Jenkins* Modelo0::getJenkins(){
@@ -54,6 +54,9 @@ unsigned long Modelo0::devolverFrecuencia(string palabra){
 		this->unMapa->getFrecuencia(clavePalabra);
 }
 
+string Modelo0::devolverPalabraConMayorFrecuencia(){
+	return this->unMapa->devolverPalabraConMayorFrecuencia();
+}
 Modelo0::~Modelo0() {
 	delete this->unMapa;
 }

@@ -22,6 +22,9 @@ void Predictor::completarFrases(vector<Frase* >* frasesACompletar, Modelo1* mode
 
 	this->completarFrecuencias(frasesACompletar, modelo1, modelo0, unPPMC);
 
+	//BORRAR ESTO. SOLO PARA VER SI FUNCIONA BIEN!!!!!!!
+	this->mostrarFrecuencias(frasesACompletar);
+
 	this->cargarCompletadores(frasesACompletar);
 
 	delete frasesACompletar;
@@ -30,6 +33,16 @@ void Predictor::completarFrases(vector<Frase* >* frasesACompletar, Modelo1* mode
 	//Accedo a la frase [numeroDeFrase] y agrego palabraConMayorFrecuencia en [indice]. Asi para todos.
 	//Esto es lo que faltaria.
 
+}
+
+void Predictor::mostrarFrecuencias(vector<Frase*>* frasesACompletar){
+	for(unsigned i = 0; i < frasesACompletar->size(); i++){
+		vector< FrecuenciaModelo* >* frecuencias = (*frasesACompletar)[i]->getFrecuencias();
+		cout << "Vector Frec:" << endl;
+		for(unsigned i=0; i<frecuencias->size();i++){
+			cout << (*frecuencias)[i]->getFrecuencia() << '\t' << (*frecuencias)[i]->getModelo() << '\t' << (*frecuencias)[i]->getPalabraConMayorFrecuencia() << endl;
+		}
+	}
 }
 
 void Predictor::completarFrecuencias(vector<Frase* >* frasesACompletar, Modelo1* modelo1, Modelo0* modelo0, PPMC *unPPMC){
@@ -48,8 +61,9 @@ void Predictor::completarFrecuencias(vector<Frase* >* frasesACompletar, Modelo1*
 		for (unsigned i = 0; i < tamanioFrases; i++)
 			this->predecirUnaFrase((*frasesACompletar)[i], modelo1);
 
+		string palabraConMayorFrecuencia = modelo0->devolverPalabraConMayorFrecuencia();
 		for (unsigned i = 0; i < tamanioFrases; i++)
-				this->predecirUnaFrase((*frasesACompletar)[i], modelo0);
+				this->predecirUnaFrase((*frasesACompletar)[i], modelo0, palabraConMayorFrecuencia);
 
 }
 
@@ -98,11 +112,12 @@ void Predictor::predecirUnaFrase(Frase* fraseACompletar, Modelo1* modelo1){
 			penalizacion = modelo1->devolverPenalizacion();
 			fraseACompletar->setFrecuencia(penalizacion, frecuencia, numeroModelo, index);
 			fraseACompletar->setModelo(numeroModelo, index);
+			fraseACompletar->setPalabraConMayorFrecuencia(modelo1, contexto, index, numeroModelo);
 		}
 	}
 }
 
-void Predictor::predecirUnaFrase(Frase* fraseACompletar, Modelo0* modelo0){
+void Predictor::predecirUnaFrase(Frase* fraseACompletar, Modelo0* modelo0, string palabraConMayorFrecuencia){
 
 	unsigned tam = fraseACompletar->getTamanioFrase();
 	unsigned index = 1;
@@ -119,6 +134,7 @@ void Predictor::predecirUnaFrase(Frase* fraseACompletar, Modelo0* modelo0){
 			penalizacion = modelo0->devolverPenalizacion();
 			fraseACompletar->setFrecuencia(penalizacion, frecuencia, numeroModelo, index);
 			fraseACompletar->setModelo(numeroModelo, index);
+			fraseACompletar->setPalabraConMayorFrecuencia(palabraConMayorFrecuencia, index, numeroModelo);
 		}
 	}
 }
@@ -127,7 +143,7 @@ void Predictor::cargarCompletadores(vector<Frase*>* frasesACompletar){
 
 	for (int i=0; i < frasesACompletar->size(); i++){
 
-		unsigned numeroFrase = i++;
+		unsigned numeroFrase = i + 1;
 		Completador *unCompletador = this->hallarLaFrecuenciaMinima((*frasesACompletar)[i], numeroFrase);
 		this->setearCompletadorModelo(unCompletador);
 	}

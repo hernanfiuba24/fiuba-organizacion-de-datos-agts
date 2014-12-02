@@ -17,6 +17,7 @@
 #include <vector>
 #include <string>
 #include "../fiuba.datos.ppmc/PPMC.h"
+#include <iostream>
 
 namespace std {
 
@@ -26,10 +27,11 @@ public:
 	void completarFrases(vector<Frase*>* frasesACompletar, Modelo1* modelo1, Modelo0* modelo0, PPMC *unPPMC);
 	void predecirUnaFrase(Frase* fraseACompletar, ModelosSuperiores* modelosSuperiores);
 	void predecirUnaFrase(Frase* fraseACompletar, Modelo1* modelo1);
-	void predecirUnaFrase(Frase* fraseACompletar, Modelo0* modelo0);
+	void predecirUnaFrase(Frase* fraseACompletar, Modelo0* modelo0, std::string palabraConMayorFrecuencia);
 	ModelosSuperiores* cargarModelosSuperiores(unsigned numeroModelo);
 	ModelosSuperiores* ProvisoriaCargarModelosSuperiores(unsigned numeroModelo,PPMC *unPPMC);
 	virtual ~Predictor();
+	void mostrarFrecuencias(vector<Frase*>* frasesACompletar);
 
 private:
 	void inicializarFrecuencias(vector< FrecuenciaModelo* >* frecuencias);

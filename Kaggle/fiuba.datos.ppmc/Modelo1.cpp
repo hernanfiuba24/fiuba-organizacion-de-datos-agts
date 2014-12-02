@@ -83,6 +83,14 @@ unsigned long Modelo1::devolverFrecuencia(string nombreContexto, string nombrePa
 	return frecuencia;
 }
 
+string Modelo1::devolverPalabraConMayorFrecuencia(string contexto){
+	unsigned long clave = this->unHash->hashearConMod(contexto);
+	Contexto *unContexto = this->contextos->getContextos(clave);
+
+	string palabraConMayorFrecuencia = unContexto->devolverPalabraConMayorFrecuencia();
+	return palabraConMayorFrecuencia;
+}
+
 Modelo1::~Modelo1() {
 	delete this->contextos;
 	delete this->unHash;
