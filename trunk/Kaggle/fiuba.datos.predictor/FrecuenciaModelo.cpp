@@ -38,7 +38,7 @@ unsigned FrecuenciaModelo::getModelo(){
 }
 
 bool FrecuenciaModelo::esMayorElModelo(unsigned numeroModelo){
-	return (numeroModelo>this->modelo);
+	return (numeroModelo>=this->modelo);
 }
 
 void FrecuenciaModelo::setearPalabraConMayorFrecuencia(string unaPalabra){

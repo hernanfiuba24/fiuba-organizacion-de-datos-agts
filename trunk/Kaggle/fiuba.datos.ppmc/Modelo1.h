@@ -24,6 +24,7 @@ public:
 	bool existeContexto(unsigned long claveContexto);
 	unsigned long hashearPalabra(unsigned long claveContexto, std::string palabraActual);
 	bool existePalabraEnContexto(unsigned long claveContexto, unsigned long clavePalabra);
+	std::string devolverPalabraConMayorFrecuencia(std::string contexto);
 	MapaContexto* getMapa();
 	float devolverPenalizacion();
 	Jenkins* getJenkins();

@@ -24,6 +24,7 @@ public:
 	unsigned long devolverFrecuencia(std::string palabra);
 	unsigned long hashearPalabra(std::string palabra);
 	float devolverPenalizacion();
+	std::string devolverPalabraConMayorFrecuencia();
 	Jenkins* getJenkins();
 	virtual ~Modelo0();
 

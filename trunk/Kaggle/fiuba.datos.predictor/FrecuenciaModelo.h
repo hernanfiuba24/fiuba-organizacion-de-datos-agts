@@ -20,7 +20,6 @@ public:
 	unsigned getModelo();
 	std::string getPalabraConMayorFrecuencia();
 	bool esMayorElModelo(unsigned numeroModelo);
-	void setearPalabra(std:: string unaPalabra);
 	void setearPalabraConMayorFrecuencia(std::string unaPalabraConMayorFrecuencia);
 	virtual ~FrecuenciaModelo();
 private:

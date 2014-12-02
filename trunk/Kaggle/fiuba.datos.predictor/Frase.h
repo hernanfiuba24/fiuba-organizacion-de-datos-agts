@@ -11,6 +11,7 @@
 #include "../fiuba.datos.predictor/FrecuenciaModelo.h"
 #include "../fiuba.datos.predictor/Completador.h"
 #include "../fiuba.datos.ppmc/ModelosSuperiores.h"
+#include "../fiuba.datos.ppmc/Modelo1.h"
 #include <vector>
 #include <string>
 
@@ -25,7 +26,10 @@ public:
 	void setModelo(unsigned numeroModelo, unsigned index);
 	Completador* devolverFrecuenciaMinima(unsigned numeroFrase);
 	void setPalabraConMayorFrecuencia(ModelosSuperiores* modelosSuperiores,std::string contexto, unsigned index, unsigned numeroModelo);
+	void setPalabraConMayorFrecuencia(Modelo1* modelo1,std::string contexto, unsigned index, unsigned numeroModelo);
+	void setPalabraConMayorFrecuencia(std::string palabraConMayorFrecuencia, unsigned index, unsigned numeroModelo);
 	void borrarFrecuencias();
+	std::vector< FrecuenciaModelo* >* getFrecuencias();
 	virtual ~Frase();
 
 private:
@@ -35,6 +39,7 @@ private:
 	unsigned tamanioFrecuencias;
 	void inicializarFrecuencias();
 	std::string buscarPalabraConMayorFrecuencia(ModelosSuperiores *modelosSuperiores, std::string contexto);
+	std::string buscarPalabraConMayorFrecuencia(Modelo1 *modelo1, std::string contexto);
 
 };
 

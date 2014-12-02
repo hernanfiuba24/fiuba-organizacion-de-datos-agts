@@ -237,7 +237,7 @@ int main() {
 	cout << endl;
 */
 
-//    mostrarModelo(unPPMC, 4);
+    mostrarModelo(unPPMC, 4);
 
 	cout << endl;
 

@@ -60,8 +60,9 @@ Completador* Frase::devolverFrecuenciaMinima(unsigned numeroFrase){
 	unsigned numeroModelo = (*this->frecuencias)[1]->getModelo();
 	float menorFrecuencia = (*this->frecuencias)[1]->getFrecuencia();
 	float frecTemporal;
+	unsigned index;
 	string palabraConMayorFrecuencia;
-	for(unsigned index = 2; index < this->tamanioFrecuencias; index++){
+	for(index = 2; index < this->tamanioFrecuencias; index++){
 
 		frecTemporal = (*this->frecuencias)[index]->getFrecuencia();
 		if (menorFrecuencia > frecTemporal){
@@ -70,7 +71,8 @@ Completador* Frase::devolverFrecuenciaMinima(unsigned numeroFrase){
 			palabraConMayorFrecuencia = (*this->frecuencias)[index]->getPalabraConMayorFrecuencia();
 		}
 	}
-	Completador* unComp = new Completador(numeroModelo, menorFrecuencia, numeroFrase, palabraConMayorFrecuencia);
+	index--;
+	Completador* unComp = new Completador(numeroModelo, index, numeroFrase, palabraConMayorFrecuencia);
 	return unComp;
 }
 
@@ -91,9 +93,34 @@ void Frase::setPalabraConMayorFrecuencia(ModelosSuperiores* modelosSuperiores,st
 	}
 }
 
+void Frase::setPalabraConMayorFrecuencia(Modelo1* modelo1,std::string contexto, unsigned index, unsigned numeroModelo){
+	string palabraConMayorFrecuencia;
+	FrecuenciaModelo *unaFrecuenciaModelo = (*this->frecuencias)[numeroModelo+index];
+	bool hayQueAgregarPalabra;
+	hayQueAgregarPalabra = unaFrecuenciaModelo->esMayorElModelo(numeroModelo);
+	if (hayQueAgregarPalabra){
+		palabraConMayorFrecuencia = this->buscarPalabraConMayorFrecuencia(modelo1, contexto);
+		(*this->frecuencias)[numeroModelo+index]->setearPalabraConMayorFrecuencia(palabraConMayorFrecuencia);
+	}
+}
+
+void Frase::setPalabraConMayorFrecuencia(string palabraConMayorFrecuencia, unsigned index, unsigned numeroModelo){
+	(*this->frecuencias)[numeroModelo+index]->setearPalabraConMayorFrecuencia(palabraConMayorFrecuencia);
+
+}
+
 string Frase::buscarPalabraConMayorFrecuencia(ModelosSuperiores *modelosSuperiores, std::string contexto){
 	string palabraMayorFrec = modelosSuperiores->devolverPalabraConMayorFrecuencia(contexto);
 	return palabraMayorFrec;
+}
+
+string Frase::buscarPalabraConMayorFrecuencia(Modelo1 *modelo1, std::string contexto){
+	string palabraMayorFrec = modelo1->devolverPalabraConMayorFrecuencia(contexto);
+	return palabraMayorFrec;
+}
+
+vector< FrecuenciaModelo* >* Frase::getFrecuencias(){
+	return this->frecuencias;
 }
 
 void Frase::borrarFrecuencias(){
