@@ -30,7 +30,8 @@ public:
 	void setPalabraConMayorFrecuencia(std::string palabraConMayorFrecuencia, unsigned index, unsigned numeroModelo);
 	void borrarFrecuencias();
 	std::vector< FrecuenciaModelo* >* getFrecuencias();
-	std::vector< std::string >* getFraseACompletar();
+	std::vector<std::string>* getFrase();
+std::vector< std::string >* getFraseACompletar();
 	void insertarPalabraEn(unsigned posEnDondeCompletarFrase, std::string palabraMayorFrecuencia);
 	virtual ~Frase();
 

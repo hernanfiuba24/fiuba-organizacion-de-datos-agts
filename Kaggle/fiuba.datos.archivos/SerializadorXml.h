@@ -9,6 +9,7 @@
 #include "Markup.h"
 #include "Parser.h"
 #include "../fiuba.datos.ppmc/PPMC.h"
+#include "../fiuba.datos.predictor/Frase.h"
 
 #ifndef SERIALIZADORXML_H_
 #define SERIALIZADORXML_H_
@@ -21,6 +22,7 @@ public:
 	Modelo0* DeserializarModelo0(std::string path);
 	Modelo1* DeserializarModelo1(std::string path);
 	ModelosSuperiores* DeserializarModelosSuperiores(unsigned numeroModelo, std::string path);
+	void SerializarTestFile(std::vector<Frase*>* frasesCompletas);
 	virtual ~SerializadorXml();
 	//Metodo de prueba--- BORRAR
 	void ProbarDeserializador(Modelo0* modelo);

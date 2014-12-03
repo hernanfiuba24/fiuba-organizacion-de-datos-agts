@@ -140,6 +140,10 @@ void Frase::borrarFrecuencias(){
 	delete this->frecuencias;
 }
 
+vector<string>* Frase::getFrase(){
+	return this->fraseACompletar;
+}
+
 Frase::~Frase() {
 }
 
