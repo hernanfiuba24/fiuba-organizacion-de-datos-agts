@@ -246,9 +246,9 @@ int main() {
 	frase1->push_back("hola");
 	frase1->push_back("como");
 	frase1->push_back("estas");
-	frase1->push_back("esto");
 	frase1->push_back("es");
 	frase1->push_back("un");
+	frase1->push_back("vector");
 	frase1->push_back(".");
 
 	vector<string>* frase2 = new vector<string>;
