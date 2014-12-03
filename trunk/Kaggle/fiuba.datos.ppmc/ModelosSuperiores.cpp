@@ -55,23 +55,26 @@ int ModelosSuperiores::getNumeroModelo(){
 	return this->numeroModelo;
 }
 
-unsigned long ModelosSuperiores::devolverFrecuencia(string nombreContexto, string nombrePalabra){
+pair<unsigned long, bool>* ModelosSuperiores::devolverFrecuencia(string nombreContexto, string nombrePalabra){
 
-	unsigned long frecuencia = 0;
+	pair<unsigned long, bool >* frecExisteContexto = new pair<unsigned long, bool>;
+	frecExisteContexto->first = 0;
+	frecExisteContexto->second = false;
 	unsigned long claveContexto = this->hashearContexto(nombreContexto);
-
 	bool existeContexto = this->existeContexto(claveContexto);
 
+	frecExisteContexto->second = existeContexto;
 	if (existeContexto) {
 		unsigned long clavePalabra =
 				this->hashearPalabra(claveContexto, nombrePalabra);
 		bool existePalabraEnContexto =
 				this->existePalabraEnContexto(claveContexto, clavePalabra);
 		if (existePalabraEnContexto) {
-			frecuencia =  this->contextos->getFrecuencia(claveContexto, clavePalabra);
+			frecExisteContexto->first = this->contextos->getFrecuencia(claveContexto, clavePalabra);
 		}
 	}
-	return frecuencia;
+
+	return frecExisteContexto;
 }
 
 float ModelosSuperiores::devolverPenalizacion(unsigned numeroModelo){

@@ -9,22 +9,20 @@
 
 using namespace std;
 
-FrecuenciaModelo::FrecuenciaModelo(){}
-
-FrecuenciaModelo::FrecuenciaModelo(float unaFrecuencia, unsigned unModelo){
+FrecuenciaModelo::FrecuenciaModelo(float unaFrecuencia){
 	this->frecuencia = unaFrecuencia;
-	this->modelo = unModelo;
+
 }
 
 void FrecuenciaModelo::setFrecuencia(float unaFrecuencia){
 	this->frecuencia += unaFrecuencia;
 }
 
-void FrecuenciaModelo::setModelo(unsigned unModelo){
+/*void FrecuenciaModelo::setModelo(unsigned unModelo){
 	if (this->modelo < unModelo)
 		this->modelo = unModelo;
 }
-
+*/
 float FrecuenciaModelo::getFrecuencia(){
 	return this->frecuencia;
 }
@@ -32,7 +30,7 @@ float FrecuenciaModelo::getFrecuencia(){
 string FrecuenciaModelo::getPalabraConMayorFrecuencia(){
 	return this->palabraConMayorFrec;
 }
-
+/*
 unsigned FrecuenciaModelo::getModelo(){
 	return this->modelo;
 }
@@ -40,7 +38,7 @@ unsigned FrecuenciaModelo::getModelo(){
 bool FrecuenciaModelo::esMayorElModelo(unsigned numeroModelo){
 	return (numeroModelo>=this->modelo);
 }
-
+*/
 void FrecuenciaModelo::setearPalabraConMayorFrecuencia(string unaPalabra){
 	this->palabraConMayorFrec = unaPalabra;
 }

@@ -89,8 +89,8 @@ int main() {
 	std::cout << "currentDateTime()=" << currentDateTime() << std::endl;
 	/*DESCOMENTAR ESTO PARA PROBAR PARSER*/
 	//como tengo solo 1 G de Ram, solo voy leyendo de a 500Kb
-/*		cout<< "Creando archivo"<<endl;
-	 Archivo* unArchivo = new Archivo("/home/ezequiel/Descargas/train_v2.txt", 30000000);
+     cout<< "Creando archivo"<<endl;
+	 Archivo* unArchivo = new Archivo("/home/hernan/Escritorio/train_v2.txt", 100000);
 	 cout<< "Archivo creado"<<endl;
 	 cout<<endl;
 	 cout<< "Cargando Buffer..."<<endl;
@@ -134,7 +134,7 @@ int main() {
 
 	 delete []palabrasLimpias;
 	 return 0;
-	/******************************************************/
+	/******************************************************
 	//DESCOMENTAR ESTO PARA PROBAR PPMC*
 	vector<string>* palabrasLimpias = new vector<string>;
 	palabrasLimpias->push_back("hola");
@@ -211,16 +211,13 @@ int main() {
 	palabrasLimpias->push_back("blanca");
 	palabrasLimpias->push_back("y");
 	palabrasLimpias->push_back("lila");
-	palabrasLimpias->push_back(".");
-
-	PPMC* unPPMC = new PPMC(4);
-	unPPMC->entrenarPalabras(palabrasLimpias);
+	palabrasLimpias->push_back(".");   */
 
 //	mostrarModelo0(unPPMC);	 cout<<endl;
-	cout<< "Modelo 0:"<<endl;
+	/*cout<< "Modelo 0:"<<endl;
 		 mostrarModelo0(unPPMC);
 		 cout << endl;
-		 /*cout<< "Modelo 1:"<<endl;
+		cout<< "Modelo 1:"<<endl;
 		 mostrarModelo(unPPMC, 1);
 		 cout << endl;
 		 cout<< "Modelo 2:"<<endl;
@@ -236,27 +233,35 @@ int main() {
 	cout << endl;
 */
 
-    mostrarModelo(unPPMC, 4);
+  //  mostrarModelo(unPPMC, 4);
 
 	cout << endl;
 
 	vector<string>* frase1 = new vector<string>;
+	//investigators considered terrorism the likely cause.
 
-	frase1->push_back("hola");
-	frase1->push_back("como");
-	frase1->push_back("estas");
-	frase1->push_back("es");
-	frase1->push_back("un");
-	frase1->push_back("vector");
+	frase1->push_back("Investigators");
+	frase1->push_back("considered");
+	frase1->push_back("terrorism");
+	frase1->push_back("likely");
+	frase1->push_back("cause");
 	frase1->push_back(".");
 
 	vector<string>* frase2 = new vector<string>;
 
-	frase2->push_back("la");
-	frase2->push_back("casa");
-	frase2->push_back("es");
-	frase2->push_back("blanca");
-	frase2->push_back("y");
+	// He was taken to York District Hospital , where he was pronounced dead .
+	frase2->push_back("He");
+	frase2->push_back("was");
+	frase2->push_back("taken");
+	frase2->push_back("York");
+	frase2->push_back("District");
+	frase2->push_back("Hospital");
+	frase2->push_back(",");
+	frase2->push_back("where");
+	frase2->push_back("he");
+	frase2->push_back("was");
+	frase2->push_back("pronounced");
+	frase2->push_back("dead");
 	frase2->push_back(".");
 
 	Frase* unaFrase1 = new Frase(frase1);
