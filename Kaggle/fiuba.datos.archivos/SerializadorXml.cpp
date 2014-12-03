@@ -182,7 +182,7 @@ ModelosSuperiores* SerializadorXml::DeserializarModelosSuperiores(unsigned numer
 }
 
 void SerializadorXml::SerializarTestFile(vector<Frase*>* frasesCompletas){
-	string path = "C:\\testCompletado.txt";
+	string path = "/home/matias/testCompletado.txt";
 	unsigned long idFrase = 1;
 	ofstream fileTest;
 	fileTest.open(path.c_str(), std::fstream::out);
@@ -193,7 +193,7 @@ void SerializadorXml::SerializarTestFile(vector<Frase*>* frasesCompletas){
 		vector<string>* palabras = unaFrase->getFrase();
 		vector<string>::iterator iteradorPalabras = palabras->begin();
 
-		fileTest << idFrase + ",\"";
+		fileTest << idFrase << ",\"";
 		while(iteradorPalabras != (*iteradorFrases)->getFrase()->end()){
 			if (*iteradorPalabras != *((*iteradorFrases)->getFrase()->begin())){
 				fileTest << " ";
@@ -237,6 +237,6 @@ void SerializadorXml::ProbarDeserializador(Modelo0* modelo0){
 		//Ruta Windows(No deberia existir): D:\\Modelo0.xml
 		//Ruta UBUNTU: /home/ezequiel/Descargas/Modelo0.xml
 		this->xml.OutOfElem();
-		this->xml.Save( "C:\\Modelo_00.xml" );
+		this->xml.Save( "/home/matias/Modelo_00.xml" );
 		this->xml.RemoveElem();
 }
