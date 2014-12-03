@@ -234,7 +234,7 @@ void Predictor::completarPalabrasDeLosCompletadores(vector<Frase* >* frasesAComp
 	for(unsigned indice = 0; indice < this->completadores->size(); indice++){
 		numeroFrase = (*this->completadores)[indice]->getNumeroFrase();
 		posEnDondeCompletarFrase = (*this->completadores)[indice]->getPosEnDondeCompletarFrase();
-		palabraMayorFrecuencia = (*this->completadores)[0]->getPalabraConMayorFrecuencia();
+		palabraMayorFrecuencia = (*this->completadores)[indice]->getPalabraConMayorFrecuencia();
 		(*frasesACompletar)[numeroFrase-1]->insertarPalabraEn(posEnDondeCompletarFrase, palabraMayorFrecuencia);
 	}
 }
