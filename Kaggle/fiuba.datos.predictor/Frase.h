@@ -26,7 +26,9 @@ public:
 	//void setModelo(unsigned numeroModelo, unsigned index);
 	Completador* devolverFrecuenciaMinima(unsigned numeroFrase);
 	void setPalabraConMayorFrecuencia(ModelosSuperiores* modelosSuperiores,std::string contexto, unsigned index, unsigned numeroModelo);
+	void setPalabraConMayorFrecuenciaMejora(ModelosSuperiores* modelosSuperiores, std::string contexto, unsigned index, unsigned numeroModelo);
 	void setPalabraConMayorFrecuencia(Modelo1* modelo1,std::string contexto, unsigned index, unsigned numeroModelo);
+	void setPalabraConMayorFrecuenciaMejora(Modelo1* modelo1, std::string contexto, unsigned index, unsigned numeroModelo);
 	void setPalabraConMayorFrecuencia(std::string palabraConMayorFrecuencia, unsigned index, unsigned numeroModelo);
 	void borrarFrecuencias();
 	std::vector< FrecuenciaModelo* >* getFrecuencias();
