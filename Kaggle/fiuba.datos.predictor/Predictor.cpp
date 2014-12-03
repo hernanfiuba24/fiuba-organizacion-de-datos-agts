@@ -237,11 +237,12 @@ void Predictor::completarPalabrasDelModelo0(vector<Frase* >* frasesACompletar){
 
 	unsigned numeroFrase, posEnDondeCompletarFrase, numeroModelo;
 	string palabraMayorFrecuencia;
-
+	// pido una sola ves la palabra con mayor frecuencia del modelo 0
+	palabraMayorFrecuencia = (*this->completadorModelo0)[0]->getPalabraConMayorFrecuencia();
 	for(unsigned indice = 0; indice < this->completadorModelo0->size(); indice++){
 		numeroFrase = (*this->completadorModelo0)[indice]->getNumeroFrase();
 		posEnDondeCompletarFrase = (*this->completadorModelo0)[indice]->getPosEnDondeCompletarFrase();
-		palabraMayorFrecuencia = (*this->completadorModelo0)[indice]->getPalabraConMayorFrecuencia();
+
 		(*frasesACompletar)[numeroFrase-1]->insertarPalabraEn(posEnDondeCompletarFrase, palabraMayorFrecuencia);
 	}
 }
