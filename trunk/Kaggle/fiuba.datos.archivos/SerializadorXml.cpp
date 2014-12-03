@@ -177,7 +177,38 @@ Modelo1* SerializadorXml::DeserializarModelo1(std::string path){
 }
 
 
-ModelosSuperiores* SerializadorXml::DeserializarModelosSuperiores(unsigned numeroModelo, std::string path){}
+ModelosSuperiores* SerializadorXml::DeserializarModelosSuperiores(unsigned numeroModelo, std::string path){
+
+}
+
+void SerializadorXml::SerializarTestFile(vector<Frase*>* frasesCompletas){
+	string path = "C:\\testCompletado.txt";
+	unsigned long idFrase = 1;
+	ofstream fileTest;
+	fileTest.open(path.c_str(), std::fstream::out);
+	fileTest << "id,\"sentence\"\n";
+	vector<Frase*>::iterator iteradorFrases = frasesCompletas->begin();
+	while(iteradorFrases != frasesCompletas->end()){
+		Frase* unaFrase = (*iteradorFrases);
+		vector<string>* palabras = unaFrase->getFrase();
+		vector<string>::iterator iteradorPalabras = palabras->begin();
+
+		fileTest << idFrase + ",\"";
+		while(iteradorPalabras != (*iteradorFrases)->getFrase()->end()){
+			if (*iteradorPalabras != *((*iteradorFrases)->getFrase()->begin())){
+				fileTest << " ";
+			}
+			fileTest << (*iteradorPalabras);
+
+			iteradorPalabras++;
+		}
+		fileTest << "\"\n";
+		iteradorFrases++;
+		idFrase++;
+	}
+	fileTest.close();
+}
+
 
 void SerializadorXml::ProbarDeserializador(Modelo0* modelo0){
 	MapaFrecuencia* mapaFrecuencia = modelo0->getMapaFrecuencia();
