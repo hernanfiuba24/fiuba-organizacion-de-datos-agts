@@ -18,7 +18,7 @@
 class Modelo1 {
 public:
 	Modelo1(unsigned long primo, int numeroModelo);
-	unsigned long devolverFrecuencia(std::string nombreContexto, std::string nombrePalabra);
+	std::pair<unsigned long, bool>* devolverFrecuencia(std::string nombreContexto, std::string nombrePalabra);
 	void agregarContexto(std::string nombreContexto, std::string nombrePalabra);
 	unsigned long hashearContexto(std::string contextoAHashear);
 	bool existeContexto(unsigned long claveContexto);

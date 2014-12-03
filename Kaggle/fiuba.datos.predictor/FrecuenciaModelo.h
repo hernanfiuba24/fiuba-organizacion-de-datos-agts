@@ -12,19 +12,18 @@
 
 class FrecuenciaModelo {
 public:
-	FrecuenciaModelo();
-	FrecuenciaModelo(float unaFrecuencia, unsigned unModelo);
+	FrecuenciaModelo(float unaFrecuencia);
 	void setFrecuencia(float unaFrecuencia);
-	void setModelo(unsigned unModelo);
+	//void setModelo(unsigned unModelo);
 	float getFrecuencia();
-	unsigned getModelo();
+	//unsigned getModelo();
 	std::string getPalabraConMayorFrecuencia();
-	bool esMayorElModelo(unsigned numeroModelo);
+	//bool esMayorElModelo(unsigned numeroModelo);
 	void setearPalabraConMayorFrecuencia(std::string unaPalabraConMayorFrecuencia);
 	virtual ~FrecuenciaModelo();
 private:
 	 float frecuencia;
-	 unsigned modelo;
+	 //unsigned modelo;
 	 std::string palabraConMayorFrec;
 };
 

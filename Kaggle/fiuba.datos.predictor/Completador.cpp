@@ -9,10 +9,9 @@
 
 using namespace std;
 
-Completador::Completador(unsigned unNumeroModelo, unsigned unaPos, unsigned unNumeroFrase, string unaPalabraConMayorFrecuencia){
+Completador::Completador(unsigned unaPos, unsigned unNumeroFrase, string unaPalabraConMayorFrecuencia){
 
 	this->numeroFrase = unNumeroFrase;
-	this->numeroModelo = unNumeroModelo;
 	this->posEnDondeCompletarFrase = unaPos;
 	this->palabraConMayorFrecuencia = unaPalabraConMayorFrecuencia;
 }
@@ -23,10 +22,6 @@ unsigned Completador::getNumeroFrase(){
 
 unsigned Completador::getPosEnDondeCompletarFrase(){
 	return this->posEnDondeCompletarFrase;
-}
-
-unsigned Completador::getNumeroModelo(){
-	return this->numeroModelo;
 }
 
 string Completador::getPalabraConMayorFrecuencia(){

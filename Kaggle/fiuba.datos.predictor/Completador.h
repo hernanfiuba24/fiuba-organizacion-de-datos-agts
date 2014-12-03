@@ -12,8 +12,7 @@
 
 class Completador {
 public:
-	Completador(unsigned unNumeroModelo, unsigned unIndex, unsigned unNumeroFrase, std::string unaPConMayorFrecuencia);
-	unsigned getNumeroModelo();
+	Completador(unsigned unIndex, unsigned unNumeroFrase, std::string unaPConMayorFrecuencia);
 	unsigned getPosEnDondeCompletarFrase();
 	unsigned getNumeroFrase();
 	std::string getPalabraConMayorFrecuencia();
@@ -21,7 +20,6 @@ public:
 private:
 	unsigned numeroFrase;
 	unsigned posEnDondeCompletarFrase;
-	unsigned numeroModelo;
 	std::string palabraConMayorFrecuencia;
 };
 
