@@ -24,6 +24,7 @@ public:
 	void agregarClave(unsigned long hashPalabra, Palabra* palabraAgregar);
 	std::string devolverPalabraConMayorFrecuencia();
 	//bool esIgualA(MapaFrecuencia* unaPalabra);
+	~MapaFrecuencia();
 
 private:
 	//size_t frecuencia;

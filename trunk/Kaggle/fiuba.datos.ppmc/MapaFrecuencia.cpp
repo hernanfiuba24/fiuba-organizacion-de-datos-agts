@@ -72,3 +72,10 @@ string MapaFrecuencia::devolverPalabraConMayorFrecuencia(){
 	}
 	return nombrePalabraMayorFrec;
 }
+
+MapaFrecuencia::~MapaFrecuencia(){
+
+	for(map<unsigned long, Palabra*>::iterator iter = this->hashFrecuencia->begin(); iter != this->hashFrecuencia->end(); iter++)
+		delete iter->second;
+	delete this->hashFrecuencia;
+}

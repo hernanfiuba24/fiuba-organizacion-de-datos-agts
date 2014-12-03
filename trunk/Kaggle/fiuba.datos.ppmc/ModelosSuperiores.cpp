@@ -12,11 +12,6 @@ MapaContexto* ModelosSuperiores::getMapa(){
 	return this->contextos;
 }
 
-ModelosSuperiores::~ModelosSuperiores() {
-	delete this->contextos;
-	delete this->unHash;
-}
-
 void ModelosSuperiores::agregarContexto(string nombreContexto, string nombrePalabra){
 
 	unsigned clave = this->unHash->hashearConMod(nombreContexto);
@@ -95,6 +90,7 @@ string ModelosSuperiores::devolverPalabraConMayorFrecuencia(string contexto){
 	string palabraConMayorFrecuencia = unContexto->devolverPalabraConMayorFrecuencia();
 	return palabraConMayorFrecuencia;
 }
+
 /*void ModelosSuperiores::mostrarModelo(unsigned modelo){
 
 	map<unsigned long, Contexto*>* mapaHashCtx = this->contextos->getMapaHash();
@@ -112,3 +108,8 @@ string ModelosSuperiores::devolverPalabraConMayorFrecuencia(string contexto){
             cout<< '\n';
 	}
 }*/
+
+ModelosSuperiores::~ModelosSuperiores() {
+	delete this->contextos;
+	delete this->unHash;
+}

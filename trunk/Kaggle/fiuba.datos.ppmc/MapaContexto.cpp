@@ -84,7 +84,9 @@ unsigned long MapaContexto::getFrecuencia(unsigned long claveContexto, unsigned 
 	return frecuencia;
 }
 
-MapaContexto::~MapaContexto() {
+MapaContexto::~MapaContexto(){
+	for(map<unsigned long, Contexto*>::iterator itr = this->hashContexto->begin(); itr != this->hashContexto->end(); itr++)
+		delete itr->second;
 	delete this->hashContexto;
 }
 

@@ -31,7 +31,6 @@ public:
 	virtual ~Modelo1();
 
 private:
-	//std::vector<Contexto*>* contextos;
 	MapaContexto *contextos;
 	Jenkins *unHash;
 	int numeroModelo;

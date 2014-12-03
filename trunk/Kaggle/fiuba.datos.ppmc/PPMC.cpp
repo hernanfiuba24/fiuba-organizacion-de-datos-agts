@@ -14,6 +14,7 @@ PPMC::PPMC(int cantidadDeModelos) {
 		this->modelosSuperiores[numeroDeModelo - 2] = modelo;
 	}
 }
+
 Modelo0* PPMC::getModelo0() {
 	return this->modelo0;
 }
@@ -157,99 +158,12 @@ void PPMC::chequeoCasoParticular(vector<string>* palabrasLimpias, int inicio,
 		delete palabrasTemporales;
 	}
 }
-/*
-void PPMC::completarFrases(vector<string>* frasesACompletar) {
-
-//FALTA TERMINAR!!!!
-	vector< FrecuenciaModelo* >* frecuencias;
-	unsigned numeroModelo = 4;
-	for (numeroModelo; numeroModelo >= 1; numeroModelo--) {
-
-		this->cargarModelo(numeroModelo);
-		for (int i = 0; i < frasesACompletar->size(); i++) {
-			frecuencias = this->predecir(frasesACompletar, numeroModelo);
-		}
-	//DESCOMENTAR ESTO DESPUES
-	//	delete this->modelosSuperiores[numeroModelo];
-	int i;
-	float menorFrecuencia = (*frecuencias)[0].first;
-	float frecTemporal;
-	for(i = 1; i < frecuencias->size(); i++){
-		frecTemporal = (*frecuencias)[i].first;
-		if (menorFrecuencia > frecTemporal)
-			menorFrecuencia = frecTemporal;
-	}
-//	parser.agregarFraseCompleta(id, frase);
-
-}
-}
-
-vector< FrecuenciaModelo*>* PPMC::predecir(vector<string>* frasesACompletar, unsigned numeroModelo) {
-
-	vector< FrecuenciaModelo* >* frecuencias = new vector<FrecuenciaModelo* >;
-	int tam = frasesACompletar->size();
-	frecuencias->resize(tam);
-
-	this->inicializarFrecuencias(frecuencias);
-	int index = 0;
-	for (index; index < tam - numeroModelo; index++) {
-
-		string contexto = this->devolverContexto(frasesACompletar, numeroModelo, index+numeroModelo);
-		string esPunto = (*frasesACompletar)[index+numeroModelo-1];
-		if (esPunto == "."){
-			(*frasesACompletar)[index+numeroModelo-1]
-			index += 3;
-		}
-		else{
-			string palabra = (*frasesACompletar)[(index+numeroModelo)];
-
-			unsigned long frecuencia = this->modelosSuperiores[numeroModelo-2]->devolverFrecuencia(contexto, palabra);
-			bool frecuenciaEsCero = (frecuencia == 0);
-			bool bajaDeNivel = ((*frecuencias)[numeroModelo + index]->getModelo()== NULL);
-			float penalizacion;
-			if ((!frecuenciaEsCero) && (bajaDeNivel)){
-				penalizacion = this->devolverPenalizacion(numeroModelo);
-				(*frecuencias)[numeroModelo + index]->setFrecuencia(penalizacion*frecuencia);
-				(*frecuencias)[numeroModelo + index]->setModelo(numeroModelo);
-			}
-		}
-	}
-	return frecuencias;
-}
-
-void PPMC::inicializarFrecuencias(vector< FrecuenciaModelo* >* frecuencias){
-	unsigned tam = frecuencias->size();
-	for (unsigned i = 0; i < frecuencias->size(); i++) {
-		FrecuenciaModelo *unFrecMod = new FrecuenciaModelo(0, NULL);
-		(*frecuencias)[i] = unFrecMod;
-	}
-}
-
-void PPMC::cargarModelo(int numeroModelo){
-
-	//ACA HAY QUE VER COMO CARGAR EL MODELO EN MEMORIA
-}
-
-string PPMC::devolverContexto(vector<string>* frasesACompletar, int numeroModelo, int inicio){
-	int indice = inicio-1;
-
-	//list<string>::iterator iterFrase = fraseACompletar->begin();
-	//advance(iterFrase, indice);
-	//string contexto = *iterFrase;
-
-	string contexto = (*frasesACompletar)[indice];
-	indice--;
-	for(indice;indice>=(inicio-numeroModelo);indice--){
-		contexto = (*frasesACompletar)[indice] + " " + contexto;
-	}
-
-	return contexto;
-}
-*/
-
 
 PPMC::~PPMC() {
 	delete this->modelo0;
 	delete this->modelo1;
-	delete[] this->modelosSuperiores;
+
+	for(int i=0; i<=2; i++)
+		delete this->modelosSuperiores[i];
+	delete []this->modelosSuperiores;
 }
