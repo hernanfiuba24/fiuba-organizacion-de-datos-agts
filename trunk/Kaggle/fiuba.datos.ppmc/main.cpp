@@ -90,7 +90,7 @@ int main() {
 	/*DESCOMENTAR ESTO PARA PROBAR PARSER*/
 	//como tengo solo 1 G de Ram, solo voy leyendo de a 500Kb
      cout<< "Creando archivo"<<endl;
-	 Archivo* unArchivo = new Archivo("/home/hernan/Escritorio/train_v2.txt", 100000);
+	 Archivo* unArchivo = new Archivo("/home/hernan/Escritorio/train_v2.txt", 20000000);
 	 cout<< "Archivo creado"<<endl;
 	 cout<<endl;
 	 cout<< "Cargando Buffer..."<<endl;
@@ -238,6 +238,7 @@ int main() {
 	cout << endl;
 
 	vector<string>* frase1 = new vector<string>;
+
 	//investigators considered terrorism the likely cause.
 
 	frase1->push_back("Investigators");
@@ -250,6 +251,7 @@ int main() {
 	vector<string>* frase2 = new vector<string>;
 
 	// He was taken to York District Hospital , where he was pronounced dead .
+
 	frase2->push_back("He");
 	frase2->push_back("was");
 	frase2->push_back("taken");

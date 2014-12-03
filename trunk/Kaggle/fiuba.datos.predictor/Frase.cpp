@@ -96,7 +96,10 @@ void Frase::setPalabraConMayorFrecuencia(ModelosSuperiores* modelosSuperiores,st
 		(*this->frecuencias)[numeroModelo+index]->setearPalabraConMayorFrecuencia(palabraConMayorFrecuencia);
 	}
 }
-
+void Frase::setPalabraConMayorFrecuenciaMejora(ModelosSuperiores* modelosSuperiores,string contexto, unsigned index, unsigned numeroModelo){
+	string palabraConMayorFrecuencia = this->buscarPalabraConMayorFrecuencia(modelosSuperiores, contexto);
+	(*this->frecuencias)[numeroModelo+index]->setearPalabraConMayorFrecuencia(palabraConMayorFrecuencia);
+}
 void Frase::setPalabraConMayorFrecuencia(Modelo1* modelo1,std::string contexto, unsigned index, unsigned numeroModelo){
 	string palabraConMayorFrecuencia;
 	FrecuenciaModelo *unaFrecuenciaModelo = (*this->frecuencias)[numeroModelo+index];
@@ -107,13 +110,19 @@ void Frase::setPalabraConMayorFrecuencia(Modelo1* modelo1,std::string contexto, 
 		(*this->frecuencias)[numeroModelo+index]->setearPalabraConMayorFrecuencia(palabraConMayorFrecuencia);
 	}
 }
+void Frase::setPalabraConMayorFrecuenciaMejora(Modelo1* modelo1, string contexto, unsigned index, unsigned numeroModelo){
+	string palabraConMayorFrecuencia = this->buscarPalabraConMayorFrecuencia(modelo1, contexto);
+	(*this->frecuencias)[numeroModelo+index]->setearPalabraConMayorFrecuencia(palabraConMayorFrecuencia);
+
+}
 
 void Frase::setPalabraConMayorFrecuencia(string palabraConMayorFrecuencia, unsigned index, unsigned numeroModelo){
-	bool hayQueAgregarPalabra;
-	hayQueAgregarPalabra = ((*this->frecuencias)[numeroModelo+index]->getPalabraConMayorFrecuencia() == "");
-	if(hayQueAgregarPalabra)
-		(*this->frecuencias)[numeroModelo+index]->setearPalabraConMayorFrecuencia(palabraConMayorFrecuencia);
-
+		FrecuenciaModelo *unaFrecuenciaModelo = (*this->frecuencias)[numeroModelo+index];
+		bool hayQueAgregarPalabra;
+		hayQueAgregarPalabra = ((*this->frecuencias)[numeroModelo+index]->getPalabraConMayorFrecuencia() == "");
+		if (hayQueAgregarPalabra){
+			(*this->frecuencias)[numeroModelo+index]->setearPalabraConMayorFrecuencia(palabraConMayorFrecuencia);
+		}
 }
 
 string Frase::buscarPalabraConMayorFrecuencia(ModelosSuperiores *modelosSuperiores, std::string contexto){
