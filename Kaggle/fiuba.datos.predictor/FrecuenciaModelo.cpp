@@ -9,9 +9,9 @@
 
 using namespace std;
 
-FrecuenciaModelo::FrecuenciaModelo(float unaFrecuencia){
+FrecuenciaModelo::FrecuenciaModelo(float unaFrecuencia, string unaPalabra){
 	this->frecuencia = unaFrecuencia;
-
+	this->palabraConMayorFrec = unaPalabra;
 }
 
 void FrecuenciaModelo::setFrecuencia(float unaFrecuencia){

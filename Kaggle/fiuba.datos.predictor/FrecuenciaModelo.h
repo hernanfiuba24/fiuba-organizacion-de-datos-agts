@@ -12,7 +12,7 @@
 
 class FrecuenciaModelo {
 public:
-	FrecuenciaModelo(float unaFrecuencia);
+	FrecuenciaModelo(float unaFrecuencia, std::string unaPalabra);
 	void setFrecuencia(float unaFrecuencia);
 	//void setModelo(unsigned unModelo);
 	float getFrecuencia();

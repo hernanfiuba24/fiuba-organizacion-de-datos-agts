@@ -21,7 +21,7 @@ Frase::Frase(vector< string >* unaFrase){
 
 void Frase::inicializarFrecuencias(){
 	for (unsigned i = 0; i < this->tamanioFrecuencias; i++) {
-		FrecuenciaModelo *unFrec = new FrecuenciaModelo(NULL);
+		FrecuenciaModelo *unFrec = new FrecuenciaModelo(NULL, "");
 		(*frecuencias)[i] = unFrec;
 	}
 }
@@ -89,7 +89,7 @@ void Frase::setPalabraConMayorFrecuencia(ModelosSuperiores* modelosSuperiores,st
 	FrecuenciaModelo *unaFrecuenciaModelo = (*this->frecuencias)[numeroModelo+index];
 	bool hayQueAgregarPalabra;
 	//hayQueAgregarPalabra = unaFrecuenciaModelo->esMayorElModelo(numeroModelo);
-	hayQueAgregarPalabra = ((*this->frecuencias)[numeroModelo+index] != NULL);
+	hayQueAgregarPalabra = ((*this->frecuencias)[numeroModelo+index]->getPalabraConMayorFrecuencia() == "");
 	if (hayQueAgregarPalabra){
 		// busco la palabr con mayor frec para ese modelo
 		palabraConMayorFrecuencia = this->buscarPalabraConMayorFrecuencia(modelosSuperiores, contexto);
@@ -101,7 +101,7 @@ void Frase::setPalabraConMayorFrecuencia(Modelo1* modelo1,std::string contexto, 
 	string palabraConMayorFrecuencia;
 	FrecuenciaModelo *unaFrecuenciaModelo = (*this->frecuencias)[numeroModelo+index];
 	bool hayQueAgregarPalabra;
-	hayQueAgregarPalabra = ((*this->frecuencias)[numeroModelo+index] != NULL);
+	hayQueAgregarPalabra = ((*this->frecuencias)[numeroModelo+index]->getPalabraConMayorFrecuencia() == "");
 	if (hayQueAgregarPalabra){
 		palabraConMayorFrecuencia = this->buscarPalabraConMayorFrecuencia(modelo1, contexto);
 		(*this->frecuencias)[numeroModelo+index]->setearPalabraConMayorFrecuencia(palabraConMayorFrecuencia);
@@ -110,7 +110,7 @@ void Frase::setPalabraConMayorFrecuencia(Modelo1* modelo1,std::string contexto, 
 
 void Frase::setPalabraConMayorFrecuencia(string palabraConMayorFrecuencia, unsigned index, unsigned numeroModelo){
 	bool hayQueAgregarPalabra;
-	hayQueAgregarPalabra = ((*this->frecuencias)[numeroModelo+index] != NULL);
+	hayQueAgregarPalabra = ((*this->frecuencias)[numeroModelo+index]->getPalabraConMayorFrecuencia() == "");
 	if(hayQueAgregarPalabra)
 		(*this->frecuencias)[numeroModelo+index]->setearPalabraConMayorFrecuencia(palabraConMayorFrecuencia);
 
