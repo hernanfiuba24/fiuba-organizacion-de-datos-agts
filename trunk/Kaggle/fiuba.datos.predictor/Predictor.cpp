@@ -56,7 +56,8 @@ void Predictor::mostrarFrecuencias(vector<Frase*>* frasesACompletar){
 	}
 }
 
-void Predictor::completarFrecuencias(vector<Frase* >* frasesACompletar, Modelo1* modelo1, Modelo0* modelo0, PPMC *unPPMC){
+void Predictor::completarFrecuencias(vector<Frase*
+		>* frasesACompletar, Modelo1* modelo1, Modelo0* modelo0, PPMC *unPPMC){
 		unsigned numeroModelo = 4;
 		unsigned tamanioFrases = frasesACompletar->size();
 		for (numeroModelo; numeroModelo >= 2; numeroModelo--) {
@@ -106,6 +107,7 @@ void Predictor::predecirUnaFrase(Frase* fraseACompletar, ModelosSuperiores* mode
 				//palabraConMayorFrecuencia this->buscarPalabraConMayorFrecuencia(contexto);
 			}
 		}
+		delete frecExisteContexto;
 	}
 }
 
@@ -134,6 +136,7 @@ void Predictor::predecirUnaFrase(Frase* fraseACompletar, Modelo1* modelo1){
 					//fraseACompletar->setPalabraConMayorFrecuencia(modelo1, contexto, index, numeroModelo);
 				}
 		}
+		delete frecExisteContexto;
 	}
 }
 
