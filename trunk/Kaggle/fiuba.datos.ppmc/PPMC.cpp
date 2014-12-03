@@ -67,6 +67,7 @@ void PPMC::entrenarPalabras(vector<string>* palabrasLimpias) {
 
 		if (ultimaPalabraDeCincoPalabras == ".") {
 			this->chequeoCasoParticular(palabrasLimpias, inicio, 4, 3, 3);
+			this->modelo0->agregarPalabra(ultimaPalabraDeCincoPalabras);
 			inicio += 4;
 		}
 		delete cincoPalabrasTemporales;
@@ -76,7 +77,7 @@ void PPMC::entrenarPalabras(vector<string>* palabrasLimpias) {
 	vector<string>* ultimaPalabrasTemporales;
 	ultimaPalabrasTemporales = this->devolverPalabras(palabrasLimpias, tam - 1,
 			tam - 1, 1);
-	this->cargarModelo0(ultimaPalabrasTemporales);
+	//this->cargarModelo0(ultimaPalabrasTemporales);
 }
 
 vector<string>* PPMC::devolverPalabras(vector<string>* palabrasLimpias,
@@ -131,7 +132,8 @@ void PPMC::cargarModelo1(vector<string>* cincoPalabrasTemporales) {
 void PPMC::cargarModelo0(vector<string>* cincoPalabrasTemporales) {
 	//EL VECTOR DE CINCO PALABRAS EN ESTE MOMENTO TIENE UN SOLO ELEMENTO
 	//EL ELEMENTO QUE QUEDA ES EL PRIMERO
-	this->modelo0->agregarPalabra((*cincoPalabrasTemporales)[0]);
+	string nombrePalabra = (*cincoPalabrasTemporales)[0];
+	this->modelo0->agregarPalabra(nombrePalabra);
 }
 
 void PPMC::chequeoCasoParticular(vector<string>* palabrasLimpias, int inicio,

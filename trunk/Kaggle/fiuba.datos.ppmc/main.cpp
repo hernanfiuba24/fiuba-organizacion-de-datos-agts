@@ -216,12 +216,11 @@ int main() {
 	PPMC* unPPMC = new PPMC(4);
 	unPPMC->entrenarPalabras(palabrasLimpias);
 
-//	mostrarModelo0(unPPMC);
-/*	 cout<<endl;
+//	mostrarModelo0(unPPMC);	 cout<<endl;
 	cout<< "Modelo 0:"<<endl;
 		 mostrarModelo0(unPPMC);
 		 cout << endl;
-		 cout<< "Modelo 1:"<<endl;
+		 /*cout<< "Modelo 1:"<<endl;
 		 mostrarModelo(unPPMC, 1);
 		 cout << endl;
 		 cout<< "Modelo 2:"<<endl;
