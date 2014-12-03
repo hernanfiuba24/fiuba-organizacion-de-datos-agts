@@ -109,7 +109,10 @@ void Frase::setPalabraConMayorFrecuencia(Modelo1* modelo1,std::string contexto, 
 }
 
 void Frase::setPalabraConMayorFrecuencia(string palabraConMayorFrecuencia, unsigned index, unsigned numeroModelo){
-	(*this->frecuencias)[numeroModelo+index]->setearPalabraConMayorFrecuencia(palabraConMayorFrecuencia);
+	bool hayQueAgregarPalabra;
+	hayQueAgregarPalabra = ((*this->frecuencias)[numeroModelo+index] != NULL);
+	if(hayQueAgregarPalabra)
+		(*this->frecuencias)[numeroModelo+index]->setearPalabraConMayorFrecuencia(palabraConMayorFrecuencia);
 
 }
 
