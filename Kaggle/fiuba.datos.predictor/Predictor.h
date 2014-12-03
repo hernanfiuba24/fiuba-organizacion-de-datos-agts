@@ -32,6 +32,7 @@ public:
 	ModelosSuperiores* ProvisoriaCargarModelosSuperiores(unsigned numeroModelo,PPMC *unPPMC);
 	virtual ~Predictor();
 	void mostrarFrecuencias(vector<Frase*>* frasesACompletar);
+	void mostrarFrases(vector<Frase*>* frasesACompletar);
 
 private:
 	void inicializarFrecuencias(vector< FrecuenciaModelo* >* frecuencias);
@@ -41,7 +42,12 @@ private:
 	Completador* hallarLaFrecuenciaMinima(Frase* fraseACompletar, unsigned numeroFrase);
 	void cargarCompletadores(vector<Frase*>* frasesACompletar);
 	void setearCompletadorModelo(Completador* unCompletador);
-
+	void completarPalabrasEnFrases(vector<Frase* >* frasesACompletar);
+	void completarPalabrasDelModelo0(vector<Frase* >* frasesACompletar);
+	void completarPalabrasDelModelo1(vector<Frase* >* frasesACompletar);
+	void completarPalabrasDelModelo2(vector<Frase* >* frasesACompletar);
+	void completarPalabrasDelModelo3(vector<Frase* >* frasesACompletar);
+	void completarPalabrasDelModelo4(vector<Frase* >* frasesACompletar);
 
 	vector<Completador*>* completadorModelo4;
 	vector<Completador*>* completadorModelo3;

@@ -61,18 +61,22 @@ Completador* Frase::devolverFrecuenciaMinima(unsigned numeroFrase){
 	float menorFrecuencia = (*this->frecuencias)[1]->getFrecuencia();
 	float frecTemporal;
 	unsigned index;
-	string palabraConMayorFrecuencia;
+	unsigned posEnDondeCompletarFrase = 1;
+	string palabraConMayorFrecuencia = (*this->frecuencias)[1]->getPalabraConMayorFrecuencia();
 	for(index = 2; index < this->tamanioFrecuencias; index++){
 
 		frecTemporal = (*this->frecuencias)[index]->getFrecuencia();
 		if (menorFrecuencia > frecTemporal){
 			menorFrecuencia = frecTemporal;
+			posEnDondeCompletarFrase = index;
+			if (index == this->tamanioFrecuencias)
+				posEnDondeCompletarFrase--;
 			numeroModelo = (*this->frecuencias)[index]->getModelo();
 			palabraConMayorFrecuencia = (*this->frecuencias)[index]->getPalabraConMayorFrecuencia();
 		}
 	}
 	index--;
-	Completador* unComp = new Completador(numeroModelo, index, numeroFrase, palabraConMayorFrecuencia);
+	Completador* unComp = new Completador(numeroModelo, posEnDondeCompletarFrase, numeroFrase, palabraConMayorFrecuencia);
 	return unComp;
 }
 
@@ -121,6 +125,15 @@ string Frase::buscarPalabraConMayorFrecuencia(Modelo1 *modelo1, std::string cont
 
 vector< FrecuenciaModelo* >* Frase::getFrecuencias(){
 	return this->frecuencias;
+}
+
+vector<string>* Frase::getFraseACompletar(){
+	return this->fraseACompletar;
+}
+
+void Frase::insertarPalabraEn(unsigned posEnDondeCompletarFrase, std::string palabraMayorFrecuencia){
+
+	this->fraseACompletar->insert(this->fraseACompletar->begin() + posEnDondeCompletarFrase, palabraMayorFrecuencia);
 }
 
 void Frase::borrarFrecuencias(){

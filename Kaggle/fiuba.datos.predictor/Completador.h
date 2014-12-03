@@ -14,13 +14,13 @@ class Completador {
 public:
 	Completador(unsigned unNumeroModelo, unsigned unIndex, unsigned unNumeroFrase, std::string unaPConMayorFrecuencia);
 	unsigned getNumeroModelo();
-	unsigned getIndex();
+	unsigned getPosEnDondeCompletarFrase();
 	unsigned getNumeroFrase();
 	std::string getPalabraConMayorFrecuencia();
 	virtual ~Completador();
 private:
 	unsigned numeroFrase;
-	unsigned index;
+	unsigned posEnDondeCompletarFrase;
 	unsigned numeroModelo;
 	std::string palabraConMayorFrecuencia;
 };

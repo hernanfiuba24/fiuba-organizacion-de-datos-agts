@@ -27,12 +27,27 @@ void Predictor::completarFrases(vector<Frase* >* frasesACompletar, Modelo1* mode
 
 	this->cargarCompletadores(frasesACompletar);
 
-	delete frasesACompletar;
+	//delete frasesACompletar; //NO TENDRIA QUE BORRARLAS PORQUE SON LAS QUE TENGO QUE COMPLETAR!!! :s
+
 	//Recorrer los completadorModelo.
 	//Para el completadorModelo4 tengo el indice, el numeroDeFrase y la palabraConMayorFrec.
 	//Accedo a la frase [numeroDeFrase] y agrego palabraConMayorFrecuencia en [indice]. Asi para todos.
 	//Esto es lo que faltaria.
+	this->completarPalabrasEnFrases(frasesACompletar);
 
+	this->mostrarFrases(frasesACompletar);
+
+}
+
+void Predictor::mostrarFrases(vector<Frase*>* frasesACompletar){
+	for(unsigned i = 0; i < frasesACompletar->size(); i++){
+		vector<string>* frase = (*frasesACompletar)[i]->getFraseACompletar();
+		cout << "Frase" << " " << i+1 << endl;
+		for(vector<string>::iterator iter = frase->begin(); iter != frase->end(); ++iter){
+			cout << (*iter) << " ";
+		}
+		cout << endl;
+	}
 }
 
 void Predictor::mostrarFrecuencias(vector<Frase*>* frasesACompletar){
@@ -207,6 +222,80 @@ void Predictor::setearCompletadorModelo(Completador* unCompletador){
 		this->completadorModelo1->push_back(unCompletador);
 	else if (numeroModelo == 0)
 		this->completadorModelo0->push_back(unCompletador);
+}
+
+void Predictor::completarPalabrasEnFrases(vector<Frase* >* frasesACompletar){
+
+	this->completarPalabrasDelModelo0(frasesACompletar);
+	this->completarPalabrasDelModelo1(frasesACompletar);
+	this->completarPalabrasDelModelo2(frasesACompletar);
+	this->completarPalabrasDelModelo3(frasesACompletar);
+	this->completarPalabrasDelModelo4(frasesACompletar);
+}
+
+void Predictor::completarPalabrasDelModelo0(vector<Frase* >* frasesACompletar){
+
+	unsigned numeroFrase, posEnDondeCompletarFrase, numeroModelo;
+	string palabraMayorFrecuencia;
+
+	for(unsigned indice = 0; indice < this->completadorModelo0->size(); indice++){
+		numeroFrase = (*this->completadorModelo0)[indice]->getNumeroFrase();
+		posEnDondeCompletarFrase = (*this->completadorModelo0)[indice]->getPosEnDondeCompletarFrase();
+		palabraMayorFrecuencia = (*this->completadorModelo0)[indice]->getPalabraConMayorFrecuencia();
+		(*frasesACompletar)[numeroFrase-1]->insertarPalabraEn(posEnDondeCompletarFrase, palabraMayorFrecuencia);
+	}
+}
+
+void Predictor::completarPalabrasDelModelo1(vector<Frase* >* frasesACompletar){
+
+	unsigned numeroFrase, posEnDondeCompletarFrase, numeroModelo;
+	string palabraMayorFrecuencia;
+
+	for(unsigned indice = 0; indice < this->completadorModelo1->size(); indice++){
+		numeroFrase = (*this->completadorModelo1)[indice]->getNumeroFrase();
+		posEnDondeCompletarFrase = (*this->completadorModelo1)[indice]->getPosEnDondeCompletarFrase();
+		palabraMayorFrecuencia = (*this->completadorModelo1)[indice]->getPalabraConMayorFrecuencia();
+		(*frasesACompletar)[numeroFrase-1]->insertarPalabraEn(posEnDondeCompletarFrase, palabraMayorFrecuencia);
+	}
+}
+
+void Predictor::completarPalabrasDelModelo2(vector<Frase* >* frasesACompletar){
+
+	unsigned numeroFrase, posEnDondeCompletarFrase, numeroModelo;
+	string palabraMayorFrecuencia;
+
+	for(unsigned indice = 0; indice < this->completadorModelo2->size(); indice++){
+		numeroFrase = (*this->completadorModelo2)[indice]->getNumeroFrase();
+		posEnDondeCompletarFrase = (*this->completadorModelo2)[indice]->getPosEnDondeCompletarFrase();
+		palabraMayorFrecuencia = (*this->completadorModelo2)[indice]->getPalabraConMayorFrecuencia();
+		(*frasesACompletar)[numeroFrase-1]->insertarPalabraEn(posEnDondeCompletarFrase, palabraMayorFrecuencia);
+	}
+}
+
+void Predictor::completarPalabrasDelModelo3(vector<Frase* >* frasesACompletar){
+
+	unsigned numeroFrase, posEnDondeCompletarFrase, numeroModelo;
+	string palabraMayorFrecuencia;
+
+	for(unsigned indice = 0; indice < this->completadorModelo3->size(); indice++){
+		numeroFrase = (*this->completadorModelo3)[indice]->getNumeroFrase();
+		posEnDondeCompletarFrase = (*this->completadorModelo3)[indice]->getPosEnDondeCompletarFrase();
+		palabraMayorFrecuencia = (*this->completadorModelo3)[indice]->getPalabraConMayorFrecuencia();
+		(*frasesACompletar)[numeroFrase-1]->insertarPalabraEn(posEnDondeCompletarFrase, palabraMayorFrecuencia);
+	}
+}
+
+void Predictor::completarPalabrasDelModelo4(vector<Frase* >* frasesACompletar){
+
+	unsigned numeroFrase, posEnDondeCompletarFrase, numeroModelo;
+	string palabraMayorFrecuencia;
+
+	for(unsigned indice = 0; indice < this->completadorModelo4->size(); indice++){
+		numeroFrase = (*this->completadorModelo4)[indice]->getNumeroFrase();
+		posEnDondeCompletarFrase = (*this->completadorModelo4)[indice]->getPosEnDondeCompletarFrase();
+		palabraMayorFrecuencia = (*this->completadorModelo4)[indice]->getPalabraConMayorFrecuencia();
+		(*frasesACompletar)[numeroFrase-1]->insertarPalabraEn(posEnDondeCompletarFrase, palabraMayorFrecuencia);
+	}
 }
 
 
