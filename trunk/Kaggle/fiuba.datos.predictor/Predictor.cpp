@@ -100,6 +100,7 @@ void Predictor::predecirUnaFrase(Frase* fraseACompletar, ModelosSuperiores* mode
 			if ((!frecuenciaEsCero)){			//if ((!frecuenciaEsCero) && (bajaDeNivel)){
 				penalizacion = modelosSuperiores->devolverPenalizacion(numeroModelo);
 				fraseACompletar->setFrecuencia(penalizacion, frecExisteContexto->first, numeroModelo, index);
+				fraseACompletar->setPalabraConMayorFrecuencia(modelosSuperiores, contexto, index, numeroModelo);
 				//fraseACompletar->setModelo(numeroModelo, index);
 				//Busca la palabra de mayor frecuencia para ese contexto
 				//palabraConMayorFrecuencia this->buscarPalabraConMayorFrecuencia(contexto);
@@ -128,6 +129,7 @@ void Predictor::predecirUnaFrase(Frase* fraseACompletar, Modelo1* modelo1){
 				if ((!frecuenciaEsCero)){	//if ((!frecuenciaEsCero) && (bajaDeNivel)){
 					penalizacion = modelo1->devolverPenalizacion();
 					fraseACompletar->setFrecuencia(penalizacion, frecExisteContexto->first, numeroModelo, index);
+					fraseACompletar->setPalabraConMayorFrecuencia(modelo1, contexto, index, numeroModelo);
 					//fraseACompletar->setModelo(numeroModelo, index);
 					//fraseACompletar->setPalabraConMayorFrecuencia(modelo1, contexto, index, numeroModelo);
 				}
