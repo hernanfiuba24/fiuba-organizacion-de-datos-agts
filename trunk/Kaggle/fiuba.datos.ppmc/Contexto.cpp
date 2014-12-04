@@ -11,6 +11,10 @@ MapaFrecuencia* Contexto::getMapaFrecuencia(){
 	return this->unMapa;
 }
 
+void Contexto::setMapaFrecuencia(unsigned long hash, Palabra* palabra){
+	this->unMapa->agregarClave(hash, palabra->getPalabra());
+	this->unMapa->setFrecuencia(hash, palabra->getFrecuencia());
+}
 
 void Contexto::agregarPalabra(string nombrePalabra){
 

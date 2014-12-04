@@ -10,6 +10,7 @@ public:
 	ModelosSuperiores(unsigned long primo, int numeroModelo);
 	void agregarContexto(std::string nombreContexto, std::string nombrePalabra);
 	MapaContexto *getMapa();
+	void setMapaContexto(unsigned long hash, Contexto* contexto);
 	std::pair<unsigned long, bool>* devolverFrecuencia(std::string nombreContexto, std::string nombrePalabra);
 	float devolverPenalizacion(unsigned numeroModelo);
 	Jenkins* getJenkins();

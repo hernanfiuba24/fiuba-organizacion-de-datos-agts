@@ -22,6 +22,7 @@ public:
 	std::map<unsigned long, Contexto*>* getMapaHash();
 	unsigned long hashearPalabra(unsigned long claveContexto, std::string palabraActual);
 	unsigned long getFrecuencia(unsigned long claveContexto, unsigned long clavePalabra);
+	void agregarClave(unsigned long clave, Contexto* unContexto);
 	virtual ~MapaContexto();
 
 private:

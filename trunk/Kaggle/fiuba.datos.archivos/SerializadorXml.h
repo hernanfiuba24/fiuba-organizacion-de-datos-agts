@@ -18,14 +18,16 @@ class SerializadorXml {
 public:
 	SerializadorXml();
 	void Serializar(PPMC* ppmc, std::string path);
-	std::vector<std::string>* DeserializarModelo(std::string numeroModelo);
+//	std::vector<std::string>* DeserializarModelo(std::string numeroModelo);
 	Modelo0* DeserializarModelo0(std::string path);
 	Modelo1* DeserializarModelo1(std::string path);
 	ModelosSuperiores* DeserializarModelosSuperiores(unsigned numeroModelo, std::string path);
 	void SerializarTestFile(std::vector<Frase*>* frasesCompletas);
 	virtual ~SerializadorXml();
-	//Metodo de prueba--- BORRAR
-	void ProbarDeserializador(Modelo0* modelo);
+	//Metodos de prueba--- BORRAR
+	void ProbarDeserializador0(Modelo0* modelo);
+	void ProbarDeserializador1(Modelo1* modelo);
+	void ProbarDeserializadorSuperior(ModelosSuperiores* modelo);
 
 private:
 	void SerializarModelo0(Modelo0* modelo0, std::string path);

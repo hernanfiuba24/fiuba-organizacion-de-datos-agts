@@ -12,6 +12,10 @@ MapaContexto* ModelosSuperiores::getMapa(){
 	return this->contextos;
 }
 
+void ModelosSuperiores::setMapaContexto(unsigned long hash, Contexto* unContexto){
+	this->contextos->agregarClave(hash, unContexto);
+}
+
 void ModelosSuperiores::agregarContexto(string nombreContexto, string nombrePalabra){
 
 	unsigned clave = this->unHash->hashearConMod(nombreContexto);

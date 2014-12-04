@@ -25,6 +25,7 @@ public:
 	bool esIgualA(Contexto* unContexto);
 	Jenkins* getJenkins();
 	MapaFrecuencia* getMapaFrecuencia();
+	void setMapaFrecuencia(unsigned long hash, Palabra* palabra);
 	unsigned long hashear(std::string palabraActual);
 	bool existePalabra(unsigned long clavePalabra);
 	unsigned long getFrecuencia(unsigned long clavePalabra);
