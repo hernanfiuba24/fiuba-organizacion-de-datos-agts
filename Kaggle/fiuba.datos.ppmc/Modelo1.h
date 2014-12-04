@@ -26,6 +26,7 @@ public:
 	bool existePalabraEnContexto(unsigned long claveContexto, unsigned long clavePalabra);
 	std::string devolverPalabraConMayorFrecuencia(std::string contexto);
 	MapaContexto* getMapa();
+	void setMapaContexto(unsigned long hash, Contexto* contexto);
 	float devolverPenalizacion();
 	Jenkins* getJenkins();
 	virtual ~Modelo1();

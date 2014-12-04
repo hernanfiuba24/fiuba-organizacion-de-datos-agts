@@ -35,6 +35,9 @@ MapaContexto* Modelo1::getMapa(){
 	return this->contextos;
 }
 
+void Modelo1::setMapaContexto(unsigned long hash, Contexto* unContexto){
+	this->contextos->agregarClave(hash, unContexto);
+}
 
 Jenkins* Modelo1::getJenkins(){
 	return this->unHash;

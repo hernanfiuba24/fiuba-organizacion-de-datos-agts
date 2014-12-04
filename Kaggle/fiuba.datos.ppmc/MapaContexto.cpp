@@ -65,6 +65,10 @@ unsigned long MapaContexto::hashearPalabra(unsigned long claveContexto, string p
 	return unContexto->hashear(palabraActual);
 }
 
+void MapaContexto::agregarClave(unsigned long clave, Contexto* unContexto){
+	(*this->hashContexto).insert( make_pair(clave, unContexto));
+}
+
 unsigned long MapaContexto::getFrecuencia(unsigned long claveContexto, unsigned long clavePalabra){
 
 //	map<unsigned long, Contexto*>::iterator iter = this->hashContexto->find(claveContexto);
