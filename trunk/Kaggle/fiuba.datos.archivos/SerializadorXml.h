@@ -18,7 +18,6 @@ class SerializadorXml {
 public:
 	SerializadorXml();
 	void Serializar(PPMC* ppmc, std::string path);
-//	std::vector<std::string>* DeserializarModelo(std::string numeroModelo);
 	Modelo0* DeserializarModelo0(std::string path);
 	Modelo1* DeserializarModelo1(std::string path);
 	ModelosSuperiores* DeserializarModelosSuperiores(unsigned numeroModelo, std::string path);
