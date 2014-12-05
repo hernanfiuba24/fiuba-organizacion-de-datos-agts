@@ -13,6 +13,26 @@ using namespace std;
 
 void mostrarModelo(PPMC *unPPMC, int modelo) {
 
+	/***************************************************************/
+	/*************** PARA PROBAR EL PARSEO DEL TEST ****************/
+//	Archivo* archivo = new Archivo();
+//		vector<Frase*>* frases = archivo->parsearTest("/home/hellraiser/workspace/AGTS/test_v2.txt", '\n');
+//
+//		vector<Frase*>::iterator it = frases->begin();
+//		cout << frases->size() << endl;
+//		while (it != frases->end()){
+//			vector<string>::iterator iter = (*it)->getFrase()->begin();
+//			string fraseAux = "";
+//			while (iter != (*it)->getFrase()->end()){
+//				fraseAux += "  " + (*iter) + "  ";
+//				iter++;
+//			}
+//			cout << fraseAux << endl;
+//			it++;
+//		}
+	/***************************************************************/
+	/***************************************************************/
+
 	/* ESTO ES MUY RUSTICO. VAMOS ESCALANDO HASTA OBTENER EL "MAP"*/
 	MapaContexto *unMapaContexto;
 	Modelo1 *unModelo1;
