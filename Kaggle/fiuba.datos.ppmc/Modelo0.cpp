@@ -19,8 +19,8 @@ MapaFrecuencia* Modelo0::getMapaFrecuencia(){
 }
 
 void Modelo0::setMapaFrecuencia(unsigned long hash, Palabra* palabra){
-	this->unMapa->agregarClave(hash, palabra->getPalabra());
-	this->unMapa->setFrecuencia(hash, palabra->getFrecuencia());
+	this->unMapa->agregarClave(hash, palabra);
+//	this->unMapa->setFrecuencia(hash, palabra->getFrecuencia());
 }
 
 void Modelo0::agregarPalabra(string unNombre){
