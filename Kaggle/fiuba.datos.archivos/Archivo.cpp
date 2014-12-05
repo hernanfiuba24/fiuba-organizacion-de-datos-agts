@@ -9,6 +9,11 @@
 
 using namespace std;
 
+Archivo::Archivo(){
+	this->tamanioBuffer = 0;
+	this->parser = new Parser();
+};
+
 Archivo::Archivo(string rutaArchivo, int tamanioBuffer) {
 	this->handle.open(rutaArchivo.c_str(), ios::in);
 	this->inicioProximaLectura = 0;
@@ -40,15 +45,8 @@ vector<string>* Archivo::parsearBuffer(char valorParseo){
 	return this->parser->devolverPalabras(this->buffer, valorParseo);
 }
 
-vector<string>* Archivo::parsearTest(string rutaArchivo, char valorParseo){
-	ifstream archivoTest(rutaArchivo.c_str(), ios::in);
-	char c = archivoTest.get();
-    string textoTest = "";
-	while (archivoTest.good()) {
-	    textoTest += c;
-		c = archivoTest.get();
-	}
-
+vector<Frase*>* Archivo::parsearTest(string rutaArchivo, char valorParseo){
+	string textoTest = parser->ParsearArchivoTxt(rutaArchivo);
 	return this->parser->devolverFrases(textoTest, valorParseo);
 }
 
