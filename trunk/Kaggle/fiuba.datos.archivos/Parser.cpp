@@ -5,8 +5,12 @@
  *      Author: ezequiel
  */
 
+#include <algorithm>
+#include <iostream>
+#include <string>
 #include "Parser.h"
 #include "BufferParser.h"
+#include "../fiuba.datos.predictor/Frase.h"
 
 using namespace std;
 
@@ -38,23 +42,32 @@ vector<string>* Parser::split(string texto, char valorParseo) {
 
 string Parser::ParsearArchivoTxt(string rutaArchivo){
 	ifstream archivoTest(rutaArchivo.c_str(), ios::in);
-	char c = archivoTest.get();
-    string contenidoArchivoTxt = "";
-	while (archivoTest.good()) {
-		contenidoArchivoTxt += c;
-		c = archivoTest.get();
+	string contenidoTexto;
+	string lineaTexto;
+	while (std::getline(archivoTest, lineaTexto))
+	{
+		contenidoTexto += lineaTexto;
+		contenidoTexto.push_back('\n');
 	}
 
-	return contenidoArchivoTxt;
+	return contenidoTexto;
 }
 
 
-vector<string>* Parser::devolverFrases(string texto, char valorParseo){
-	stringstream stream(texto);
-	vector<string>* palabrasParseadas = new vector<string>;
-	string fraseTemporal = "";
-	while (std::getline(stream, fraseTemporal, valorParseo)) {
-		palabrasParseadas->push_back(fraseTemporal.substr(fraseTemporal.find_first_of(',') + 2, fraseTemporal.length() - 2));
+vector<Frase*>* Parser::devolverFrases(string texto, char valorParseo){
+	vector<Frase*>* palabrasParseadas = new vector<Frase*>;
+
+	if (texto.length() > 0){
+		stringstream stream(texto);
+		string fraseTemporal = "";
+		while (std::getline(stream, fraseTemporal, valorParseo)) {
+			if (fraseTemporal.length() > 0){
+				string textoFrase = fraseTemporal.substr(fraseTemporal.find_first_of(',') + 1, fraseTemporal.length() - 1);
+				textoFrase = textoFrase.substr(1,textoFrase.length() - 2);
+				Frase* nuevaFrase = new Frase(this->split(textoFrase,' '));
+				palabrasParseadas->push_back(nuevaFrase);
+			}
+		}
 	}
 	return palabrasParseadas;
 }
