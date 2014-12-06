@@ -19,14 +19,17 @@ private:
 	Modelo0* modelo0; //ESTOS MODELOS HAY QUE GUARDARLOS EN
 	Modelo1* modelo1; //MEMORIA, NO SE PERSISTEN
 	ModelosSuperiores* modelosSuperiores[3];
-	std::vector<std::string>* devolverPalabras(std::vector<std::string>* palabrasLimpias, int inicio, int fin, int cantPalabras);
-	void cargarModelosSuperiores(std::vector<std::string>* cincoPalabrasTemporales, int cantidadDeModelos);
-	void cargarModelo1(std::vector<std::string>* cincoPalabrasTemporales);
-	void cargarModelo0(std::vector<std::string>* cincoPalabrasTemporales);
+
+	std::string devolverPalabras(std::vector<std::string>* palabrasLimpias, unsigned long inicio, unsigned long fin);
+	void cargarModelosSuperiores(std::string contexto, std::string palabra, int numeroModelo);
+	void cargarModelo4(std::string contexto, std::string palabra);
+	void cargarModelo3(std::string contexto, std::string palabra);
+	void cargarModelo2(std::string contexto, std::string palabra);
+	void cargarModelo1(std::string contexto, std::string palabra);
+	void cargarModelo0(std::string palabra);
 	void agregarContextoSuperiorEn(Contexto* unContexto, int numeroDeModelo);
 	unsigned long devolverTamanioDeMapa(int numeroDeModelo);
-	void  chequeoCasoParticular(std::vector<std::string>* palabrasLimpias, int inicio, unsigned tamanio, unsigned modelo, int iteraciones);
-	void cargarModelo(int numeroModelo);
+	const std::string currentDateTime();
 
 public:
 	PPMC(int cantidadDeModelos);
