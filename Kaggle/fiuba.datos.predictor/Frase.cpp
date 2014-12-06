@@ -149,6 +149,10 @@ void Frase::insertarPalabraEn(unsigned posEnDondeCompletarFrase, std::string pal
 }
 
 void Frase::borrarFrecuencias(){
+	tamanioFrecuencias = this->frecuencias->size();
+	for(int i=0; i<tamanioFrecuencias;i++)
+		delete (*this->frecuencias)[i];
+
 	delete this->frecuencias;
 }
 
@@ -157,11 +161,6 @@ vector<string>* Frase::getFrase(){
 }
 
 Frase::~Frase() {
-
-	unsigned tam = this->frecuencias->size();
-	for(int i=0; i < tam; i++){
-			delete (*this->frecuencias)[i];
-	}
-	delete this->frecuencias;
+	//No se destruye nada porque las frecuencias las borro antes.
 }
 
