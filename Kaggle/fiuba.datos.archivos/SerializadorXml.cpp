@@ -19,14 +19,14 @@ SerializadorXml::~SerializadorXml() {}
 void SerializadorXml::Serializar(PPMC* ppmc, std::string path){
 
 	SerializarModelo0(ppmc->getModelo0(), path);
-	SerializarModelo1(ppmc->getModelo1(), path);
+	/*SerializarModelo1(ppmc->getModelo1(), path);
 	SerializarModelosSuperiores(ppmc->getModelo2(), path);
 	SerializarModelosSuperiores(ppmc->getModelo3(), path);
 	SerializarModelosSuperiores(ppmc->getModelo4(), path);
-
+	*/
 }
 
-
+/*
 void SerializadorXml::SerializarModelo0(Modelo0* modelo0, std::string path){
 
 	bool debeMergear = this->xml.Load( path + "Modelo_0.xml" );
@@ -80,6 +80,58 @@ void SerializadorXml::SerializarModelo0(Modelo0* modelo0, std::string path){
 	this->xml.RemoveElem();
 }
 
+*/
+
+void SerializadorXml::SerializarModelo0(Modelo0* modelo0, std::string path){
+	MapaFrecuencia* mapaFrecuencia = modelo0->getMapaFrecuencia();
+	std::map<unsigned long, Palabra*>* hashFrecuencia = mapaFrecuencia->getHashFrecuencia();
+	std::map<unsigned long, Palabra*>::iterator it = hashFrecuencia->begin();
+
+	bool debeMergear;
+	MapaFrecuencia* auxMapaFrecuencia;
+	Modelo0* auxModelo0 = DeserializarModelo0(path);
+
+	debeMergear = auxModelo0 != NULL;
+	if (debeMergear)
+		auxMapaFrecuencia = auxModelo0->getMapaFrecuencia();
+
+	unsigned primoJenkins = modelo0->getJenkins()->getPrimo();
+	this->xml.AddElem( "MODELO_0" );
+	this->xml.SetAttrib("primoJenkins", primoJenkins);
+	this->xml.IntoElem();
+
+	unsigned long int frecuencia;
+	unsigned long int auxFrecuencia;
+	unsigned int umbral = 0;
+	bool existeClave;
+
+	while(it != hashFrecuencia->end()){
+		unsigned long hashPalabra = (*it).first;
+		string palabra = (*it).second->getPalabra();
+		frecuencia = (*it).second->getFrecuencia();
+		auxFrecuencia = 0;
+		if(debeMergear){
+			existeClave = auxMapaFrecuencia->existeClave(hashPalabra);
+			if (existeClave)
+				auxFrecuencia = auxMapaFrecuencia->getFrecuencia(hashPalabra);
+		}
+		frecuencia += auxFrecuencia;
+
+		if (frecuencia > umbral){
+			this->xml.AddElem("PALABRA");
+			this->xml.SetAttrib("hash", hashPalabra);
+			this->xml.SetAttrib("palabra", palabra);
+			this->xml.SetAttrib("frecuencia", frecuencia);
+		}
+		it++;
+
+	}
+	//Ruta Windows(No deberia existir): D:\\Modelo0.xml
+	//Ruta UBUNTU: /home/ezequiel/Descargas/Modelo0.xml
+	this->xml.OutOfElem();
+	this->xml.Save( path + "Modelo_0.xml" );
+	this->xml.RemoveElem();
+}
 
 void SerializadorXml::SerializarModelo1(Modelo1* modelo1, std::string path){
 
@@ -207,34 +259,64 @@ void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo, std
 	this->xml.RemoveElem();
 }
 
-
+/*
 Modelo0* SerializadorXml::DeserializarModelo0(std::string path){
 
 	unsigned long primo;
 	unsigned long hashPalabra;
 	int frecuenciaPalabra;
-	xml.Load( path + "Modelo_0.xml" );
-	xml.FindElem(); // root MODELO_X elemento
+	bool debeMergear = this->xml.Load( path + "Modelo_0.xml" );
+	if (debeMergear)
+	{
+		xml.FindElem(); // root MODELO_X elemento
 
-	stringstream(xml.GetAttrib("primoJenkins")) >> primo;
-	Modelo0* modelo = new Modelo0(primo);
+		stringstream(xml.GetAttrib("primoJenkins")) >> primo;
+		Modelo0* modelo = new Modelo0(primo);
 
-	xml.IntoElem(); // dentro MODELO_X
+		xml.IntoElem(); // dentro MODELO_X
 
-	while ( xml.FindElem("PALABRA") ){
-		Palabra* palabra = new Palabra(xml.GetAttrib("valor"));
-		stringstream(xml.GetAttrib("frecuencia")) >> frecuenciaPalabra;
-		stringstream(xml.GetAttrib("hash")) >> hashPalabra;
-		palabra->setFrecuencia(frecuenciaPalabra);
-		modelo->setMapaFrecuencia(hashPalabra, palabra);
+		while ( xml.FindElem("PALABRA") ){
+			Palabra* palabra = new Palabra(xml.GetAttrib("palabra"));
+			stringstream(xml.GetAttrib("frecuencia")) >> frecuenciaPalabra;
+			stringstream(xml.GetAttrib("hash")) >> hashPalabra;
+			palabra->setFrecuencia(frecuenciaPalabra);
+			modelo->setMapaFrecuencia(hashPalabra, palabra);
+		}
+		xml.OutOfElem();
+		xml.RemoveElem();
+		return modelo;
 	}
-
-	xml.OutOfElem();
-	xml.RemoveElem();
-	return modelo;
+	return NULL;
 }
+*/
+Modelo0* SerializadorXml::DeserializarModelo0(std::string path){
 
+	unsigned long primo;
+	unsigned long hashPalabra;
+	int frecuenciaPalabra;
+	bool debeMergear = this->xml.Load( path + "Modelo_0.xml" );
+	if (debeMergear)
+	{
+		xml.FindElem(); // root MODELO_X elemento
 
+		stringstream(xml.GetAttrib("primoJenkins")) >> primo;
+		Modelo0* modelo = new Modelo0(primo);
+
+		xml.IntoElem(); // dentro MODELO_X
+
+		while ( xml.FindElem("PALABRA") ){
+			Palabra* palabra = new Palabra(xml.GetAttrib("palabra"));
+			stringstream(xml.GetAttrib("frecuencia")) >> frecuenciaPalabra;
+			stringstream(xml.GetAttrib("hash")) >> hashPalabra;
+			palabra->setFrecuencia(frecuenciaPalabra);
+			modelo->setMapaFrecuencia(hashPalabra, palabra);
+		}
+		xml.OutOfElem();
+		xml.RemoveElem();
+		return modelo;
+	}
+	return NULL;
+}
 Modelo1* SerializadorXml::DeserializarModelo1(std::string path){
 	unsigned long primoModelo;
 	unsigned long primoContexto;
@@ -334,38 +416,6 @@ void SerializadorXml::SerializarTestFile(vector<Frase*>* frasesCompletas){
 		idFrase++;
 	}
 	fileTest.close();
-}
-
-
-void SerializadorXml::ProbarDeserializador0(Modelo0* modelo0){
-	MapaFrecuencia* mapaFrecuencia = modelo0->getMapaFrecuencia();
-	std::map<unsigned long, Palabra*>* hashFrecuencia = mapaFrecuencia->getHashFrecuencia();
-	std::map<unsigned long, Palabra*>::iterator it = hashFrecuencia->begin();
-
-	unsigned primoJenkins = modelo0->getJenkins()->getPrimo();
-	this->xml.AddElem( "MODELO_0" );
-	this->xml.SetAttrib("primoJenkins", primoJenkins);
-	this->xml.IntoElem();
-
-	unsigned int umbral = 0;
-	while(it != hashFrecuencia->end()){
-		unsigned long hashPalabra = (*it).first;
-		string palabra = (*it).second->getPalabra();
-		unsigned long int frecuencia = (*it).second->getFrecuencia();
-		if (frecuencia > umbral){
-			this->xml.AddElem("PALABRA");
-			this->xml.SetAttrib("hash", hashPalabra);
-			this->xml.SetAttrib("valor", palabra);
-			this->xml.SetAttrib("frecuencia", frecuencia);
-		}
-		it++;
-
-	}
-	//Ruta Windows(No deberia existir): D:\\Modelo0.xml
-	//Ruta UBUNTU: /home/ezequiel/Descargas/Modelo0.xml
-	this->xml.OutOfElem();
-	this->xml.Save( "C:\\Modelo_00.xml" );
-	this->xml.RemoveElem();
 }
 
 void SerializadorXml::ProbarDeserializador1(Modelo1* modelo1){
