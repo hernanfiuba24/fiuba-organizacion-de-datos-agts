@@ -19,11 +19,11 @@ void Predictor::completarFrases(vector<Frase* >* frasesACompletar, Modelo1* mode
 	this->completarFrecuencias(frasesACompletar, modelo1, modelo0, unPPMC);
 
 	//BORRAR ESTO. SOLO PARA VER SI FUNCIONA BIEN!!!!!!!
-	this->mostrarFrecuencias(frasesACompletar);
+//	this->mostrarFrecuencias(frasesACompletar);
 
 	this->cargarCompletadores(frasesACompletar);
 
-	//delete frasesACompletar; //NO TENDRIA QUE BORRARLAS PORQUE SON LAS QUE TENGO QUE COMPLETAR!!! :s
+	this->borrarFrecuencias(frasesACompletar);
 
 	//Recorrer los completadorModelo.
 	//Para el completadorModelo4 tengo el indice, el numeroDeFrase y la palabraConMayorFrec.
@@ -85,29 +85,27 @@ void Predictor::predecirUnaFrase(Frase* fraseACompletar, ModelosSuperiores* mode
 	unsigned tam = fraseACompletar->getTamanioFrase();
 	unsigned index = 0;
 	unsigned numeroModelo = modelosSuperiores->getNumeroModelo();
-	for (index; index < tam - numeroModelo; index++) {
+	if (tam >= numeroModelo + 1){
+		for (index; index < tam - numeroModelo; index++) {
 
-		string contexto = this->devolverContexto(fraseACompletar, numeroModelo, index+numeroModelo);
-		string palabra = this->devolverPalabra(fraseACompletar, index, numeroModelo);
-		pair<unsigned long, bool>* frecExisteContexto;
-		//unsigned long frecuencia = modelosSuperiores->devolverFrecuencia(contexto, palabra);
-		frecExisteContexto = modelosSuperiores->devolverFrecuencia(contexto, palabra);
-		bool frecuenciaEsCero = (frecExisteContexto->first == 0);
-		//bool bajaDeNivel = (fraseACompletar->getModelo(numeroModelo, index) == NULL);
-		float penalizacion;
-		if(frecExisteContexto->second){
+			string contexto = this->devolverContexto(fraseACompletar, numeroModelo, index+numeroModelo);
+			string palabra = this->devolverPalabra(fraseACompletar, index, numeroModelo);
+			pair<unsigned long, bool>* frecExisteContexto;
+			frecExisteContexto = modelosSuperiores->devolverFrecuencia(contexto, palabra);
+			bool frecuenciaEsCero = (frecExisteContexto->first == 0);
+			float penalizacion;
 
-			fraseACompletar->setPalabraConMayorFrecuencia(modelosSuperiores, contexto, index, numeroModelo);
-			if ((!frecuenciaEsCero)){			//if ((!frecuenciaEsCero) && (bajaDeNivel)){
-				penalizacion = modelosSuperiores->devolverPenalizacion(numeroModelo);
-				fraseACompletar->setFrecuencia(penalizacion, frecExisteContexto->first, numeroModelo, index);
-				fraseACompletar->setPalabraConMayorFrecuenciaMejora(modelosSuperiores, contexto, index, numeroModelo);
-				//fraseACompletar->setModelo(numeroModelo, index);
-				//Busca la palabra de mayor frecuencia para ese contexto
-				//palabraConMayorFrecuencia this->buscarPalabraConMayorFrecuencia(contexto);
+			if(frecExisteContexto->second){
+				fraseACompletar->setPalabraConMayorFrecuencia(modelosSuperiores, contexto, index, numeroModelo);
+
+				if ((!frecuenciaEsCero)){
+					penalizacion = modelosSuperiores->devolverPenalizacion(numeroModelo);
+					fraseACompletar->setFrecuencia(penalizacion, frecExisteContexto->first, numeroModelo, index);
+					fraseACompletar->setPalabraConMayorFrecuenciaMejora(modelosSuperiores, contexto, index, numeroModelo);
+				}
 			}
+			delete frecExisteContexto;
 		}
-		delete frecExisteContexto;
 	}
 }
 
@@ -116,27 +114,25 @@ void Predictor::predecirUnaFrase(Frase* fraseACompletar, Modelo1* modelo1){
 	unsigned tam = fraseACompletar->getTamanioFrase();
 	unsigned index = 0;
 	unsigned numeroModelo = 1;
-	for (index; index < tam - numeroModelo; index++) {
+	if (tam >= numeroModelo + 1){
+		for (index; index < tam - numeroModelo; index++) {
 
-		string contexto = this->devolverContexto(fraseACompletar, numeroModelo, index+numeroModelo);
-		string palabra = this->devolverPalabra(fraseACompletar, index, numeroModelo);
-		pair<unsigned long, bool>* frecExisteContexto;
-		//unsigned long frecuencia = modelo1->devolverFrecuencia(contexto, palabra);
-		frecExisteContexto = modelo1->devolverFrecuencia(contexto, palabra);
-		bool frecuenciaEsCero = (frecExisteContexto->second == 0);
-//		bool bajaDeNivel = (fraseACompletar->getModelo(numeroModelo, index) == NULL);
-		float penalizacion;
-		if(frecExisteContexto->second){
+			string contexto = this->devolverContexto(fraseACompletar, numeroModelo, index+numeroModelo);
+			string palabra = this->devolverPalabra(fraseACompletar, index, numeroModelo);
+			pair<unsigned long, bool>* frecExisteContexto;
+			frecExisteContexto = modelo1->devolverFrecuencia(contexto, palabra);
+			bool frecuenciaEsCero = (frecExisteContexto->second == 0);
+			float penalizacion;
+			if(frecExisteContexto->second){
 				fraseACompletar->setPalabraConMayorFrecuencia(modelo1, contexto, index, numeroModelo);
-				if ((!frecuenciaEsCero)){	//if ((!frecuenciaEsCero) && (bajaDeNivel)){
+				if ((!frecuenciaEsCero)){
 					penalizacion = modelo1->devolverPenalizacion();
 					fraseACompletar->setFrecuencia(penalizacion, frecExisteContexto->first, numeroModelo, index);
 					fraseACompletar->setPalabraConMayorFrecuenciaMejora(modelo1, contexto, index, numeroModelo);
-					//fraseACompletar->setModelo(numeroModelo, index);
-					//fraseACompletar->setPalabraConMayorFrecuencia(modelo1, contexto, index, numeroModelo);
 				}
-		}
+			}
 		delete frecExisteContexto;
+		}
 	}
 }
 
@@ -145,20 +141,19 @@ void Predictor::predecirUnaFrase(Frase* fraseACompletar, Modelo0* modelo0, strin
 	unsigned tam = fraseACompletar->getTamanioFrase();
 	unsigned index = 1;
 	unsigned numeroModelo = 0;
-	for (index; index < tam - numeroModelo; index++) {
+	if (tam >= numeroModelo + 1){
+		for (index; index < tam - numeroModelo; index++) {
 
-		string palabra = this->devolverPalabra(fraseACompletar, index, numeroModelo);
+			string palabra = this->devolverPalabra(fraseACompletar, index, numeroModelo);
 
-		unsigned long frecuencia = modelo0->devolverFrecuencia(palabra);
-		bool frecuenciaEsCero = (frecuencia == 0);
-		//bool bajaDeNivel = (fraseACompletar->getModelo(numeroModelo, index) == NULL);
-		float penalizacion;
-		//if ((!frecuenciaEsCero) && (bajaDeNivel)){
+			unsigned long frecuencia = modelo0->devolverFrecuencia(palabra);
+			bool frecuenciaEsCero = (frecuencia == 0);
+			float penalizacion;
 			if (!frecuenciaEsCero){
-			penalizacion = modelo0->devolverPenalizacion();
-			fraseACompletar->setFrecuencia(penalizacion, frecuencia, numeroModelo, index);
-			//fraseACompletar->setModelo(numeroModelo, index);
-			fraseACompletar->setPalabraConMayorFrecuencia(palabraConMayorFrecuencia, index, numeroModelo);
+				penalizacion = modelo0->devolverPenalizacion();
+				fraseACompletar->setFrecuencia(penalizacion, frecuencia, numeroModelo, index);
+				fraseACompletar->setPalabraConMayorFrecuencia(palabraConMayorFrecuencia, index, numeroModelo);
+			}
 		}
 	}
 }
@@ -242,9 +237,16 @@ void Predictor::completarPalabrasDeLosCompletadores(vector<Frase* >* frasesAComp
 	}
 }
 
+void Predictor::borrarFrecuencias(vector<Frase*>* frasesACompletar){
+	unsigned tamanioFrases = frasesACompletar->size();
+	for (unsigned i=0; i<tamanioFrases;i++){
+		(*frasesACompletar)[i]->borrarFrecuencias();
+	}
+}
+
 Predictor::~Predictor() {
 	unsigned tam = this->completadores->size();
-	for(int i=0; i < tam; i++){
+	for(unsigned i=0; i < tam; i++){
 		delete (*this->completadores)[i];
 	}
 	delete this->completadores;

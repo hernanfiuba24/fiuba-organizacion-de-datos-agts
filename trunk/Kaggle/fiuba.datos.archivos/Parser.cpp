@@ -44,6 +44,7 @@ string Parser::ParsearArchivoTxt(string rutaArchivo){
 	ifstream archivoTest(rutaArchivo.c_str(), ios::in);
 	string contenidoTexto;
 	string lineaTexto;
+	std::getline(archivoTest, lineaTexto);
 	while (std::getline(archivoTest, lineaTexto))
 	{
 		contenidoTexto += lineaTexto;

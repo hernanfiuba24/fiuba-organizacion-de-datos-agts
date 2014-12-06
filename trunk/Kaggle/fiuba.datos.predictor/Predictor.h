@@ -44,6 +44,7 @@ private:
 	void setearCompletadorModelo(Completador* unCompletador);
 	void completarPalabrasEnFrases(vector<Frase* >* frasesACompletar);
 	void completarPalabrasDeLosCompletadores(vector<Frase* >* frasesACompletar);
+	void borrarFrecuencias(std::vector<Frase*>* frasesACompletar);
 
 	vector<Completador*>* completadores;
 
