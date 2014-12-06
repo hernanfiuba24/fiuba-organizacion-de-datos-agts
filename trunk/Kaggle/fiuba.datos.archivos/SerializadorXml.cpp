@@ -144,11 +144,10 @@ void SerializadorXml::SerializarModelo1(Modelo1* modelo1, std::string path) {
 	if (debeMergear)
 		auxMapaContexto = auxModelo1->getMapa();
 
-	if (!debeMergear) {
-		this->xml.AddElem("MODELO_1");
-		this->xml.SetAttrib("primoJenkins", modelo1->getJenkins()->getPrimo());
-		this->xml.IntoElem();
-	}
+	this->xml.AddElem("MODELO_1");
+	this->xml.SetAttrib("primoJenkins", modelo1->getJenkins()->getPrimo());
+	this->xml.IntoElem();
+
 
 	std::map<unsigned long, Contexto*>* contextos =
 			modelo1->getMapa()->getMapaHash();
@@ -223,11 +222,9 @@ void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo,
 	if (debeMergear)
 		auxMapaContexto = auxModeloSuperior->getMapa();
 
-	if (!debeMergear) {
-		this->xml.AddElem("MODELO_"+ nroModeloString);
-		this->xml.SetAttrib("primoJenkins", modelo->getJenkins()->getPrimo());
-		this->xml.IntoElem();
-	}
+	this->xml.AddElem("MODELO_"+ nroModeloString);
+	this->xml.SetAttrib("primoJenkins", modelo->getJenkins()->getPrimo());
+	this->xml.IntoElem();
 
 	std::map<unsigned long, Contexto*>* contextos =
 			modelo->getMapa()->getMapaHash();
