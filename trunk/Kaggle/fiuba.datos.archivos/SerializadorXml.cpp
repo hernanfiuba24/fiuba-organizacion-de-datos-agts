@@ -93,7 +93,6 @@ void SerializadorXml::SerializarModelo1(Modelo1* modelo1, std::string path) {
 	this->xml.SetAttrib("primoJenkins", modelo1->getJenkins()->getPrimo());
 	this->xml.IntoElem();
 
-
 	std::map<unsigned long, Contexto*>* contextos =
 			modelo1->getMapa()->getMapaHash();
 	std::map<unsigned long, Contexto*>::iterator iterContexto =
@@ -111,9 +110,10 @@ void SerializadorXml::SerializarModelo1(Modelo1* modelo1, std::string path) {
 		//this->xml.SetAttrib("hash", hashContexto);
 		//this->xml.SetAttrib("primoJenkins",(*iterContexto).second->getJenkins()->getPrimo());
 		//this->xml.IntoElem();
-
+		bool existeContexto = false;
 		if (debeMergear) {
-			if (auxMapaContexto->existeClave(hashContexto)) {
+			existeContexto = auxMapaContexto->existeClave(hashContexto);
+			if (existeContexto) {
 				auxUnContexto = auxMapaContexto->getContextos(hashContexto);
 				auxIterPalabra =
 						auxUnContexto->getMapaFrecuencia()->getHashFrecuencia()->begin();
@@ -129,10 +129,10 @@ void SerializadorXml::SerializarModelo1(Modelo1* modelo1, std::string path) {
 			unsigned long auxFrecuenciaPalabra = 0;
 
 			if (debeMergear) {
-				if (auxUnContexto->existePalabra(hashPalabra)) {
-					auxFrecuenciaPalabra =
-							auxUnContexto->getMapaFrecuencia()->getFrecuencia(
-									hashPalabra);
+				if (existeContexto){
+					if (auxUnContexto->existePalabra(hashPalabra)) {
+						auxFrecuenciaPalabra =	auxUnContexto->getMapaFrecuencia()->getFrecuencia(hashPalabra);
+					}
 				}
 			}
 			frecuenciaPalabra += auxFrecuenciaPalabra;
@@ -153,9 +153,11 @@ void SerializadorXml::SerializarModelo1(Modelo1* modelo1, std::string path) {
 			}
 			iterPalabra++;
 		}
-		this->xml.OutOfElem();
+		if (!puedoEntrar)
+			this->xml.OutOfElem();
 		iterContexto++;
 	}
+
 	this->xml.OutOfElem();
 	this->xml.Save(path + "Modelo_1.xml");
 	this->xml.RemoveElem();
@@ -199,9 +201,10 @@ void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo,
 		//this->xml.SetAttrib("hash", hashContexto);
 		//this->xml.SetAttrib("primoJenkins",(*iterContexto).second->getJenkins()->getPrimo());
 		//this->xml.IntoElem();
-
+		bool existeContexto = false;
 		if (debeMergear) {
-			if (auxMapaContexto->existeClave(hashContexto)) {
+			existeContexto =auxMapaContexto->existeClave(hashContexto);
+			if (existeContexto) {
 				auxUnContexto = auxMapaContexto->getContextos(hashContexto);
 				auxIterPalabra =
 						auxUnContexto->getMapaFrecuencia()->getHashFrecuencia()->begin();
@@ -216,10 +219,10 @@ void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo,
 			unsigned long auxFrecuenciaPalabra = 0;
 
 			if (debeMergear) {
-				if (auxUnContexto->existePalabra(hashPalabra)) {
-					auxFrecuenciaPalabra =
-							auxUnContexto->getMapaFrecuencia()->getFrecuencia(
-									hashPalabra);
+				if (existeContexto){
+					if (auxUnContexto->existePalabra(hashPalabra)) {
+						auxFrecuenciaPalabra = auxUnContexto->getMapaFrecuencia()->getFrecuencia(hashPalabra);
+					}
 				}
 			}
 			frecuenciaPalabra += auxFrecuenciaPalabra;
@@ -240,7 +243,8 @@ void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo,
 			}
 			iterPalabra++;
 		}
-		this->xml.OutOfElem();
+		if(!puedoEntrar)
+			this->xml.OutOfElem();
 		iterContexto++;
 	}
 	this->xml.OutOfElem();
