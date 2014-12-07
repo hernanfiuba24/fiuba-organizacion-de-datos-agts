@@ -18,12 +18,12 @@ SerializadorXml::~SerializadorXml() {
 
 void SerializadorXml::Serializar(PPMC* ppmc, std::string path) {
 
-	//SerializarModelo0(ppmc->getModelo0(), path);
-	//SerializarModelo1(ppmc->getModelo1(), path);
+	SerializarModelo0(ppmc->getModelo0(), path);
+	SerializarModelo1(ppmc->getModelo1(), path);
 	SerializarModelosSuperiores(ppmc->getModelo2(), path);
-	/* SerializarModelosSuperiores(ppmc->getModelo3(), path);
-	 SerializarModelosSuperiores(ppmc->getModelo4(), path);
-	 */
+	SerializarModelosSuperiores(ppmc->getModelo3(), path);
+	SerializarModelosSuperiores(ppmc->getModelo4(), path);
+
 }
 
 void SerializadorXml::SerializarModelo0(Modelo0* modelo0, std::string path) {
@@ -107,11 +107,10 @@ void SerializadorXml::SerializarModelo1(Modelo1* modelo1, std::string path) {
 		std::map<unsigned long, Palabra*>::iterator iterPalabra =
 				unHashPalabra->begin();
 		// Serializo Contexto
-		this->xml.AddElem("CONTEXTO");
-		this->xml.SetAttrib("hash", hashContexto);
-		this->xml.SetAttrib("primoJenkins",
-				(*iterContexto).second->getJenkins()->getPrimo());
-		this->xml.IntoElem();
+		//this->xml.AddElem("CONTEXTO");
+		//this->xml.SetAttrib("hash", hashContexto);
+		//this->xml.SetAttrib("primoJenkins",(*iterContexto).second->getJenkins()->getPrimo());
+		//this->xml.IntoElem();
 
 		if (debeMergear) {
 			if (auxMapaContexto->existeClave(hashContexto)) {
@@ -120,8 +119,9 @@ void SerializadorXml::SerializarModelo1(Modelo1* modelo1, std::string path) {
 						auxUnContexto->getMapaFrecuencia()->getHashFrecuencia()->begin();
 			}
 		}
-
+		bool puedoEntrar = true;
 		while (iterPalabra != unHashPalabra->end()) {
+
 			string nombrePalabra = (*iterPalabra).second->getPalabra();
 			unsigned long hashPalabra = (*iterPalabra).first;
 			unsigned long frecuenciaPalabra =
@@ -138,10 +138,18 @@ void SerializadorXml::SerializarModelo1(Modelo1* modelo1, std::string path) {
 			frecuenciaPalabra += auxFrecuenciaPalabra;
 
 			if (frecuenciaPalabra > umbral) {
+				if (puedoEntrar){
+					// Serializo Contexto
+					this->xml.AddElem("CONTEXTO");
+					this->xml.SetAttrib("hash", hashContexto);
+					this->xml.SetAttrib("primoJenkins",(*iterContexto).second->getJenkins()->getPrimo());
+					this->xml.IntoElem();
+				}
 				this->xml.AddElem("PALABRA");
 				this->xml.SetAttrib("hash", hashPalabra);
 				this->xml.SetAttrib("valor", nombrePalabra);
 				this->xml.SetAttrib("frecuencia", frecuenciaPalabra);
+				puedoEntrar = false;
 			}
 			iterPalabra++;
 		}
@@ -187,11 +195,10 @@ void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo,
 		std::map<unsigned long, Palabra*>::iterator iterPalabra =
 				unHashPalabra->begin();
 		// Serializo Contexto
-		this->xml.AddElem("CONTEXTO");
-		this->xml.SetAttrib("hash", hashContexto);
-		this->xml.SetAttrib("primoJenkins",
-				(*iterContexto).second->getJenkins()->getPrimo());
-		this->xml.IntoElem();
+		//this->xml.AddElem("CONTEXTO");
+		//this->xml.SetAttrib("hash", hashContexto);
+		//this->xml.SetAttrib("primoJenkins",(*iterContexto).second->getJenkins()->getPrimo());
+		//this->xml.IntoElem();
 
 		if (debeMergear) {
 			if (auxMapaContexto->existeClave(hashContexto)) {
@@ -200,7 +207,7 @@ void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo,
 						auxUnContexto->getMapaFrecuencia()->getHashFrecuencia()->begin();
 			}
 		}
-
+		bool puedoEntrar = true;
 		while (iterPalabra != unHashPalabra->end()) {
 			string nombrePalabra = (*iterPalabra).second->getPalabra();
 			unsigned long hashPalabra = (*iterPalabra).first;
@@ -218,10 +225,18 @@ void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo,
 			frecuenciaPalabra += auxFrecuenciaPalabra;
 
 			if (frecuenciaPalabra > umbral){
+				if (puedoEntrar){
+					// Serializo Contexto
+					this->xml.AddElem("CONTEXTO");
+					this->xml.SetAttrib("hash", hashContexto);
+					this->xml.SetAttrib("primoJenkins",(*iterContexto).second->getJenkins()->getPrimo());
+					this->xml.IntoElem();
+				}
 				this->xml.AddElem("PALABRA");
 				this->xml.SetAttrib("hash", hashPalabra);
 				this->xml.SetAttrib("valor", nombrePalabra);
 				this->xml.SetAttrib("frecuencia", frecuenciaPalabra);
+				puedoEntrar = false;
 			}
 			iterPalabra++;
 		}
@@ -341,8 +356,7 @@ ModelosSuperiores* SerializadorXml::DeserializarModelosSuperiores(
 	return NULL;
 }
 
-void SerializadorXml::SerializarTestFile(vector<Frase*>* frasesCompletas) {
-	string path = "/home/matias/testCompletado.txt";
+void SerializadorXml::SerializarTestFile(vector<Frase*>* frasesCompletas, string path){
 	unsigned long idFrase = 1;
 	ofstream fileTest;
 	fileTest.open(path.c_str(), std::fstream::out);

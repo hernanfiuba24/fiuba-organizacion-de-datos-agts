@@ -21,7 +21,7 @@ public:
 	Modelo0* DeserializarModelo0(std::string path);
 	Modelo1* DeserializarModelo1(std::string path);
 	ModelosSuperiores* DeserializarModelosSuperiores(unsigned numeroModelo, std::string path);
-	void SerializarTestFile(std::vector<Frase*>* frasesCompletas);
+	void SerializarTestFile(std::vector<Frase*>* frasesCompletas, std::string path);
 	virtual ~SerializadorXml();
 	//Metodos de prueba--- BORRAR
 	void ProbarDeserializador0(Modelo0* modelo);

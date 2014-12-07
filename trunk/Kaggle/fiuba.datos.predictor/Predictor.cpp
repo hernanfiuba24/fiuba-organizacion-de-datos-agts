@@ -14,9 +14,9 @@ Predictor::Predictor() {
 }
 //Paso el PPMC para ir cargando los modelos superiores
 //( esto es solo para el momento de testeo)
-void Predictor::completarFrases(vector<Frase* >* frasesACompletar, Modelo1* modelo1, Modelo0* modelo0, PPMC *unPPMC){
+void Predictor::completarFrases(vector<Frase* >* frasesACompletar, Modelo1* modelo1, Modelo0* modelo0){
 
-	this->completarFrecuencias(frasesACompletar, modelo1, modelo0, unPPMC);
+	this->completarFrecuencias(frasesACompletar, modelo1, modelo0);
 
 	//BORRAR ESTO. SOLO PARA VER SI FUNCIONA BIEN!!!!!!!
 //	this->mostrarFrecuencias(frasesACompletar);
@@ -57,17 +57,19 @@ void Predictor::mostrarFrecuencias(vector<Frase*>* frasesACompletar){
 }
 
 void Predictor::completarFrecuencias(vector<Frase*
-		>* frasesACompletar, Modelo1* modelo1, Modelo0* modelo0, PPMC *unPPMC){
+		>* frasesACompletar, Modelo1* modelo1, Modelo0* modelo0){
 		unsigned numeroModelo = 4;
 		unsigned tamanioFrases = frasesACompletar->size();
 		for (numeroModelo; numeroModelo >= 2; numeroModelo--) {
 
-			//ModelosSuperiores* modeloSuperior = this->cargarModelosSuperiores(numeroModelo);
-			ModelosSuperiores* modeloSuperior = this->ProvisoriaCargarModelosSuperiores(numeroModelo, unPPMC);
+			SerializadorXml* unSer = new SerializadorXml();
+			ModelosSuperiores* modeloSuperior = unSer->DeserializarModelosSuperiores(numeroModelo, "/home/ezequiel/Escritorio/Modelos/");
+
 			for (unsigned i = 0; i < tamanioFrases; i++)
 				this->predecirUnaFrase((*frasesACompletar)[i], modeloSuperior);
 		//DESCOMENTAR ESTO DESPUES
 			delete modeloSuperior;
+			delete unSer;
 		}
 
 		for (unsigned i = 0; i < tamanioFrases; i++)
@@ -175,36 +177,6 @@ string Predictor::devolverContexto(Frase* fraseACompletar, unsigned numeroModelo
 
 string Predictor::devolverPalabra(Frase* fraseACompletar, unsigned numeroModelo, unsigned index){
 	return fraseACompletar->devolverPalabra(index+numeroModelo);
-}
-
-ModelosSuperiores* Predictor::cargarModelosSuperiores(unsigned numeroModelo){
-
-	ModelosSuperiores* modeloSuperior;
-
-	SerializadorXml* unSer = new SerializadorXml();
-
-	if (numeroModelo == 2 )
-		modeloSuperior = unSer->DeserializarModelosSuperiores(numeroModelo, "/home/matias/");
-	else if (numeroModelo == 3 )
-		modeloSuperior = unSer->DeserializarModelosSuperiores(numeroModelo, "/home/matias/");
-	else if (numeroModelo == 4 )
-		modeloSuperior = unSer->DeserializarModelosSuperiores(numeroModelo, "/home/matias/");
-
-	return modeloSuperior;
-}
-
-ModelosSuperiores* Predictor::ProvisoriaCargarModelosSuperiores(unsigned numeroModelo, PPMC *unPPMC){
-
-	 	ModelosSuperiores* modeloSuperior;
-
-		if (numeroModelo == 2 )
-			modeloSuperior = unPPMC->getModelo2();
-		else if (numeroModelo == 3 )
-			modeloSuperior = unPPMC->getModelo3();
-		else if (numeroModelo == 4 )
-			modeloSuperior = unPPMC->getModelo4();
-
-		return modeloSuperior;
 }
 
 Completador* Predictor::hallarLaFrecuenciaMinima(Frase *fraseACompletar, unsigned numeroFrase){
