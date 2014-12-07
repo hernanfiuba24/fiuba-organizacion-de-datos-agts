@@ -26,62 +26,6 @@ void SerializadorXml::Serializar(PPMC* ppmc, std::string path) {
 	 */
 }
 
-/*
- void SerializadorXml::SerializarModelo0(Modelo0* modelo0, std::string path){
-
- bool debeMergear = this->xml.Load( path + "Modelo_0.xml" );
- MapaFrecuencia* mapaFrecuencia = modelo0->getMapaFrecuencia();
- std::map<unsigned long, Palabra*>* hashFrecuencia = mapaFrecuencia->getHashFrecuencia();
- std::map<unsigned long, Palabra*>::iterator it = hashFrecuencia->begin();
-
- if (!debeMergear){
- unsigned primoJenkins = modelo0->getJenkins()->getPrimo();
- this->xml.AddElem( "MODELO_0" );
- this->xml.SetAttrib("primoJenkins", primoJenkins);
- this->xml.IntoElem();
- }
-
- unsigned int umbral = 0;
- while(it != hashFrecuencia->end()){
- bool palabraEncontrada = false;
- unsigned long hashPalabra = (*it).first;
- string palabra = (*it).second->getPalabra();
- unsigned long int frecuencia = (*it).second->getFrecuencia();
-
- if (debeMergear){
- this->xml.ResetPos();
- this->xml.FindElem(); // root MODELO_X element
- this->xml.IntoElem(); // inside MODELO_X
- while( this->xml.FindElem("PALABRA") ) {
- if (this->xml.GetAttrib("palabra") == palabra){
- std::istringstream reader(this->xml.GetAttrib("frecuencia"));
- unsigned long int frecuenciaAnterior;
- reader >> frecuenciaAnterior;
- this->xml.SetAttrib("frecuencia", frecuenciaAnterior + frecuencia);
- palabraEncontrada = true;
- break;
- }
- }
- }
-
- if (frecuencia > umbral && !palabraEncontrada){
- this->xml.AddElem("PALABRA");
- this->xml.SetAttrib("hash", hashPalabra);
- this->xml.SetAttrib("palabra", palabra);
- this->xml.SetAttrib("frecuencia", frecuencia);
- }
- it++;
-
- }
- //Ruta Windows(No deberia existir): D:\\Modelo0.xml
- //Ruta UBUNTU: /home/ezequiel/Descargas/Modelo0.xml
- this->xml.OutOfElem();
- this->xml.Save( path + "Modelo_0.xml" );
- this->xml.RemoveElem();
- }
-
- */
-
 void SerializadorXml::SerializarModelo0(Modelo0* modelo0, std::string path) {
 	MapaFrecuencia* mapaFrecuencia = modelo0->getMapaFrecuencia();
 	std::map<unsigned long, Palabra*>* hashFrecuencia =
@@ -103,7 +47,7 @@ void SerializadorXml::SerializarModelo0(Modelo0* modelo0, std::string path) {
 
 	unsigned long int frecuencia;
 	unsigned long int auxFrecuencia;
-	unsigned int umbral = 0;
+	unsigned int umbral = 50;
 	bool existeClave;
 
 	while (it != hashFrecuencia->end()) {
@@ -136,6 +80,7 @@ void SerializadorXml::SerializarModelo0(Modelo0* modelo0, std::string path) {
 void SerializadorXml::SerializarModelo1(Modelo1* modelo1, std::string path) {
 
 	bool debeMergear;
+	unsigned int umbral = 20;
 	MapaContexto* auxMapaContexto;
 	Contexto *auxUnContexto;
 	std::map<unsigned long, Palabra*>::iterator auxIterPalabra;
@@ -192,11 +137,12 @@ void SerializadorXml::SerializarModelo1(Modelo1* modelo1, std::string path) {
 			}
 			frecuenciaPalabra += auxFrecuenciaPalabra;
 
-			this->xml.AddElem("PALABRA");
-			this->xml.SetAttrib("hash", hashPalabra);
-			this->xml.SetAttrib("valor", nombrePalabra);
-			this->xml.SetAttrib("frecuencia", frecuenciaPalabra);
-
+			if (frecuenciaPalabra > umbral) {
+				this->xml.AddElem("PALABRA");
+				this->xml.SetAttrib("hash", hashPalabra);
+				this->xml.SetAttrib("valor", nombrePalabra);
+				this->xml.SetAttrib("frecuencia", frecuenciaPalabra);
+			}
 			iterPalabra++;
 		}
 		this->xml.OutOfElem();
@@ -212,9 +158,11 @@ void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo,
 	stringstream ss;
 	ss << modelo->getNumeroModelo();
 	string nroModeloString = ss.str();
+	unsigned umbral = 5;
 	bool debeMergear;
 	MapaContexto* auxMapaContexto;
 	Contexto *auxUnContexto;
+
 	std::map<unsigned long, Palabra*>::iterator auxIterPalabra;
 	ModelosSuperiores* auxModeloSuperior = DeserializarModelosSuperiores(
 			modelo->getNumeroModelo(), path);
@@ -269,11 +217,12 @@ void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo,
 			}
 			frecuenciaPalabra += auxFrecuenciaPalabra;
 
-			this->xml.AddElem("PALABRA");
-			this->xml.SetAttrib("hash", hashPalabra);
-			this->xml.SetAttrib("valor", nombrePalabra);
-			this->xml.SetAttrib("frecuencia", frecuenciaPalabra);
-
+			if (frecuenciaPalabra > umbral){
+				this->xml.AddElem("PALABRA");
+				this->xml.SetAttrib("hash", hashPalabra);
+				this->xml.SetAttrib("valor", nombrePalabra);
+				this->xml.SetAttrib("frecuencia", frecuenciaPalabra);
+			}
 			iterPalabra++;
 		}
 		this->xml.OutOfElem();
@@ -283,164 +232,7 @@ void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo,
 	this->xml.Save(path + "Modelo_" + nroModeloString + ".xml");
 	this->xml.RemoveElem();
 }
-/*
- void SerializadorXml::SerializarModelo1(Modelo1* modelo1, std::string path){
 
- bool debeMergear = this->xml.Load( path + "Modelo_1.xml" );
- bool existeElContexto = false;
- bool palabraEncontrada = false;
-
- if (!debeMergear){
- this->xml.AddElem( "MODELO_1" );
- this->xml.SetAttrib( "primoJenkins", modelo1->getJenkins()->getPrimo() );
- this->xml.IntoElem();
- }
-
- std::map<unsigned long, Contexto*>* contextos = modelo1->getMapa()->getMapaHash();
- std::map<unsigned long, Contexto*>::iterator iterContexto = contextos->begin();
-
- while(iterContexto != contextos->end()){
- palabraEncontrada = false;
- existeElContexto = false;
- unsigned long hashContexto = (*iterContexto).first;
- std::map<unsigned long, Palabra*>* unContexto = (*iterContexto).second->getMapaFrecuencia()->getHashFrecuencia();
- std::map<unsigned long, Palabra*>::iterator iterPalabra = unContexto->begin();
-
- if (debeMergear){
- this->xml.ResetPos();
- this->xml.FindElem(); // root MODELO_X element
- this->xml.IntoElem(); // inside MODELO_X
-
- while( this->xml.FindElem("CONTEXTO") ) {
- std::istringstream reader(this->xml.GetAttrib("hash"));
- unsigned long int hashIterador;
- reader >> hashIterador;
- if (hashIterador == hashContexto){
- existeElContexto = true;
- this->xml.IntoElem();
- break;
- }
- }
- }
-
- if (!debeMergear || !existeElContexto){
- this->xml.AddElem( "CONTEXTO" );
- this->xml.SetAttrib( "hash", hashContexto );
- this->xml.SetAttrib( "primoJenkins", (*iterContexto).second->getJenkins()->getPrimo() );
- this->xml.IntoElem();
- }
-
- while(iterPalabra != unContexto->end()){
-
- while (this->xml.FindElem("PALABRA")){
- if (this->xml.GetAttrib("valor") == (*iterPalabra).second->getPalabra()){
- std::istringstream reader(this->xml.GetAttrib("frecuencia"));
- unsigned long int frecuenciaPalabra;
- reader >> frecuenciaPalabra;
- this->xml.SetAttrib( "frecuencia", frecuenciaPalabra + (*iterPalabra).second->getFrecuencia() );
- palabraEncontrada = true;
- break;
- }
- }
-
- if (!palabraEncontrada){
- this->xml.AddElem( "PALABRA" );
- this->xml.SetAttrib( "hash", (*iterPalabra).first );
- this->xml.SetAttrib( "valor", (*iterPalabra).second->getPalabra() );
- this->xml.SetAttrib( "frecuencia", (*iterPalabra).second->getFrecuencia() );
- }
- iterPalabra++;
-
- }
- this->xml.OutOfElem();
- iterContexto++;
- }
-
- this->xml.OutOfElem();
- this->xml.Save( path + "Modelo_1.xml" );
- this->xml.RemoveElem();
- }
-
- */
-/*
- void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo, std::string path){
- stringstream ss;
- ss << modelo->getNumeroModelo();
- string nroModeloString = ss.str();
-
- this->xml.AddElem( "MODELO_" + nroModeloString );
- this->xml.SetAttrib( "primoJenkins", modelo->getJenkins()->getPrimo() );
- this->xml.IntoElem();
-
- std::map<unsigned long, Contexto*>* contextos = modelo->getMapa()->getMapaHash();
- std::map<unsigned long, Contexto*>::iterator iterContexto = contextos->begin();
-
- while(iterContexto != contextos->end()){
- unsigned long hashContexto = (*iterContexto).first;
- std::map<unsigned long, Palabra*>* unContexto = (*iterContexto).second->getMapaFrecuencia()->getHashFrecuencia();
- std::map<unsigned long, Palabra*>::iterator iterPalabra = unContexto->begin();
-
- //		this->xml.AddElem( "CONTEXTO" );
- //		this->xml.SetAttrib( "hash", hashContexto );
- //		this->xml.SetAttrib( "primoJenkins", (*iterContexto).second->getJenkins()->getPrimo() );
- //		this->xml.IntoElem();
- unsigned umbral = 0;
- bool puedoEntrar = true;
- while(iterPalabra != unContexto->end()){
- if ((*iterPalabra).second->getFrecuencia() > umbral){
- if (puedoEntrar){
- this->xml.AddElem( "CONTEXTO" );
- this->xml.SetAttrib( "hash", hashContexto );
- this->xml.SetAttrib( "primoJenkins", (*iterContexto).second->getJenkins()->getPrimo() );
- this->xml.IntoElem();
- }
- this->xml.AddElem( "PALABRA" );
- this->xml.SetAttrib( "hash", (*iterPalabra).first );
- this->xml.SetAttrib( "valor", (*iterPalabra).second->getPalabra() );
- this->xml.SetAttrib( "frecuencia", (*iterPalabra).second->getFrecuencia() );
- puedoEntrar = false;
- }
- iterPalabra++;
- }
- this->xml.OutOfElem();
- iterContexto++;
- }
- //Ruta en UBUNTU: /home/ezequiel/Descargas/Modelo_
- this->xml.OutOfElem();
- this->xml.Save( path + "Modelo_" + nroModeloString + ".xml" );
- this->xml.RemoveElem();
- }
- */
-/*
- Modelo0* SerializadorXml::DeserializarModelo0(std::string path){
-
- unsigned long primo;
- unsigned long hashPalabra;
- int frecuenciaPalabra;
- bool debeMergear = this->xml.Load( path + "Modelo_0.xml" );
- if (debeMergear)
- {
- xml.FindElem(); // root MODELO_X elemento
-
- stringstream(xml.GetAttrib("primoJenkins")) >> primo;
- Modelo0* modelo = new Modelo0(primo);
-
- xml.IntoElem(); // dentro MODELO_X
-
- while ( xml.FindElem("PALABRA") ){
- Palabra* palabra = new Palabra(xml.GetAttrib("palabra"));
- stringstream(xml.GetAttrib("frecuencia")) >> frecuenciaPalabra;
- stringstream(xml.GetAttrib("hash")) >> hashPalabra;
- palabra->setFrecuencia(frecuenciaPalabra);
- modelo->setMapaFrecuencia(hashPalabra, palabra);
- }
- xml.OutOfElem();
- xml.RemoveElem();
- return modelo;
- }
- return NULL;
- }
- */
 Modelo0* SerializadorXml::DeserializarModelo0(std::string path) {
 
 	unsigned long primo;
