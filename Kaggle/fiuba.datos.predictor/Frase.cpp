@@ -6,6 +6,7 @@
  */
 
 #include "Frase.h"
+#include <iostream>
 
 using namespace std;
 
@@ -13,6 +14,8 @@ Frase::Frase(vector< string >* unaFrase){
 	this->fraseACompletar = unaFrase;
 	this->frecuencias = new vector<FrecuenciaModelo* >;
 	this->tamanioFrecuencias = this->fraseACompletar->size();
+	if (this->tamanioFrecuencias == 0)
+		this->tamanioFrecuencias++;
 	this->frecuencias->resize(this->tamanioFrecuencias);
 	this->inicializarFrecuencias();
 
@@ -56,25 +59,33 @@ void Frase::setModelo(unsigned numeroModelo, unsigned index){
 }
 */
 Completador* Frase::devolverFrecuenciaMinima(unsigned numeroFrase){
+	Completador* unComp;
+	if (this->tamanioFrecuencias > 1){
+		float menorFrecuencia = (*this->frecuencias)[1]->getFrecuencia();
+		float frecTemporal;
+		unsigned index;
+		unsigned posEnDondeCompletarFrase = 1;
+		string palabraConMayorFrecuencia = (*this->frecuencias)[1]->getPalabraConMayorFrecuencia();
+		for(index = 1; index < this->tamanioFrecuencias; index++){
 
-	float menorFrecuencia = (*this->frecuencias)[1]->getFrecuencia();
-	float frecTemporal;
-	unsigned index;
-	unsigned posEnDondeCompletarFrase = 1;
-	string palabraConMayorFrecuencia = (*this->frecuencias)[1]->getPalabraConMayorFrecuencia();
-	for(index = 2; index < this->tamanioFrecuencias; index++){
-
-		frecTemporal = (*this->frecuencias)[index]->getFrecuencia();
-		if (menorFrecuencia > frecTemporal){
-			menorFrecuencia = frecTemporal;
-			posEnDondeCompletarFrase = index;
-			if (index == this->tamanioFrecuencias)
-				posEnDondeCompletarFrase--;
-			palabraConMayorFrecuencia = (*this->frecuencias)[index]->getPalabraConMayorFrecuencia();
+			frecTemporal = (*this->frecuencias)[index]->getFrecuencia();
+			if (menorFrecuencia > frecTemporal){
+				menorFrecuencia = frecTemporal;
+				posEnDondeCompletarFrase = index;
+				if (index == this->tamanioFrecuencias)
+					posEnDondeCompletarFrase--;
+				palabraConMayorFrecuencia = (*this->frecuencias)[index]->getPalabraConMayorFrecuencia();
+			}
 		}
-	}
+
+	cout << "Encontro el minimo" << endl;
 	index--;
-	Completador* unComp = new Completador(posEnDondeCompletarFrase, numeroFrase, palabraConMayorFrecuencia);
+	unComp = new Completador(posEnDondeCompletarFrase, numeroFrase, palabraConMayorFrecuencia);
+	}
+	else if (this->tamanioFrecuencias == 1){
+		string palabraConMayorFrecuencia = (*this->frecuencias)[0]->getPalabraConMayorFrecuencia();
+		unComp = new Completador(1, numeroFrase, palabraConMayorFrecuencia);
+	}
 	return unComp;
 }
 /*
@@ -86,9 +97,7 @@ unsigned Frase::getModelo(unsigned numeroModelo, unsigned index){
 */
 void Frase::setPalabraConMayorFrecuencia(ModelosSuperiores* modelosSuperiores,std::string contexto, unsigned index, unsigned numeroModelo){
 	string palabraConMayorFrecuencia;
-	FrecuenciaModelo *unaFrecuenciaModelo = (*this->frecuencias)[numeroModelo+index];
 	bool hayQueAgregarPalabra;
-	//hayQueAgregarPalabra = unaFrecuenciaModelo->esMayorElModelo(numeroModelo);
 	hayQueAgregarPalabra = ((*this->frecuencias)[numeroModelo+index]->getPalabraConMayorFrecuencia() == "");
 	if (hayQueAgregarPalabra){
 		// busco la palabr con mayor frec para ese modelo
@@ -102,7 +111,6 @@ void Frase::setPalabraConMayorFrecuenciaMejora(ModelosSuperiores* modelosSuperio
 }
 void Frase::setPalabraConMayorFrecuencia(Modelo1* modelo1,std::string contexto, unsigned index, unsigned numeroModelo){
 	string palabraConMayorFrecuencia;
-	FrecuenciaModelo *unaFrecuenciaModelo = (*this->frecuencias)[numeroModelo+index];
 	bool hayQueAgregarPalabra;
 	hayQueAgregarPalabra = ((*this->frecuencias)[numeroModelo+index]->getPalabraConMayorFrecuencia() == "");
 	if (hayQueAgregarPalabra){
@@ -117,7 +125,6 @@ void Frase::setPalabraConMayorFrecuenciaMejora(Modelo1* modelo1, string contexto
 }
 
 void Frase::setPalabraConMayorFrecuencia(string palabraConMayorFrecuencia, unsigned index, unsigned numeroModelo){
-		FrecuenciaModelo *unaFrecuenciaModelo = (*this->frecuencias)[numeroModelo+index];
 		bool hayQueAgregarPalabra;
 		hayQueAgregarPalabra = ((*this->frecuencias)[numeroModelo+index]->getPalabraConMayorFrecuencia() == "");
 		if (hayQueAgregarPalabra){

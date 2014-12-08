@@ -6,6 +6,7 @@
  */
 
 #include "Predictor.h"
+#include <iostream>
 
 using namespace std;
 
@@ -31,7 +32,7 @@ void Predictor::completarFrases(vector<Frase* >* frasesACompletar, Modelo1* mode
 	//Esto es lo que faltaria.
 	this->completarPalabrasEnFrases(frasesACompletar);
 
-	this->mostrarFrases(frasesACompletar);
+//	this->mostrarFrases(frasesACompletar);
 
 }
 
@@ -63,7 +64,7 @@ void Predictor::completarFrecuencias(vector<Frase*
 		for (numeroModelo; numeroModelo >= 2; numeroModelo--) {
 
 			SerializadorXml* unSer = new SerializadorXml();
-			ModelosSuperiores* modeloSuperior = unSer->DeserializarModelosSuperiores(numeroModelo, "/home/ezequiel/Escritorio/Modelos/");
+			ModelosSuperiores* modeloSuperior = unSer->DeserializarModelosSuperiores(numeroModelo, "/home/ezequiel/Documentos/Modelos/");
 
 			for (unsigned i = 0; i < tamanioFrases; i++)
 				this->predecirUnaFrase((*frasesACompletar)[i], modeloSuperior);
@@ -152,11 +153,18 @@ void Predictor::predecirUnaFrase(Frase* fraseACompletar, Modelo0* modelo0, strin
 			bool frecuenciaEsCero = (frecuencia == 0);
 			float penalizacion;
 			if (!frecuenciaEsCero){
+				if (tam == 1)
+					index = 0;
 				penalizacion = modelo0->devolverPenalizacion();
 				fraseACompletar->setFrecuencia(penalizacion, frecuencia, numeroModelo, index);
 				fraseACompletar->setPalabraConMayorFrecuencia(palabraConMayorFrecuencia, index, numeroModelo);
 			}
 		}
+	}
+	//Caso especial: Frase vacia.
+	if (tam == 0){
+		fraseACompletar->setFrecuencia(0,0, 0, 0);
+		fraseACompletar->setPalabraConMayorFrecuencia(palabraConMayorFrecuencia, 0, 0);
 	}
 }
 
@@ -165,6 +173,7 @@ void Predictor::cargarCompletadores(vector<Frase*>* frasesACompletar){
 	for (int i=0; i < frasesACompletar->size(); i++){
 
 		unsigned numeroFrase = i + 1;
+		cout<<"Antes de entrar a hallarFrecMinima"<< i+1 <<endl;
 		Completador *unCompletador = this->hallarLaFrecuenciaMinima((*frasesACompletar)[i], numeroFrase);
 		this->setearCompletadorModelo(unCompletador);
 	}
