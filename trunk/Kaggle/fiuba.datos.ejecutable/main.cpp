@@ -187,6 +187,7 @@ int main() {
 				break;
 			}
 			unsigned cantidadAEntrenar;
+			int inicioLectura;
 			char seguir;
 			cout << "Ingresar en bytes cuanta cantidad desea entrenar:" << endl;
 			cin >> cantidadAEntrenar;
@@ -197,6 +198,10 @@ int main() {
 			cout << "Archivo creado" << endl;
 			cout << endl;
 			while (seguirEntrenando) {
+				cout << "Desde donde desea cargar(bytes):" << endl;
+				cin >> inicioLectura;
+				unArchivo->setInicioProximaLectura(inicioLectura);
+
 				entrenar(unArchivo);
 				cout << "¿Desea seguir entrenando?: s/n" << endl;
 				cin >> seguir;
