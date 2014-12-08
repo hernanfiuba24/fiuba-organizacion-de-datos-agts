@@ -77,6 +77,6 @@ vector<Frase*>* Parser::devolverFrases(string texto, char valorParseo){
 
 
 Parser::~Parser() {
-	delete[] this->ultimasPalabras;
+	delete this->ultimasPalabras;
 }
 

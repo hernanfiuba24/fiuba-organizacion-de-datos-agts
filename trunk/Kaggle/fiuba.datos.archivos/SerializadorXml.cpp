@@ -71,8 +71,6 @@ void SerializadorXml::SerializarModelo0(Modelo0* modelo0, std::string path) {
 		it++;
 
 	}
-	//Ruta Windows(No deberia existir): D:\\Modelo0.xml
-	//Ruta UBUNTU: /home/ezequiel/Descargas/Modelo0.xml
 	this->xml.OutOfElem();
 	this->xml.Save(path + "Modelo_0.xml");
 	this->xml.RemoveElem();
@@ -105,11 +103,7 @@ void SerializadorXml::SerializarModelo1(Modelo1* modelo1, std::string path) {
 				(*iterContexto).second->getMapaFrecuencia()->getHashFrecuencia();
 		std::map<unsigned long, Palabra*>::iterator iterPalabra =
 				unHashPalabra->begin();
-		// Serializo Contexto
-		//this->xml.AddElem("CONTEXTO");
-		//this->xml.SetAttrib("hash", hashContexto);
-		//this->xml.SetAttrib("primoJenkins",(*iterContexto).second->getJenkins()->getPrimo());
-		//this->xml.IntoElem();
+
 		bool existeContexto = false;
 		if (debeMergear) {
 			existeContexto = auxMapaContexto->existeClave(hashContexto);
@@ -196,11 +190,7 @@ void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo,
 				(*iterContexto).second->getMapaFrecuencia()->getHashFrecuencia();
 		std::map<unsigned long, Palabra*>::iterator iterPalabra =
 				unHashPalabra->begin();
-		// Serializo Contexto
-		//this->xml.AddElem("CONTEXTO");
-		//this->xml.SetAttrib("hash", hashContexto);
-		//this->xml.SetAttrib("primoJenkins",(*iterContexto).second->getJenkins()->getPrimo());
-		//this->xml.IntoElem();
+
 		bool existeContexto = false;
 		if (debeMergear) {
 			existeContexto =auxMapaContexto->existeClave(hashContexto);
@@ -451,10 +441,6 @@ void SerializadorXml::ProbarDeserializadorSuperior(ModelosSuperiores* modelo) {
 		std::map<unsigned long, Palabra*>::iterator iterPalabra =
 		unContexto->begin();
 
-//		this->xml.AddElem( "CONTEXTO" );
-//		this->xml.SetAttrib( "hash", hashContexto );
-//		this->xml.SetAttrib( "primoJenkins", (*iterContexto).second->getJenkins()->getPrimo() );
-//		this->xml.IntoElem();
 		unsigned umbral = 0;
 		bool puedoEntrar = true;
 		while (iterPalabra != unContexto->end()) {
@@ -479,7 +465,6 @@ void SerializadorXml::ProbarDeserializadorSuperior(ModelosSuperiores* modelo) {
 		this->xml.OutOfElem();
 		iterContexto++;
 	}
-	//Ruta en UBUNTU: /home/ezequiel/Descargas/Modelo_
 	this->xml.OutOfElem();
 	this->xml.Save("C:\\Modelo_" + nroModeloString + nroModeloString + ".xml");
 	this->xml.RemoveElem();

@@ -53,6 +53,7 @@ vector<Frase*>* Archivo::parsearTest(string rutaArchivo, char valorParseo){
 
 Archivo::~Archivo() {
 	this->handle.close();
-	delete[] this->buffer;
+	delete this->buffer;
+	delete this->parser;
 }
 
