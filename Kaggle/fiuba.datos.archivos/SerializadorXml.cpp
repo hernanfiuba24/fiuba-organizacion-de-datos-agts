@@ -479,4 +479,6 @@ unsigned SerializadorXml::definirUmbral(unsigned numeroModelo){
 		umbral = 3;
 	else if (numeroModelo == 2)
 		umbral = 4;
+
+	return umbral;
 }

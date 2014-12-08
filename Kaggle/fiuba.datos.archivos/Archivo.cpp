@@ -50,6 +50,10 @@ vector<Frase*>* Archivo::parsearTest(string rutaArchivo, char valorParseo){
 	return this->parser->devolverFrases(textoTest, valorParseo);
 }
 
+void Archivo::setInicioProximaLectura(int proximaLectura){
+	this->inicioProximaLectura = proximaLectura;
+}
+
 
 Archivo::~Archivo() {
 	this->handle.close();

@@ -17,6 +17,7 @@ public:
 	std::vector<std::string>* parsearBuffer(char valorParseo);
 	std::vector<Frase*>* parsearTest(std::string rutaArchivo, char valorParseo);
 	void cargarInicioProximaLectura();
+	void setInicioProximaLectura(int proximaLectura);
 	virtual ~Archivo();
 private:
 	int tamanioBuffer;
