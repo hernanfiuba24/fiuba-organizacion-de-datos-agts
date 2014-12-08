@@ -162,7 +162,7 @@ void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo,
 	stringstream ss;
 	ss << modelo->getNumeroModelo();
 	string nroModeloString = ss.str();
-	unsigned umbral = 5;
+	unsigned umbral = this->definirUmbral(modelo->getNumeroModelo());
 	bool debeMergear;
 	MapaContexto* auxMapaContexto;
 	Contexto *auxUnContexto;
@@ -442,6 +442,7 @@ void SerializadorXml::ProbarDeserializadorSuperior(ModelosSuperiores* modelo) {
 		unContexto->begin();
 
 		unsigned umbral = 0;
+
 		bool puedoEntrar = true;
 		while (iterPalabra != unContexto->end()) {
 			if ((*iterPalabra).second->getFrecuencia() > umbral) {
@@ -468,4 +469,14 @@ void SerializadorXml::ProbarDeserializadorSuperior(ModelosSuperiores* modelo) {
 	this->xml.OutOfElem();
 	this->xml.Save("C:\\Modelo_" + nroModeloString + nroModeloString + ".xml");
 	this->xml.RemoveElem();
+}
+
+unsigned SerializadorXml::definirUmbral(unsigned numeroModelo){
+	unsigned umbral;
+	if (numeroModelo == 4)
+		umbral = 2;
+	else if (numeroModelo == 3)
+		umbral = 3;
+	else if (numeroModelo == 2)
+		umbral = 4;
 }

@@ -33,6 +33,7 @@ private:
 	void SerializarModelo1(Modelo1* modelo1, std::string path);
 	void SerializarModelosSuperiores(ModelosSuperiores* modelo, std::string path);
 	bool esUnContextoExistente(std::string nombreContexto);
+	unsigned definirUmbral(unsigned numeroModelo);
     CMarkup xml;
 };
 

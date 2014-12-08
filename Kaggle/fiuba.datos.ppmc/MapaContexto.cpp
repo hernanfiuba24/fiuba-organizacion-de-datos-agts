@@ -31,17 +31,17 @@ void MapaContexto::agregarContextoExistente(unsigned long clave, string nombrePa
 	contextoExistente->agregarPalabra(nombrePalabra);
 
 }
-//CAMBIAR PRIMOS??????????? PELA
+
 int MapaContexto::devolverPrimo(int numeroModelo){
 	int primo;
 	if(numeroModelo == 1)
-		primo = 50001;
+		primo = 3000001;
 	else if (numeroModelo == 2)
-		primo= 40001;
+		primo= 1000001;
 	else if (numeroModelo == 3)
-		primo= 30001;
+		primo= 300001;
 	else if (numeroModelo == 4)
-		primo= 30001;
+		primo= 100001;
 
 	return primo;
 }
@@ -50,7 +50,6 @@ Contexto* MapaContexto::getContextos(unsigned long clave){
 	map<unsigned long, Contexto*>::iterator iter = this->hashContexto->find(clave);
 	Contexto* unContexto = (*iter).second;
 	return (unContexto);
-	//return (*(*this->hashContexto)[clave]);
 }
 
 bool MapaContexto::existeClave(unsigned long clave){
@@ -70,18 +69,6 @@ void MapaContexto::agregarClave(unsigned long clave, Contexto* unContexto){
 }
 
 unsigned long MapaContexto::getFrecuencia(unsigned long claveContexto, unsigned long clavePalabra){
-
-//	map<unsigned long, Contexto*>::iterator iter = this->hashContexto->find(claveContexto);
-//	Contexto* unContexto = (*iter).second;
-//	unsigned long frecuencia = unContexto->getFrecuencia(clavePalabra);
-//	return frecuencia;
-
-//	MapaFrecuencia* mapa = unContexto->getMapaFrecuencia();
-//	map<unsigned long, Palabra*> * mapaFrec = mapa->getHashFrecuencia();
-
-//	map<unsigned long, Palabra*>::iterator iter2 = mapaFrec->find(clavePalabra);
-
-//	unsigned long fre = (*iter2).second->getFrecuencia();
 
 	Contexto* contexto = (*this->hashContexto)[claveContexto];
 	unsigned long frecuencia = contexto->getFrecuencia(clavePalabra);

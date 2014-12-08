@@ -6,8 +6,8 @@ using namespace std;
 
 PPMC::PPMC(int cantidadDeModelos) {
 	this->cantidadDeModelos = cantidadDeModelos;
-	this->modelo0 = new Modelo0(100001);
-	this->modelo1 = new Modelo1(150001, 1);
+	this->modelo0 = new Modelo0(1500001);
+	this->modelo1 = new Modelo1(2000001, 1);
 	for (int numeroDeModelo = 2; numeroDeModelo <= (cantidadDeModelos);
 			numeroDeModelo++) {
 		unsigned long tamanio = this->devolverTamanioDeMapa(numeroDeModelo);
@@ -42,17 +42,15 @@ unsigned long PPMC::devolverTamanioDeMapa(int numeroDeModelo) {
 	unsigned long primo;
 
 	if (numeroDeModelo == 2)
-		primo = 250001; //NUMERO DE MERSENE 2^15 - 1
+		primo = 1000001;
 	else if (numeroDeModelo == 3)
-		primo = 350001; //NUMERO DE MERSENNE 2^16 - 1
+		primo = 2000001;
 	else if (numeroDeModelo == 4)
-		primo = 550001; //NUMERO DE MERSENNE 2^18 - 1
+		primo = 3000001;
 
 	return primo;
 }
 
-//CORREGIR ESTO VA A RECIBIR UN VECTOR<STRING>, NOSE CUANTAS PALABRAS VAN A VENIR
-//TODO DEPENDE DEL PELA!!!!!!
 void PPMC::entrenarPalabras(vector<string>* palabrasLimpias) {
 	unsigned long tam = palabrasLimpias->size();
 	string contexto, palabra;
