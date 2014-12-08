@@ -29,6 +29,6 @@ void BufferParser::rellenarBuffer(int inicioProximaLectura){
 }
 
 BufferParser::~BufferParser() {
-	delete[] buffer;
+	delete[] this->buffer;
 }
 
