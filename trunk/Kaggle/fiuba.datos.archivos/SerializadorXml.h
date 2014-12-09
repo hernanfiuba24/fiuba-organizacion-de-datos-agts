@@ -34,7 +34,9 @@ private:
 	void SerializarModelosSuperiores(ModelosSuperiores* modelo, std::string path);
 	bool esUnContextoExistente(std::string nombreContexto);
 	unsigned definirUmbral(unsigned numeroModelo);
-    CMarkup xml;
+	void mergearModelo0(std::map<unsigned long, Palabra*>* hashFrecuencia, std::map<unsigned long, Palabra*>* auxHashFrecuencia, unsigned int umbral);
+	void noMergearModelo0(std::map<unsigned long, Palabra*>* hashFrecuencia, unsigned int umbral);
+	CMarkup xml;
 };
 
 #endif /* SERIALIZADORXML_H_ */
