@@ -11,8 +11,6 @@ using namespace std;
 
 Modelo1::Modelo1(unsigned long primo, int numeroModelo){
 
-	//this->contextos = new vector<Contexto*>;
-	//CAMBIAR ESTE VALOR POR UN PRIMO AJUSTABLE AL MODELO
 	this->unHash = new Jenkins(primo);
 	this->contextos = new MapaContexto();
 	this->numeroModelo = numeroModelo;

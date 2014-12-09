@@ -538,9 +538,9 @@ unsigned SerializadorXml::definirUmbral(unsigned numeroModelo){
 	if (numeroModelo == 4)
 		umbral = 2;
 	else if (numeroModelo == 3)
-		umbral = 3;
-	else if (numeroModelo == 2)
 		umbral = 4;
+	else if (numeroModelo == 2)
+		umbral = 5;
 
 	return umbral;
 }

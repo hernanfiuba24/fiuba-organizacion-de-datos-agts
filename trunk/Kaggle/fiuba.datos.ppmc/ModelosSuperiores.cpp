@@ -95,24 +95,6 @@ string ModelosSuperiores::devolverPalabraConMayorFrecuencia(string contexto){
 	return palabraConMayorFrecuencia;
 }
 
-/*void ModelosSuperiores::mostrarModelo(unsigned modelo){
-
-	map<unsigned long, Contexto*>* mapaHashCtx = this->contextos->getMapaHash();
-
-
-	for ( map<unsigned long, Contexto*>::const_iterator iterContexto = mapaHashCtx->begin();
-		iterContexto != mapaHashCtx->end(); ++iterContexto ){
-
-			cout << iterContexto->first << '\t' << "MapaFrecuencia:";
-	        map<unsigned long, Palabra* >* mapaHashFrecuencia = iterContexto->second->getMapaFrecuencia()->getHashFrecuencia();
-	        for ( map<unsigned long, Palabra*>::const_iterator iter2 = mapaHashFrecuencia->begin();
-	        	iter2 != mapaHashFrecuencia->end(); ++iter2 ){
-	        		cout << iter2->first << '\t' << iter2->second->getPalabra() << '\t'  <<  iter2->second->getFrecuencia() << " ";
-			}
-            cout<< '\n';
-	}
-}*/
-
 ModelosSuperiores::~ModelosSuperiores() {
 	delete this->contextos;
 	delete this->unHash;

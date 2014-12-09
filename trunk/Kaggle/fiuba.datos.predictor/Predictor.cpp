@@ -64,7 +64,7 @@ void Predictor::completarFrecuencias(vector<Frase*
 		for (numeroModelo; numeroModelo >= 2; numeroModelo--) {
 
 			SerializadorXml* unSer = new SerializadorXml();
-			ModelosSuperiores* modeloSuperior = unSer->DeserializarModelosSuperiores(numeroModelo, "/home/ezequiel/Documentos/Modelos/");
+			ModelosSuperiores* modeloSuperior = unSer->DeserializarModelosSuperiores(numeroModelo, "/home/ezequiel/workspace/Kaggle/fiuba.datos.modelos/");
 
 			for (unsigned i = 0; i < tamanioFrases; i++)
 				this->predecirUnaFrase((*frasesACompletar)[i], modeloSuperior);
@@ -169,8 +169,8 @@ void Predictor::predecirUnaFrase(Frase* fraseACompletar, Modelo0* modelo0, strin
 }
 
 void Predictor::cargarCompletadores(vector<Frase*>* frasesACompletar){
-
-	for (int i=0; i < frasesACompletar->size(); i++){
+	unsigned tam = frasesACompletar->size();
+	for (unsigned i=0; i < tam; i++){
 
 		unsigned numeroFrase = i + 1;
 		cout<<"Antes de entrar a hallarFrecMinima"<< i+1 <<endl;
@@ -210,10 +210,13 @@ void Predictor::completarPalabrasDeLosCompletadores(vector<Frase* >* frasesAComp
 	string palabraMayorFrecuencia;
 	// pido una sola ves la palabra con mayor frecuencia del modelo 0
 
-	for(unsigned indice = 0; indice < this->completadores->size(); indice++){
+	unsigned tamCompletadores = this->completadores->size();
+	for(unsigned indice = 0; indice < tamCompletadores; indice++){
 		numeroFrase = (*this->completadores)[indice]->getNumeroFrase();
 		posEnDondeCompletarFrase = (*this->completadores)[indice]->getPosEnDondeCompletarFrase();
 		palabraMayorFrecuencia = (*this->completadores)[indice]->getPalabraConMayorFrecuencia();
+		if (palabraMayorFrecuencia[0] == '"')
+			palabraMayorFrecuencia = """";
 		(*frasesACompletar)[numeroFrase-1]->insertarPalabraEn(posEnDondeCompletarFrase, palabraMayorFrecuencia);
 	}
 }
