@@ -36,7 +36,7 @@ private:
 	unsigned definirUmbral(unsigned numeroModelo);
 	void mergearModelo0(std::map<unsigned long, Palabra*>* hashFrecuencia, std::map<unsigned long, Palabra*>* auxHashFrecuencia, unsigned int umbral);
 	void noMergearModelo0(std::map<unsigned long, Palabra*>* hashFrecuencia, unsigned int umbral);
-	void mergearModelo1(std::map<unsigned long, Contexto*>* hashContexto, std::map<unsigned long, Contexto*>* auxHashContexto, unsigned int umbral);
+	void mergearModeloConContexto(std::map<unsigned long, Contexto*>* hashContexto, std::map<unsigned long, Contexto*>* auxHashContexto, unsigned int umbral);
 	void noMergearModeloConContexto(std::map<unsigned long, Palabra*>* hashFrecuencia, unsigned int umbral, unsigned long int primo, unsigned long int hashC);
 	CMarkup xml;
 };
