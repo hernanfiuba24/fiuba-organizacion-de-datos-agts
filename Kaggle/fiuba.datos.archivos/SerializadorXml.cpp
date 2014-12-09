@@ -18,9 +18,9 @@ SerializadorXml::~SerializadorXml() {
 
 void SerializadorXml::Serializar(PPMC* ppmc, std::string path) {
 
-	SerializarModelo0(ppmc->getModelo0(), path);
-	/*SerializarModelo1(ppmc->getModelo1(), path);
-	SerializarModelosSuperiores(ppmc->getModelo2(), path);
+	//SerializarModelo0(ppmc->getModelo0(), path);
+	SerializarModelo1(ppmc->getModelo1(), path);
+	/*SerializarModelosSuperiores(ppmc->getModelo2(), path);
 	SerializarModelosSuperiores(ppmc->getModelo3(), path);
 	SerializarModelosSuperiores(ppmc->getModelo4(), path);
 */
@@ -57,166 +57,143 @@ void SerializadorXml::SerializarModelo0(Modelo0* modelo0, std::string path) {
 	this->xml.RemoveElem();
 }
 
-void SerializadorXml::noMergearModelo0(std::map<unsigned long, Palabra*>* hashFrecuencia, unsigned int umbral){
-	std::map<unsigned long, Palabra*>::iterator it = hashFrecuencia->begin();
-	unsigned long int frecuencia;
-	while (it != hashFrecuencia->end()) {
-		unsigned long hashPalabra = (*it).first;
-		string palabra = (*it).second->getPalabra();
-		frecuencia = (*it).second->getFrecuencia();
-
-		if (frecuencia > umbral) {
-			this->xml.AddElem("PALABRA");
-			this->xml.SetAttrib("hash", hashPalabra);
-			this->xml.SetAttrib("palabra", palabra);
-			this->xml.SetAttrib("frecuencia", frecuencia);
-		}
-		it++;
-	}
-}
-
-void SerializadorXml::mergearModelo0(map<unsigned long, Palabra*>* hashFrecuencia, map<unsigned long, Palabra*>* auxHashFrecuencia, unsigned int umbral){
-	std::map<unsigned long, Palabra*>::iterator auxIt = auxHashFrecuencia->begin();
-	std::map<unsigned long, Palabra*>::iterator it = hashFrecuencia->begin();
-	string palabra;
-	unsigned long int frecuencia;
-	unsigned long hashPalabra;
-	unsigned long auxHashPalabra;
-	unsigned long hash;
-	while ((it != hashFrecuencia->end()) && (auxIt != auxHashFrecuencia->end()) ){
-				if(it == hashFrecuencia->end())
-					hashPalabra = 1000000000;
-				else
-					hashPalabra = (*it).first;
-				if(it == auxHashFrecuencia->end())
-					auxHashPalabra = 1000000000;
-				else
-					auxHashPalabra = (*auxIt).first;
-
-				if(hashPalabra < auxHashPalabra){
-					palabra = (*it).second->getPalabra();
-					frecuencia = (*it).second->getFrecuencia();
-					it++;
-					hash = hashPalabra;
-				}
-				else if(hashPalabra > auxHashPalabra){
-					palabra = (*auxIt).second->getPalabra();
-					frecuencia = (*auxIt).second->getFrecuencia();
-					auxIt++;
-					hash = auxHashPalabra;
-				}
-				else{
-					frecuencia = (*it).second->getFrecuencia();
-					frecuencia += (*auxIt).second->getFrecuencia();
-					palabra = (*it).second->getPalabra();
-					hash = hashPalabra;
-					it++;
-					auxIt++;
-				}
-				if (frecuencia > umbral) {
-					this->xml.AddElem("PALABRA");
-					this->xml.SetAttrib("hash", hash);
-					this->xml.SetAttrib("palabra", palabra);
-					this->xml.SetAttrib("frecuencia", frecuencia);
-				}
-			}
-
-	/*
-	if (it == hashFrecuencia->end()){
-		while (auxIt != auxHashFrecuencia->end()){
-			auxHashPalabra = (*auxIt).first;
-			palabra = (*auxIt).second->getPalabra();
-			frecuencia = (*auxIt).second->getFrecuencia();
-			this->xml.AddElem("PALABRA");
-			this->xml.SetAttrib("hash", hash);
-			this->xml.SetAttrib("palabra", palabra);
-			this->xml.SetAttrib("frecuencia", frecuencia);
-		}
-	}
-	else if (auxIt == auxHashFrecuencia->end()){
-
-	}*/
-}
 void SerializadorXml::SerializarModelo1(Modelo1* modelo1, std::string path) {
 
 	bool debeMergear;
 	unsigned int umbral = 20;
 	MapaContexto* auxMapaContexto;
+	std::map<unsigned long, Contexto*>* auxHashContextos;
 	Contexto *auxUnContexto;
 	std::map<unsigned long, Palabra*>::iterator auxIterPalabra;
+
 	Modelo1* auxModelo1 = DeserializarModelo1(path);
 	debeMergear = (auxModelo1 != NULL);
-	if (debeMergear)
-		auxMapaContexto = auxModelo1->getMapa();
+
 
 	this->xml.AddElem("MODELO_1");
 	this->xml.SetAttrib("primoJenkins", modelo1->getJenkins()->getPrimo());
 	this->xml.IntoElem();
 
-	std::map<unsigned long, Contexto*>* contextos =
-			modelo1->getMapa()->getMapaHash();
-	std::map<unsigned long, Contexto*>::iterator iterContexto =
-			contextos->begin();
+	map<unsigned long, Contexto*>* hashContextos = modelo1->getMapa()->getMapaHash();
+	map<unsigned long, Contexto*>::iterator iterHashContexto = hashContextos->begin();
 
-	while (iterContexto != contextos->end()) {
+	if (debeMergear){
+		auxMapaContexto = auxModelo1->getMapa();
+		auxHashContextos = auxMapaContexto->getMapaHash();
 
-		unsigned long hashContexto = (*iterContexto).first;
-		std::map<unsigned long, Palabra*>* unHashPalabra =
-				(*iterContexto).second->getMapaFrecuencia()->getHashFrecuencia();
-		std::map<unsigned long, Palabra*>::iterator iterPalabra =
-				unHashPalabra->begin();
+		this->mergearModelo1(hashContextos, auxHashContextos, umbral);
+	}
+	else
+	{	unsigned long hashC;
+		Contexto *unContexto;
+		while (iterHashContexto != hashContextos->end()){
+			hashC = (*iterHashContexto).first;
+			unContexto = (*iterHashContexto).second;
+			MapaFrecuencia *unMapaFrecuencia;
+			map<unsigned long, Palabra*>* hashPalabra;
+			unsigned long int primo = unContexto->getJenkins()->getPrimo();
+			unMapaFrecuencia = unContexto->getMapaFrecuencia();
+			hashPalabra = unMapaFrecuencia->getHashFrecuencia();
 
-		bool existeContexto = false;
-		if (debeMergear) {
-			existeContexto = auxMapaContexto->existeClave(hashContexto);
-			if (existeContexto) {
-				auxUnContexto = auxMapaContexto->getContextos(hashContexto);
-				auxIterPalabra =
-						auxUnContexto->getMapaFrecuencia()->getHashFrecuencia()->begin();
-			}
+			this->noMergearModeloConContexto(hashPalabra,  umbral, primo, hashC);
+			iterHashContexto++;
+
 		}
-		bool puedoEntrar = true;
-		while (iterPalabra != unHashPalabra->end()) {
-
-			string nombrePalabra = (*iterPalabra).second->getPalabra();
-			unsigned long hashPalabra = (*iterPalabra).first;
-			unsigned long frecuenciaPalabra =
-					(*iterPalabra).second->getFrecuencia();
-			unsigned long auxFrecuenciaPalabra = 0;
-
-			if (debeMergear) {
-				if (existeContexto){
-					if (auxUnContexto->existePalabra(hashPalabra)) {
-						auxFrecuenciaPalabra =	auxUnContexto->getMapaFrecuencia()->getFrecuencia(hashPalabra);
-					}
-				}
-			}
-			frecuenciaPalabra += auxFrecuenciaPalabra;
-
-			if (frecuenciaPalabra > umbral) {
-				if (puedoEntrar){
-					// Serializo Contexto
-					this->xml.AddElem("CONTEXTO");
-					this->xml.SetAttrib("hash", hashContexto);
-					this->xml.SetAttrib("primoJenkins",(*iterContexto).second->getJenkins()->getPrimo());
-					this->xml.IntoElem();
-				}
-				this->xml.AddElem("PALABRA");
-				this->xml.SetAttrib("hash", hashPalabra);
-				this->xml.SetAttrib("valor", nombrePalabra);
-				this->xml.SetAttrib("frecuencia", frecuenciaPalabra);
-				puedoEntrar = false;
-			}
-			iterPalabra++;
-		}
-		if (!puedoEntrar)
-			this->xml.OutOfElem();
-		iterContexto++;
 	}
 
 	this->xml.OutOfElem();
 	this->xml.Save(path + "Modelo_1.xml");
 	this->xml.RemoveElem();
+}
+
+void SerializadorXml::mergearModelo1(std::map<unsigned long, Contexto*>* hashContexto, std::map<unsigned long, Contexto*>* auxHashContexto, unsigned int umbral){
+
+	map<unsigned long, Contexto*>::iterator auxItHashContexto = auxHashContexto->begin();
+	map<unsigned long, Contexto*>::iterator itHashContexto = hashContexto->begin();
+	unsigned long int hashC;
+	unsigned long int auxHashC;
+	Contexto *unContexto;
+	Contexto *auxUnContexto;
+	unsigned long int primo;
+
+	while ((itHashContexto != hashContexto->end()) || (auxItHashContexto != auxHashContexto->end()) ){
+
+		MapaFrecuencia *unMapaFrecuencia;
+		MapaFrecuencia *auxUnMapaFrecuencia;
+		map<unsigned long, Palabra*>* hashFrecuencia;
+		map<unsigned long, Palabra*>* auxHashFrecuencia;
+		if(itHashContexto == hashContexto->end())
+			hashC = 1000000000;
+		else
+			hashC = (*itHashContexto).first;
+		if(auxItHashContexto == auxHashContexto->end())
+			auxHashC = 1000000000;
+		else
+			auxHashC = (*auxItHashContexto).first;
+
+		if(hashC < auxHashC){
+			unMapaFrecuencia = (*itHashContexto).second->getMapaFrecuencia();
+			hashFrecuencia = unMapaFrecuencia->getHashFrecuencia();
+			primo = (*itHashContexto).second->getJenkins()->getPrimo();
+
+			this->noMergearModeloConContexto(hashFrecuencia, umbral, primo, hashC);
+
+			itHashContexto++;
+		}
+		else if(hashC > auxHashC){
+			auxUnMapaFrecuencia = (*auxItHashContexto).second->getMapaFrecuencia();
+			auxHashFrecuencia = auxUnMapaFrecuencia->getHashFrecuencia();
+			primo = (*auxItHashContexto).second->getJenkins()->getPrimo();
+
+			this->noMergearModeloConContexto(auxHashFrecuencia, umbral, primo, auxHashC);
+
+			auxItHashContexto++;
+		}
+		else
+		{	auxUnMapaFrecuencia = (*auxItHashContexto).second->getMapaFrecuencia();
+			auxHashFrecuencia = auxUnMapaFrecuencia->getHashFrecuencia();
+			unMapaFrecuencia = (*itHashContexto).second->getMapaFrecuencia();
+			hashFrecuencia = unMapaFrecuencia->getHashFrecuencia();
+			primo = (*itHashContexto).second->getJenkins()->getPrimo();
+			this->xml.AddElem("CONTEXTO");
+			this->xml.SetAttrib("hash", hashC);
+			this->xml.SetAttrib("primoJenkins",primo);
+			this->xml.IntoElem();
+			this->mergearModelo0(hashFrecuencia, auxHashFrecuencia, umbral);
+			this->xml.OutOfElem();
+			itHashContexto++;
+			auxItHashContexto++;
+		}
+	}
+}
+
+void SerializadorXml::noMergearModeloConContexto(map<unsigned long, Palabra*> *hashPalabra, unsigned int umbral, unsigned long int primo, unsigned long hashC){
+	std::map<unsigned long, Palabra*>::iterator iterPalabra = hashPalabra->begin();
+	bool puedoEntrar = true;
+	while (iterPalabra != hashPalabra->end()) {
+		unsigned long frecuenciaPalabra = (*iterPalabra).second->getFrecuencia();
+
+		if (frecuenciaPalabra > umbral) {
+			string nombrePalabra = (*iterPalabra).second->getPalabra();
+			unsigned long hashPalabra = (*iterPalabra).first;
+
+			if (puedoEntrar){
+				// Serializo Contexto
+				this->xml.AddElem("CONTEXTO");
+				this->xml.SetAttrib("hash", hashC);
+				this->xml.SetAttrib("primoJenkins",primo);
+				this->xml.IntoElem();
+			}
+			this->xml.AddElem("PALABRA");
+			this->xml.SetAttrib("hash", hashPalabra);
+			this->xml.SetAttrib("valor", nombrePalabra);
+			this->xml.SetAttrib("frecuencia", frecuenciaPalabra);
+			puedoEntrar = false;
+		}
+		iterPalabra++;
+	}
+	if (!puedoEntrar)
+		this->xml.OutOfElem();
 }
 
 void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo,
@@ -302,6 +279,72 @@ void SerializadorXml::SerializarModelosSuperiores(ModelosSuperiores* modelo,
 	this->xml.OutOfElem();
 	this->xml.Save(path + "Modelo_" + nroModeloString + ".xml");
 	this->xml.RemoveElem();
+}
+
+
+void SerializadorXml::noMergearModelo0(std::map<unsigned long, Palabra*>* hashFrecuencia, unsigned int umbral){
+	std::map<unsigned long, Palabra*>::iterator it = hashFrecuencia->begin();
+	unsigned long int frecuencia;
+	while (it != hashFrecuencia->end()) {
+		unsigned long hashPalabra = (*it).first;
+		string palabra = (*it).second->getPalabra();
+		frecuencia = (*it).second->getFrecuencia();
+
+		if (frecuencia > umbral) {
+			this->xml.AddElem("PALABRA");
+			this->xml.SetAttrib("hash", hashPalabra);
+			this->xml.SetAttrib("palabra", palabra);
+			this->xml.SetAttrib("frecuencia", frecuencia);
+		}
+		it++;
+	}
+}
+
+void SerializadorXml::mergearModelo0(map<unsigned long, Palabra*>* hashFrecuencia, map<unsigned long, Palabra*>* auxHashFrecuencia, unsigned int umbral){
+	std::map<unsigned long, Palabra*>::iterator auxIt = auxHashFrecuencia->begin();
+	std::map<unsigned long, Palabra*>::iterator it = hashFrecuencia->begin();
+	string palabra;
+	unsigned long int frecuencia;
+	unsigned long hashPalabra;
+	unsigned long auxHashPalabra;
+	unsigned long hash;
+	while ((it != hashFrecuencia->end()) || (auxIt != auxHashFrecuencia->end()) ){
+				if(it == hashFrecuencia->end())
+					hashPalabra = 1000000000;
+				else
+					hashPalabra = (*it).first;
+				if(auxIt == auxHashFrecuencia->end())
+					auxHashPalabra = 1000000000;
+				else
+					auxHashPalabra = (*auxIt).first;
+
+				if(hashPalabra < auxHashPalabra){
+					palabra = (*it).second->getPalabra();
+					frecuencia = (*it).second->getFrecuencia();
+					it++;
+					hash = hashPalabra;
+				}
+				else if(hashPalabra > auxHashPalabra){
+					palabra = (*auxIt).second->getPalabra();
+					frecuencia = (*auxIt).second->getFrecuencia();
+					auxIt++;
+					hash = auxHashPalabra;
+				}
+				else{
+					frecuencia = (*it).second->getFrecuencia();
+					frecuencia += (*auxIt).second->getFrecuencia();
+					palabra = (*it).second->getPalabra();
+					hash = hashPalabra;
+					it++;
+					auxIt++;
+				}
+				if (frecuencia > umbral) {
+					this->xml.AddElem("PALABRA");
+					this->xml.SetAttrib("hash", hash);
+					this->xml.SetAttrib("palabra", palabra);
+					this->xml.SetAttrib("frecuencia", frecuencia);
+				}
+			}
 }
 
 Modelo0* SerializadorXml::DeserializarModelo0(std::string path) {
