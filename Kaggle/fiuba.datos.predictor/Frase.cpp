@@ -151,13 +151,16 @@ vector<string>* Frase::getFraseACompletar(){
 }
 
 void Frase::insertarPalabraEn(unsigned posEnDondeCompletarFrase, std::string palabraMayorFrecuencia){
+	//Chequeo caso particular palabra vacia.
+	if(this->fraseACompletar->size() == 0)
+		posEnDondeCompletarFrase = 0;
 
 	this->fraseACompletar->insert(this->fraseACompletar->begin() + posEnDondeCompletarFrase, palabraMayorFrecuencia);
 }
 
 void Frase::borrarFrecuencias(){
-	tamanioFrecuencias = this->frecuencias->size();
-	for(int i=0; i<tamanioFrecuencias;i++)
+	this->tamanioFrecuencias = this->frecuencias->size();
+	for(int i=0; i < this->tamanioFrecuencias;i++)
 		delete (*this->frecuencias)[i];
 
 	delete this->frecuencias;

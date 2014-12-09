@@ -45,12 +45,11 @@ string Parser::ParsearArchivoTxt(string rutaArchivo){
 	string contenidoTexto;
 	string lineaTexto;
 	std::getline(archivoTest, lineaTexto);
-	int i = 1;
-	while (std::getline(archivoTest, lineaTexto) && (i < 5000))
+	//int i = 1;
+	while (std::getline(archivoTest, lineaTexto))
 	{
 		contenidoTexto += lineaTexto;
 		contenidoTexto.push_back('\n');
-		i++;
 	}
 
 	return contenidoTexto;

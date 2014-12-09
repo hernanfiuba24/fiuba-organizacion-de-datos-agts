@@ -61,8 +61,10 @@ string MapaFrecuencia::devolverPalabraConMayorFrecuencia(){
 	unsigned long frecuenciaTemporal;
 	unsigned long frecuenciaMaxima = 0;
 
+	map<unsigned long, Palabra*>::const_iterator iterFin =
+					this->hashFrecuencia->end();
 	for (map<unsigned long, Palabra*>::const_iterator iter =
-				this->hashFrecuencia->begin(); iter != this->hashFrecuencia->end(); ++iter){
+				this->hashFrecuencia->begin(); iter != iterFin; ++iter){
 			palabraTemporal = iter->second;
 			frecuenciaTemporal = palabraTemporal->getFrecuencia();
 			if(frecuenciaMaxima < frecuenciaTemporal){
@@ -74,8 +76,8 @@ string MapaFrecuencia::devolverPalabraConMayorFrecuencia(){
 }
 
 MapaFrecuencia::~MapaFrecuencia(){
-
-	for(map<unsigned long, Palabra*>::iterator iter = this->hashFrecuencia->begin(); iter != this->hashFrecuencia->end(); iter++)
+	map<unsigned long, Palabra*>::iterator iterFin = this->hashFrecuencia->end();
+	for(map<unsigned long, Palabra*>::iterator iter = this->hashFrecuencia->begin(); iter != iterFin; iter++)
 		delete iter->second;
 	delete this->hashFrecuencia;
 }
